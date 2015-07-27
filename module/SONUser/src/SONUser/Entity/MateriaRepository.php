@@ -11,7 +11,7 @@ class MateriaRepository extends EntityRepository
         $array = array();
         foreach($entities as $entity)
         {
-            $array[$entity->getId()] = $entity->getNome();
+            $array[$entity->getId()] = $entity->getTitulo();
         }
         return $array;
     }

@@ -1,0 +1,12 @@
+<h3>Editando Capa</h3>
+<br />
+<?php
+
+$form = $this->form;
+$form->setAttribute('action',$this->url('sonuser-capa-materia/default',array('controller'=>'sessoes','action'=>'edit')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();
+?>

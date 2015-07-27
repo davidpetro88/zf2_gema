@@ -173,15 +173,6 @@ class Materia
         $this->status = $status;
     }
 
-    public function __toString() {
-        return $this->titulo;
-    }
-
-    public function toArray()
-    {
-        return (new Hydrator\ClassMethods())->extract($this);
-    }
-
     public function getRevisor()
     {
         return $this->revisor;
@@ -203,4 +194,15 @@ class Materia
         $this->publicador = $publicador;
         return $this;
     }
+
+    public function __toString() {
+        return $this->titulo;
+    }
+
+    public function toArray()
+    {
+        return (new Hydrator\ClassMethods())->extract($this);
+    }
+
+
 }

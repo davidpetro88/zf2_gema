@@ -111,8 +111,22 @@ class Module
                  $users = $repoUser->fetchPairs();
                 return new Form\Sessao("sessao",$users);
               },
+              'SONUser\Form\Capa' => function($sm)
+              {
+                  $em = $sm->get('Doctrine\ORM\EntityManager');
+                  $repoUser = $em->getRepository('SONUser\Entity\User');
+                  $users = $repoUser->findByIdFormInsert($this->getUserIdentity());
+
+                  $repoMateria = $em->getRepository('SONUser\Entity\Materia');
+                  $materia = $repoMateria->fetchPairs();
+
+                  return new Form\Capa("Capa",$users, $materia);
+              },
               'SONUser\Service\Sessao' => function($sm){
                 return new Service\Sessao($sm->get('Doctrine\ORM\Entitymanager'));
+              },
+              'SONUser\Service\Capa' => function($sm){
+                return new Service\Capa($sm->get('Doctrine\ORM\Entitymanager'));
               },
               'SONUser\Service\Status' => function($sm){
                 return new Service\Status($sm->get('Doctrine\ORM\Entitymanager'));

@@ -1,0 +1,36 @@
+<h1>Capas</h1>
+
+<br />
+
+<p>
+    <a href="<?php echo $this->url('sonuser-capa-materia/default',array('action'=>'new')); ?>">Novo</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Gerente</th>
+        <th>Ação</th>
+    </tr>
+
+    <?php foreach($this->data as $entity): ?>
+    <tr>
+<?php // print "<pre>"; print_r($entity); die();?>
+        <td><?php echo $entity->getId(); ?></td>
+        <td><?php echo $entity->getNome(); ?></td>
+        <td><?php echo $entity->getGerente(); ?></td>
+        <td>
+            <a href="<?php echo $this->url('sonuser-sessao/default',
+                    array('controller'=>'sessoes','action'=>'edit','id'=>$entity->getId()));?>">Editar</a>
+
+            <a href="<?php echo $this->url('sonuser-sessao/default',
+                    array('controller'=>'sessoes','action'=>'delete','id'=>$entity->getId()));?>">Delete</a>
+
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<br />
+
+<?php echo $this->paginationControl($this->data,'Sliding','partials/paginator'); ?>
