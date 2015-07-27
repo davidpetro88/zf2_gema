@@ -1,0 +1,35 @@
+<h3>Nova Materia</h3>
+
+
+
+<?php
+$form = $this->form;
+$form->setAttribute('action',$this->url('sonuser-materia/default',array('controller'=>'materias','action'=>'new')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formcollection($form);
+?>
+<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
+
+<?php echo $this->form()->closeTag(); ?>
+ <!-- include libraries BS3 -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+  <!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js)-->
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/blackboard.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.min.css">
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote').summernote({
+        height: 200,
+        tabsize: 2,
+        codemirror: {
+          theme: 'monokai'
+        }
+      });
+    });
+ </script>

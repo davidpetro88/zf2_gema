@@ -1,0 +1,23 @@
+<?php $entity = $this->data; ?>
+<h3><?php echo $entity->getTitulo(); ?></h3>
+<br />
+	<div class="col-md-12 post-single">
+		<div class="post-meta">
+			<span>
+			     <em>By <a href="#"><?php echo $entity->getAutor(); ?></a></em>
+			</span>
+			<span>
+			     <em>On <?php echo $this->dateFormat( $entity->getCreatedAt(),
+                                                      IntlDateFormatter::SHORT,
+                                                      IntlDateFormatter::SHORT,
+                                                      "pt_BR"
+                                                     ); ?>
+                 </em>
+			</span>
+			<span>
+			     <em>In <a href="#"><?php echo $entity->getSessao()->getNome(); ?></a></em>
+			</span>
+		</div>
+
+		<p> <?php echo $entity->getConteudo();?></p>
+	</div>

@@ -1,0 +1,41 @@
+<h1>Materias</h1>
+
+<br />
+
+<p>
+    <a href="<?php echo $this->url('sonuser-materia/default',array('action'=>'new')); ?>">Novo</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Autor</th>
+        <th>Revisor</th>
+        <th>Publicador</th>
+        <th>Status</th>
+        <th>Ação</th>
+    </tr>
+
+    <?php foreach($this->data as $entity): ?>
+    <tr>
+        <td><?php echo $entity->getId(); ?></td>
+        <td><?php echo $entity->getTitulo(); ?></td>
+        <td><?php echo $entity->getAutor(); ?></td>
+        <td><?php echo $entity->getRevisor(); ?></td>
+        <td><?php echo $entity->getPublicador(); ?></td>
+        <td><?php echo $entity->getStatus(); ?></td>
+        <td>
+            <a href="<?php echo $this->url('sonuser-materia/default',
+                    array('controller'=>'materias','action'=>'edit','id'=>$entity->getId()));?>">Editar</a>
+
+            <a href="<?php echo $this->url('sonuser-materia/default',
+                    array('controller'=>'materias','action'=>'delete','id'=>$entity->getId()));?>">Delete</a>
+
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<br />
+
+<?php echo $this->paginationControl($this->data,'Sliding','partials/paginator'); ?>

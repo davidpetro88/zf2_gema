@@ -1,0 +1,12 @@
+<h3>Nova Sessão</h3>
+<br />
+<?php
+
+$form = $this->form;
+$form->setAttribute('action',$this->url('sonuser-sessao/default',array('controller'=>'sessoes','action'=>'new')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();
+?>

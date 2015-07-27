@@ -1,0 +1,49 @@
+
+<h3>Notícias</h3>
+<br />
+
+<div class="row">
+
+<?php foreach($this->data as $entity): ?>
+
+<?php
+//echo substr($entity->getConteudo(), 0,  200);
+echo substr('abcdef', 0, 4);  // abcd
+
+?>
+	<div class="col-md-12 post-single">
+		<div class="heading-title">
+			<h4>
+				<a href="<?php echo $this->url('sonuser-public-list-materia/default',
+                    array('controller'=>'noticias','action'=>'edit','id'=>$entity->getId()));?>">
+				    <?php echo $entity->getTitulo(); ?>
+				</a>
+			</h4>
+		</div>
+		<div class="post-meta">
+			<span>
+			     <em>By <a href="#"><?php echo $entity->getAutor(); ?></a></em>
+			</span>
+			<span>
+			     <em>On <?php echo $this->dateFormat( $entity->getCreatedAt(),
+                                                      IntlDateFormatter::SHORT,
+                                                      IntlDateFormatter::SHORT,
+                                                      "pt_BR"
+                                                     ); ?>
+                 </em>
+			</span>
+			<span>
+			     <em>In <a href="#"><?php echo $entity->getSessao()->getNome(); ?></a></em>
+			</span>
+		</div>
+
+		<p> <?php echo substr($entity->getConteudo(), 0, 600);?>...</p>
+		<p><a class="btn btn-success" href="<?php echo $this->url('sonuser-public-list-materia/default',
+                    array('controller'=>'noticias','action'=>'edit','id'=>$entity->getId()));?>" target="_self">Continue Lendo »</a></p>
+	</div>
+
+<?php endforeach; ?>
+
+</div>
+
+<?php echo $this->paginationControl($this->data,'Sliding','partials/paginator'); ?>

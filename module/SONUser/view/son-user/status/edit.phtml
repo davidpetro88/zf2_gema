@@ -1,0 +1,14 @@
+<h3>Editar Status Matéria</h3>
+
+<br />
+
+<?php
+$form = $this->form;
+
+$form->setAttribute('action', $this->url('sonuser-status-materia/default',array('controller'=>'status','action'=>'edit')));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();
+?>

@@ -1,0 +1,25 @@
+SONAclTest\Controller\AlbumController
+ [x] Add action can be accessed
+ [x] Insert
+
+SONAclTest\Controller\PrivilegesController
+ [x] test erro404
+
+SONAclTest\Service\Privilege
+ [x] Insert privilege sem role and resource
+ [x] Insert privilege com role and resource
+ [x] Update privilege
+ [x] Delete privilege
+
+SONAclTest\Service\Resource
+ [x] Insert resource
+ [x] Update resource
+ [x] Remve resource
+
+SONAclTest\Service\Role
+ [x] Insert role sem parent
+ [x] Insert role com parent
+ [x] Update role sem parent
+ [x] Update role com parent
+ [x] Delete role
+

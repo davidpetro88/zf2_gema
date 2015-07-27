@@ -1,0 +1,322 @@
+<h3>Editando Materias</h3>
+<br />
+
+<style>
+.timeline {
+  list-style: none;
+  padding: 20px 0 20px;
+  position: relative;
+}
+.timeline:before {
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 3px;
+  background-color: #eeeeee;
+  left: 50%;
+  margin-left: -1.5px;
+}
+.timeline > li {
+  margin-bottom: 20px;
+  position: relative;
+}
+.timeline > li:before,
+.timeline > li:after {
+  content: " ";
+  display: table;
+}
+.timeline > li:after {
+  clear: both;
+}
+.timeline > li:before,
+.timeline > li:after {
+  content: " ";
+  display: table;
+}
+.timeline > li:after {
+  clear: both;
+}
+.timeline > li > .timeline-panel {
+  width: 46%;
+  float: left;
+  border: 1px solid #d4d4d4;
+  border-radius: 2px;
+  padding: 20px;
+  position: relative;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.timeline > li > .timeline-panel:before {
+  position: absolute;
+  top: 26px;
+  right: -15px;
+  display: inline-block;
+  border-top: 15px solid transparent;
+  border-left: 15px solid #ccc;
+  border-right: 0 solid #ccc;
+  border-bottom: 15px solid transparent;
+  content: " ";
+}
+.timeline > li > .timeline-panel:after {
+  position: absolute;
+  top: 27px;
+  right: -14px;
+  display: inline-block;
+  border-top: 14px solid transparent;
+  border-left: 14px solid #fff;
+  border-right: 0 solid #fff;
+  border-bottom: 14px solid transparent;
+  content: " ";
+}
+.timeline > li > .timeline-badge {
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 1.4em;
+  text-align: center;
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: #999999;
+  z-index: 100;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.timeline > li.timeline-inverted > .timeline-panel {
+  float: right;
+}
+.timeline > li.timeline-inverted > .timeline-panel:before {
+  border-left-width: 0;
+  border-right-width: 15px;
+  left: -15px;
+  right: auto;
+}
+.timeline > li.timeline-inverted > .timeline-panel:after {
+  border-left-width: 0;
+  border-right-width: 14px;
+  left: -14px;
+  right: auto;
+}
+.timeline-badge.primary {
+  background-color: #2e6da4 !important;
+}
+.timeline-badge.success {
+  background-color: #3f903f !important;
+}
+.timeline-badge.warning {
+  background-color: #f0ad4e !important;
+}
+.timeline-badge.danger {
+  background-color: #d9534f !important;
+}
+.timeline-badge.info {
+  background-color: #5bc0de !important;
+}
+.timeline-title {
+  margin-top: 0;
+  color: inherit;
+}
+.timeline-body > p,
+.timeline-body > ul {
+  margin-bottom: 0;
+}
+.timeline-body > p + p {
+  margin-top: 5px;
+}
+</style>
+
+<?php
+$usuario = $this->user;
+$comentariosMaterias = $this->comentarios;
+$statusMateria = $this->status;
+?>
+
+
+<div class="row">
+  <div class="span8">
+    <div class="dropdown">
+    <button class="btn btn-large btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Ações Matéria
+    <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Revisar Matéria</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Verificar Comentários</a></li>
+          <li role="presentation" class="divider"></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action',$this->url('sonuser-materia/default',array('controller'=>'materias','action'=>'edit')));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+?>
+
+<?php print_R($usuario); ?>
+<?php if($usuario['role_id'] ==  4 && $statusMateria == 1 ) : ?>
+<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
+<?php elseif($usuario['role_id'] ==  4 && $statusMateria == 2): ?>
+<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
+<?php elseif($usuario['role_id'] ==  4 && $statusMateria == 3): ?>
+<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
+<?php else: ?>
+
+<?php endif; ?>
+<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
+
+<div class="container">
+    <div class="page-header">
+        <h1 id="timeline">Comentários</h1>
+        <input type="hidden" id="codigoAutorComentario" name="codigoAutorComentario" value="<?php echo $usuario['id']; ?>"/>
+        <input type="hidden" id="nomeComerciante" name="nomeComerciante" value="<?php echo $usuario['nome'] ; ?>"/>
+    </div>
+
+    <ul class="timeline">
+        <?php foreach($comentariosMaterias as $key => $comentario){ echo $comentario['comentario']; }?>
+    </ul>
+
+    <div class="row">
+        <div class="page-header"><h1 id="timeline">Adicionar comentários referente a matéria.</h1></div>
+        <div class="col-sm-12" id="messageComentario">
+          <textarea class="summernote" id="message" style="display: none;"></textarea>
+          <div class="page-header"></div>
+          <div class="pull-right">
+              <div class="col-sm-6"> </div>
+              <div class="col-sm-6">
+                <button type="button" id="adicionarComentario" class="btn-large btn-primary btn-success">Adicionar Comentário</button>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag();?>
+
+<!-- Large modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+<div class="modal fade bs-example-modal-lg" id="modal-comentario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-4 col-md-offset-4">.col-md-4 .col-md-offset-4</div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 col-md-offset-3">.col-md-3 .col-md-offset-3</div>
+            <div class="col-md-2 col-md-offset-4">.col-md-2 .col-md-offset-4</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">.col-md-6 .col-md-offset-3</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-9">
+              Level 1: .col-sm-9
+              <div class="row">
+                <div class="col-xs-8 col-sm-6">
+                  Level 2: .col-xs-8 .col-sm-6
+                </div>
+                <div class="col-xs-4 col-sm-6">
+                  Level 2: .col-xs-4 .col-sm-6
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <!-- include libraries BS3 -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+  <!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js)-->
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/blackboard.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.min.css">
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote').summernote({
+        height: 200,
+        tabsize: 2,
+        codemirror: {
+          theme: 'monokai'
+        }
+      });
+
+      $( "#adicionarComentario" ).click(function() {
+          var comentario = $("div#messageComentario div.note-editor div.note-editable").html();
+          var idMateria = $("input[name=id]").val();
+          var codigoAutorComentario = $("input[name=codigoAutorComentario]").val();
+          var nomeComerciante = $("input[name=nomeComerciante]").val();
+
+          alert(codigoAutorComentario);
+            if (validateIsEmpty (idMateria) == true &&
+             	validateIsEmpty (comentario) == true ) {
+            	insertComentario(idMateria, comentario, codigoAutorComentario, nomeComerciante);
+            } else {
+            	alert("Preencha todo os dados.");
+                $('#modal-comentario').modal('show');
+            }
+    	});
+
+    	function validateIsEmpty (val) {
+    		if (val == null || val == "") return false;
+			return true;
+    	}
+
+
+    	function insertComentario(idMateria, comentario, codigoCliente, nomeCliente){
+    	    $.ajax({
+    	        type: "POST",
+    	        data: { idMateria:idMateria,
+        	        	comentario:comentario,
+       	        	 	codigoCliente:codigoCliente,
+       	        	 	nomeCliente:nomeCliente
+        	        	 },
+    	        url: "http://localhost:8000/api/comentario",
+    	        dataType: "html",
+    	        success: function(result){
+    	        	console.log('aa');
+        	        console.log(result);
+//     	            $("#bla").html('');
+//     	            $("#bla").append(result);
+    	        },
+    	        beforeSend: function(){
+    	            //$('#loading').css({display:"block"});
+    	        	//console.log(result);
+    	        },
+    	        complete: function(msg){
+    	            //$('#loading').css({display:"none"});
+    	        	console.log('bb');
+    	        	console.log(msg);
+    	        }
+    	    });
+    	}
+
+
+    });
+
+
+ </script>
