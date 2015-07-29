@@ -11,9 +11,9 @@ class MateriasController extends CrudController
 {
     public function __construct()
     {
-        $this->entity = "SONUser\\Entity\\Materia";
-        $this->service = "SONUser\\Service\\Materia";
-        $this->form = "SONUser\\Form\\Materia";
+        $this->entity = 'SONUser\Entity\Materia';
+        $this->service = 'SONUser\Service\Materia';
+        $this->form = 'SONUser\Form\Materia';
         $this->controller = "materias";
         $this->route = "sonuser-materia";
     }
@@ -54,7 +54,6 @@ class MateriasController extends CrudController
             $form->setData($request->getPost());
                 $service = $this->getServiceLocator()->get($this->service);
                 $service->update($request->getPost()->toArray());
-
                 return $this->redirect()->toRoute($this->route,array('controller'=>$this->controller));
         }
 

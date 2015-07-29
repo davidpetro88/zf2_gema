@@ -34,6 +34,13 @@ class Materia
     /**
      * @var string
      *
+     * @ORM\Column(name="url_materia", type="string", length=255, nullable=false)
+     */
+    private $urlMateria;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="conteudo", type="text", nullable=false)
      */
     private $conteudo;
@@ -90,57 +97,151 @@ class Materia
         $this->updatedAt = new \DateTime("now");
     }
 
+    /**
+     * @return the $id
+     */
     public function getId()
     {
         return $this->id;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
+ /**
+     * @return the $titulo
+     */
     public function getTitulo()
     {
         return $this->titulo;
     }
 
-    public function setTitulo($titulo)
+ /**
+     * @return the $urlMateria
+     */
+    public function getUrlMateria()
     {
-        $this->titulo = $titulo;
+        return $this->urlMateria;
     }
 
+ /**
+     * @return the $conteudo
+     */
     public function getConteudo()
     {
         return $this->conteudo;
     }
 
-    public function setConteudo($conteudo)
+ /**
+     * @return the $status
+     */
+    public function getStatus()
     {
-        $this->conteudo = $conteudo;
+        return $this->status;
     }
 
+ /**
+     * @return the $autor
+     */
     public function getAutor()
     {
         return $this->autor;
     }
 
-    public function setAutor($autor)
+ /**
+     * @return the $revisor
+     */
+    public function getRevisor()
     {
-        $this->autor = $autor;
+        return $this->revisor;
     }
 
+ /**
+     * @return the $publicador
+     */
+    public function getPublicador()
+    {
+        return $this->publicador;
+    }
+
+ /**
+     * @return the $sessao
+     */
     public function getSessao()
     {
         return $this->sessao;
     }
 
+ /**
+     * @param integer $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+ /**
+     * @param string $titulo
+     */
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+    }
+
+ /**
+     * @param string $urlMateria
+     */
+    public function setUrlMateria($urlMateria)
+    {
+        $this->urlMateria = $urlMateria;
+    }
+
+ /**
+     * @param string $conteudo
+     */
+    public function setConteudo($conteudo)
+    {
+        $this->conteudo = $conteudo;
+    }
+
+ /**
+     * @param field_type $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+ /**
+     * @param field_type $autor
+     */
+    public function setAutor($autor)
+    {
+        $this->autor = $autor;
+    }
+
+ /**
+     * @param field_type $revisor
+     */
+    public function setRevisor($revisor)
+    {
+        $this->revisor = $revisor;
+    }
+
+ /**
+     * @param field_type $publicador
+     */
+    public function setPublicador($publicador)
+    {
+        $this->publicador = $publicador;
+    }
+
+ /**
+     * @param field_type $sessao
+     */
     public function setSessao($sessao)
     {
         $this->sessao = $sessao;
     }
 
-    public function getUpdatedAt()
+ public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -162,39 +263,6 @@ class Materia
     {
         $this->createdAt = new \DateTime("now");
     }
-
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    public function getRevisor()
-    {
-        return $this->revisor;
-    }
-
-    public function setRevisor($revisor)
-    {
-        $this->revisor = $revisor;
-        return $this;
-    }
-
-    public function getPublicador()
-    {
-        return $this->publicador;
-    }
-
-    public function setPublicador($publicador)
-    {
-        $this->publicador = $publicador;
-        return $this;
-    }
-
     public function __toString() {
         return $this->titulo;
     }

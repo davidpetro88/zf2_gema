@@ -2,6 +2,7 @@
 namespace SONUser\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 class MateriaRepository extends EntityRepository
 {
@@ -24,6 +25,7 @@ class MateriaRepository extends EntityRepository
         {
             $a[$materia->getId()]['id'] = $materia->getId();
             $a[$materia->getId()]['titulo'] = $materia->getTitulo();
+            $a[$materia->getId()]['url_materia'] = $materia->getUrlMateria();
             $a[$materia->getId()]['conteudo'] = $materia->getConteudo();
             $a[$materia->getId()]['status'] = $materia->getStatus();
             $a[$materia->getId()]['autor'] = $materia->getAutor();
@@ -33,4 +35,56 @@ class MateriaRepository extends EntityRepository
         }
         return $a;
     }
+
+    public function validateIsRegistered ($urlMateria) {
+        $resultQuery = $this->createQueryBuilder('q')
+                         ->select(array('q.id'))
+                         ->where("q.urlMateria = '".$urlMateria."'")
+                         ->getQuery()
+                         ->getResult();
+        if (empty($resultQuery)) {
+            return null;
+        }
+        return $this->findById($resultQuery[0]['id'] );
+      }
+
+
+      public function findById( $id )
+      {
+          $array = array();
+          $query = $this->getEntityManager()->createQueryBuilder();
+          $query->select(array('r'))
+                ->from('SONUser\Entity\Materia', 'r')
+                ->where("r.id = '".$id."'")
+                ->getQuery();
+          $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+          if ($result != null) return $result[0];
+          return $array;
+      }
+
+      public function findByUrl( $urlMateria )
+      {
+          $array = array();
+          $query = $this->getEntityManager()->createQueryBuilder();
+          $query->select(array('r'))
+                ->from('SONUser\Entity\Materia', 'r')
+                ->where("r.urlMateria = '".$urlMateria."'")
+                ->getQuery();
+          $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+          if ($result != null) return $result[0];
+          return $array;
+      }
+
+
+      public function getNextId ()
+      {
+          $array = array();
+          $query = $this->getEntityManager()->createQueryBuilder();
+          $query->select(array('max(r.id) AS id'))
+                ->from('SONUser\Entity\Materia', 'r')
+                ->getQuery();
+          $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+          if ($result != null) return $result[0]['id']+1;
+          return null;
+      }
 }

@@ -16,40 +16,50 @@ class Capa extends AbstractService
 
     public function insert(array $data)
     {
-//         $entity = new $this->entity($data);
+        $entity = new $this->entity($data);
+        $entity->setCapaPrincipal($data['capa']);
+        if($data['usuario'])
+        {
+            $user = $this->em->getReference("SONUser\\Entity\\User",$data['usuario']);
+            $entity->setUsuario($user); // Injetando entidade carregada
+        } else {
+            $entity->setUsuario(null);
+        }
 
-//         if($data['Gerente'])
-//         {
-//             $user = $this->em->getReference("SONUser\\Entity\\User",$data['Gerente']);
-//             $entity->setGerente($user); // Injetando entidade carregada
-//         } else {
-//             $entity->setGerente(null);
-//         }
+        if($data['materia'])
+        {
+            $user = $this->em->getReference("SONUser\\Entity\\Materia",$data['materia']);
+            $entity->setMateria($user); // Injetando entidade carregada
+        } else {
+            $entity->setMateria(null);
+        }
 
-
-//         $this->em->persist($entity);
-//         $this->em->flush();
-//         return $entity;
+        $this->em->persist($entity);
+        $this->em->flush();
+        return $entity;
     }
 
     public function update(array $data)
     {
-//         $entity = $this->em->getReference($this->entity, $data['id']);
-//         (new Hydrator\ClassMethods())->hydrate($data, $entity);
+        $entity = $this->em->getReference($this->entity, $data['id']);
+        (new Hydrator\ClassMethods())->hydrate($data, $entity);
 
-//         if($data['Gerente'])
-//         {
-//             $user = $this->em->getReference("SONUser\\Entity\\User",$data['Gerente']);
-//             $entity->setGerente($user); // Injetando entidade carregada
-//         } else {
-//             $entity->setGerente(null);
-//         }
+        $entity->setCapaPrincipal($data['capa']);
+        $entity->setAtivo($data['ativo']);
+        if($data['usuario'])
+        {
+            $user = $this->em->getReference("SONUser\\Entity\\User",$data['usuario']);
+            $entity->setUsuario($user); // Injetando entidade carregada
+        }
 
-//         $this->em->persist($entity);
-//         $this->em->flush();
-//         return $entity;
+        if($data['materia'])
+        {
+            $user = $this->em->getReference("SONUser\\Entity\\Materia",$data['materia']);
+            $entity->setMateria($user); // Injetando entidade carregada
+        }
+
+        $this->em->persist($entity);
+        $this->em->flush();
+        return $entity;
     }
-
-
-
 }

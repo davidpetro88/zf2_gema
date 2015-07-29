@@ -38,6 +38,20 @@ class Materia extends Form
         ));
 
         $this->add(array(
+            'name' => 'url_materia',
+            'options' => array(
+                'type' => 'Zend\Form\Element\Text',
+                'label' => 'Url Materia'
+            ),
+            'attributes' => array(
+                'id' => 'url_materia',
+                'class' => 'form-control input-lg',
+                'placeholder' => 'Entre com a url'
+            )
+        ));
+
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'autor',
             'attributes' =>  array(

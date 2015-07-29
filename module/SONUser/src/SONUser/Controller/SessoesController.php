@@ -61,6 +61,4 @@ class SessoesController extends CrudController
 
         return new ViewModel(array('form'=>$form));
     }
-
-
 }

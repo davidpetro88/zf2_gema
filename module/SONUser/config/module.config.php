@@ -64,7 +64,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action[/:id]]]',
+                            'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -72,24 +72,25 @@ return array(
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'users'
+                                'controller' => 'Users'
                             )
                         )
                     ),
-                    'paginator' => array(
+                    'pagination' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/page/:page]]',
+                            'route'       => '[/:controller]/page[/:page]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'page' => '\d+'
                             ),
-                            'defaults' => array(
+                            'defaults'    => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'users'
-                            )
-                        )
+                                'controller' => 'Users',
+                                'action'     => 'index',
+                            ),
+                        ),
                     )
                 )
             ),
@@ -99,7 +100,7 @@ return array(
                     'route' => '/admin/sessao',
                     'defaults' => array(
                         '__NAMESPACE__' => 'SONUser\Controller',
-                        'controller' => 'Sessoes',
+                        'controller' => 'sessoes',
                         'action' => 'index'
                     )
                 ),
@@ -108,7 +109,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action[/:id]]]',
+                            'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -120,20 +121,21 @@ return array(
                             )
                         )
                     ),
-                    'paginator' => array(
+                    'pagination' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/page/:page]]',
+                            'route'       => '[/:controller]/page[/:page]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'page' => '\d+'
                             ),
-                            'defaults' => array(
+                            'defaults'    => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'sessoes'
-                            )
-                        )
+                                'controller' => 'sessoes',
+                                'action'     => 'index',
+                            ),
+                        ),
                     )
                 )
             ),
@@ -143,7 +145,7 @@ return array(
                     'route' => '/admin/materia',
                     'defaults' => array(
                         '__NAMESPACE__' => 'SONUser\Controller',
-                        'controller' => 'Materias',
+                        'controller' => 'materias',
                         'action' => 'index'
                     )
                 ),
@@ -152,7 +154,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action[/:id]]]',
+                            'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -164,24 +166,24 @@ return array(
                             )
                         )
                     ),
-                    'paginator' => array(
+                    'pagination' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/page/:page]]',
+                            'route'       => '[/:controller]/page[/:page]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'page' => '\d+'
                             ),
-                            'defaults' => array(
+                            'defaults'    => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'materias'
-                            )
-                        )
+                                'controller' => 'materias',
+                                'action'     => 'index',
+                            ),
+                        ),
                     )
                 )
             ),
-
             'sonuser-public-list-materia' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -197,11 +199,11 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action[/:id]]]',
+                            'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '\d+'
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
@@ -209,43 +211,31 @@ return array(
                             )
                         )
                     ),
-                    'archive' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route'    => '/archive[/:year]',
-                            'defaults' => array(
-                                'action'     => 'edit',
-                            ),
-                            'constraints' => array(
-                                'year' => '\d{4}'
-                            )
-                        ),
-                        ),
-                    'paginator' => array(
+                    'pagination' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/page/:page]]',
+                            'route'       => '[/:controller]/page[/:page]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'page' => '\d+'
                             ),
-                            'defaults' => array(
+                            'defaults'    => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'noticias'
-                            )
-                        )
+                                'controller' => 'noticias',
+                                'action'     => 'index',
+                            ),
+                        ),
                     )
                 )
             ),
-
             'sonuser-status-materia' => array(
                 'type' => 'Literal',
                 'options' => array(
                     'route' => '/admin/status-materia',
                     'defaults' => array(
                         '__NAMESPACE__' => 'SONUser\Controller',
-                        'controller' => 'Status',
+                        'controller' => 'status',
                         'action' => 'index'
                     )
                 ),
@@ -254,7 +244,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action[/:id]]]',
+                            'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -262,28 +252,28 @@ return array(
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'Status'
+                                'controller' => 'status'
                             )
                         )
                     ),
-                    'paginator' => array(
+                    'pagination' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/page/:page]]',
+                            'route'       => '[/:controller]/page[/:page]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'page' => '\d+'
                             ),
-                            'defaults' => array(
+                            'defaults'    => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'Status'
-                            )
-                        )
+                                'controller' => 'status',
+                                'action'     => 'index',
+                            ),
+                        ),
                     )
                 )
             ),
-
             'sonuser-capa-materia' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -299,7 +289,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action[/:id]]]',
+                            'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -311,20 +301,21 @@ return array(
                             )
                         )
                     ),
-                    'paginator' => array(
+                    'pagination' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/page/:page]]',
+                            'route'       => '[/:controller]/page[/:page]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'page' => '\d+'
                             ),
-                            'defaults' => array(
+                            'defaults'    => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'capa'
-                            )
-                        )
+                                'controller' => 'capa',
+                                'action'     => 'index',
+                            ),
+                        ),
                     )
                 )
             )

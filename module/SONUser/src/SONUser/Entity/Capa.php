@@ -183,4 +183,10 @@ class Capa
     {
         $this->ativo = $ativo;
     }
+
+
+    public function toArray()
+    {
+        return (new Hydrator\ClassMethods())->extract($this);
+    }
 }

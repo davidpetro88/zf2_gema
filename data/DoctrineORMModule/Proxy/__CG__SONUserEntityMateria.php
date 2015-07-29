@@ -64,10 +64,10 @@ class Materia extends \SONUser\Entity\Materia implements \Doctrine\ORM\Proxy\Pro
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'id', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'titulo', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'conteudo', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'status', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'autor', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'revisor', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'publicador', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'sessao', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'updatedAt', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'createdAt');
+            return array('__isInitialized__', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'id', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'titulo', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'urlMateria', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'conteudo', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'status', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'autor', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'revisor', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'publicador', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'sessao', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'updatedAt', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'createdAt');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'id', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'titulo', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'conteudo', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'status', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'autor', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'revisor', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'publicador', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'sessao', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'updatedAt', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'createdAt');
+        return array('__isInitialized__', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'id', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'titulo', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'urlMateria', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'conteudo', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'status', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'autor', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'revisor', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'publicador', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'sessao', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'updatedAt', '' . "\0" . 'SONUser\\Entity\\Materia' . "\0" . 'createdAt');
     }
 
     /**
@@ -191,17 +191,6 @@ class Materia extends \SONUser\Entity\Materia implements \Doctrine\ORM\Proxy\Pro
     /**
      * {@inheritDoc}
      */
-    public function setId($id)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
-
-        return parent::setId($id);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getTitulo()
     {
 
@@ -213,12 +202,12 @@ class Materia extends \SONUser\Entity\Materia implements \Doctrine\ORM\Proxy\Pro
     /**
      * {@inheritDoc}
      */
-    public function setTitulo($titulo)
+    public function getUrlMateria()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTitulo', array($titulo));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUrlMateria', array());
 
-        return parent::setTitulo($titulo);
+        return parent::getUrlMateria();
     }
 
     /**
@@ -235,12 +224,12 @@ class Materia extends \SONUser\Entity\Materia implements \Doctrine\ORM\Proxy\Pro
     /**
      * {@inheritDoc}
      */
-    public function setConteudo($conteudo)
+    public function getStatus()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setConteudo', array($conteudo));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
 
-        return parent::setConteudo($conteudo);
+        return parent::getStatus();
     }
 
     /**
@@ -257,12 +246,23 @@ class Materia extends \SONUser\Entity\Materia implements \Doctrine\ORM\Proxy\Pro
     /**
      * {@inheritDoc}
      */
-    public function setAutor($autor)
+    public function getRevisor()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAutor', array($autor));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRevisor', array());
 
-        return parent::setAutor($autor);
+        return parent::getRevisor();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPublicador()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPublicador', array());
+
+        return parent::getPublicador();
     }
 
     /**
@@ -274,6 +274,94 @@ class Materia extends \SONUser\Entity\Materia implements \Doctrine\ORM\Proxy\Pro
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSessao', array());
 
         return parent::getSessao();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setId($id)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', array($id));
+
+        return parent::setId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setTitulo($titulo)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTitulo', array($titulo));
+
+        return parent::setTitulo($titulo);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUrlMateria($urlMateria)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUrlMateria', array($urlMateria));
+
+        return parent::setUrlMateria($urlMateria);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setConteudo($conteudo)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setConteudo', array($conteudo));
+
+        return parent::setConteudo($conteudo);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setStatus($status)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
+
+        return parent::setStatus($status);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAutor($autor)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAutor', array($autor));
+
+        return parent::setAutor($autor);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRevisor($revisor)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRevisor', array($revisor));
+
+        return parent::setRevisor($revisor);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPublicador($publicador)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPublicador', array($publicador));
+
+        return parent::setPublicador($publicador);
     }
 
     /**
@@ -334,28 +422,6 @@ class Materia extends \SONUser\Entity\Materia implements \Doctrine\ORM\Proxy\Pro
     /**
      * {@inheritDoc}
      */
-    public function getStatus()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getStatus', array());
-
-        return parent::getStatus();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setStatus($status)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStatus', array($status));
-
-        return parent::setStatus($status);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function __toString()
     {
 
@@ -373,50 +439,6 @@ class Materia extends \SONUser\Entity\Materia implements \Doctrine\ORM\Proxy\Pro
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'toArray', array());
 
         return parent::toArray();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRevisor()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRevisor', array());
-
-        return parent::getRevisor();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setRevisor($revisor)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRevisor', array($revisor));
-
-        return parent::setRevisor($revisor);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPublicador()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPublicador', array());
-
-        return parent::getPublicador();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setPublicador($publicador)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPublicador', array($publicador));
-
-        return parent::setPublicador($publicador);
     }
 
 }

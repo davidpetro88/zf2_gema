@@ -17,11 +17,14 @@ class NoticiasController extends CrudController
 
     public function editAction()
     {
-        $form = new $this->form();
-        $request = $this->getRequest();
-
         $repository = $this->getEm()->getRepository($this->entity);
         $entity = $repository->find($this->params()->fromRoute('id',0));
+        return new ViewModel(array('data'=>$entity));
+    }
+
+    public function artigoAction () {
+        $repository = $this->getEm()->getRepository($this->entity);
+        $entity = $repository->findByUrl($this->params()->fromRoute('id',0));
         return new ViewModel(array('data'=>$entity));
     }
 }

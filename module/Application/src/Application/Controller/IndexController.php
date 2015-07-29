@@ -16,7 +16,22 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        $capaRepository = $this->getEm()->getRepository('SONUser\Entity\Capa');
+        return new ViewModel( array ("capa" => $capaRepository->findOneRandom(),
+                                     "subCapa" => $capaRepository->findListRandom()
+                            ));
     }
 
+
+    /**
+     *
+     * @return EntityManager
+     */
+    private function getEm()
+    {
+        if(null === $this->em)
+            $this->em = $this->getServiceLocator ()->get ('Doctrine\ORM\EntityManager');
+
+        return $this->em;
+    }
 }

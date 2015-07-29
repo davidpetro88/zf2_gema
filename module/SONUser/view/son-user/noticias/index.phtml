@@ -9,7 +9,7 @@
 		<div class="heading-title">
 			<h4>
 				<a href="<?php echo $this->url('sonuser-public-list-materia/default',
-                    array('controller'=>'noticias','action'=>'edit','id'=>$entity->getId()));?>">
+                    array('controller'=>'noticias','action'=>'artigo','id'=>$entity->getUrlMateria()));?>">
 				    <?php echo $entity->getTitulo(); ?>
 				</a>
 			</h4>
@@ -33,7 +33,7 @@
 
 		<p> <?php echo substr(strip_tags($entity->getConteudo()), 0, 600);?>...</p>
 		<p><a class="btn btn-success" href="<?php echo $this->url('sonuser-public-list-materia/default',
-                    array('controller'=>'noticias','action'=>'edit','id'=>$entity->getId()));?>" target="_self">Continue Lendo »</a></p>
+                    array('controller'=>'noticias','action'=>'artigo','id'=>$entity->getUrlMateria()));?>" target="_self">Continue Lendo »</a></p>
 	</div>
 
 <?php endforeach; ?>

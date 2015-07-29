@@ -125,6 +125,7 @@ class Module
               'SONUser\Service\Sessao' => function($sm){
                 return new Service\Sessao($sm->get('Doctrine\ORM\Entitymanager'));
               },
+
               'SONUser\Service\Capa' => function($sm){
                 return new Service\Capa($sm->get('Doctrine\ORM\Entitymanager'));
               },
