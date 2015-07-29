@@ -62,6 +62,22 @@ class MateriaRepository extends EntityRepository
           return $array;
       }
 
+      public function findByTitulo( $titulo )
+      {
+          $array = array();
+          $query = $this->getEntityManager()->createQueryBuilder();
+          $query->select(array('r'))
+          ->from('SONUser\Entity\Materia', 'r')
+          ->where("r.titulo like '%".$titulo."%'")
+          ->getQuery();
+          $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+          if ($result != null) return $result;
+          return $array;
+      }
+
+
+
+
       public function findByUrl( $urlMateria )
       {
           $array = array();

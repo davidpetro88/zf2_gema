@@ -4,8 +4,12 @@ namespace SONUser\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel;
+
 use Zend\Authentication\AuthenticationService,
 Zend\Authentication\Storage\Session as SessionStorage;
+
+use Zend\Paginator\Paginator,
+Zend\Paginator\Adapter\ArrayAdapter;
 
 class MateriasController extends CrudController
 {
@@ -68,10 +72,20 @@ class MateriasController extends CrudController
                                     'comentarios' => $comentarios));
     }
 
-    public function noticiasAction () {
+    public function searchAction() {
+
+        $list = $this->getEm()
+                ->getRepository($this->entity)
+                ->findByTitulo( $this->params()->fromRoute('id',0) );
+        $page = $this->params()->fromRoute('page');
+
+        $paginator = new Paginator(new ArrayAdapter($list));
+        $paginator->setCurrentPageNumber($page)
+                ->setDefaultItemCountPerPage(10);
+
+        return new ViewModel(array('data'=>$paginator,'page'=>$page));
 
     }
-
     private function getUserIdentity () {
         $auth = new AuthenticationService;
         $auth->setStorage(new SessionStorage());
