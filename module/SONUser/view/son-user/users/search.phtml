@@ -1,4 +1,4 @@
-<h1>Sessões</h1>
+<h1>Users</h1>
 
 <br />
 
@@ -6,7 +6,7 @@
     <div class="row">
         <div class="span3">
                 <p>
-                  <a href="<?php echo $this->url('sonuser-sessao/default',array('action'=>'new')); ?>">Novo</a>
+                    <a href="<?php echo $this->url('sonuser-admin/default',array('action'=>'new')); ?>">Novo</a>
                 </p>
         </div>
         <div class="span8">
@@ -15,26 +15,27 @@
     </div>
 </form>
 <br /> <br />
+
 <table class="table">
     <tr>
         <th>ID</th>
         <th>Nome</th>
-        <th>Gerente</th>
+        <th>Email</th>
         <th>Ação</th>
     </tr>
 
     <?php foreach($this->data as $entity): ?>
     <tr>
-<?php // print "<pre>"; print_r($entity); die();?>
+
         <td><?php echo $entity->getId(); ?></td>
         <td><?php echo $entity->getNome(); ?></td>
-        <td><?php echo $entity->getGerente(); ?></td>
+        <td><?php echo $entity->getEmail(); ?></td>
         <td>
-            <a href="<?php echo $this->url('sonuser-sessao/default',
-                    array('controller'=>'sessoes','action'=>'edit','id'=>$entity->getId()));?>">Editar</a>
+            <a href="<?php echo $this->url('sonuser-admin/default',
+                    array('controller'=>'users','action'=>'edit','id'=>$entity->getId()));?>">Editar</a>
 
-            <a href="<?php echo $this->url('sonuser-sessao/default',
-                    array('controller'=>'sessoes','action'=>'delete','id'=>$entity->getId()));?>">Delete</a>
+            <a href="<?php echo $this->url('sonuser-admin/default',
+                    array('controller'=>'users','action'=>'delete','id'=>$entity->getId()));?>">Delete</a>
 
         </td>
     </tr>
@@ -44,13 +45,16 @@
 
 <?php echo $this->paginationControl($this->data,'Sliding','partials/paginator'); ?>
 
+
 <script type="text/javascript">
 $( "#target" ).submit(function( event ) {
-  var urlSearch = "<?php echo $this->url('sonuser-sessao/default', array('controller'=>'sessoes','action'=>'search')); ?>";
+  var urlSearch = "<?php echo $this->url('sonuser-admin/default', array('controller'=>'users','action'=>'search')); ?>";
   var search = $( "#search-view" ).val();
   if (search != "") {
 	var keySearch = '\\'+search;
 	window.location.replace(urlSearch.concat(keySearch));
+  }else {
+  	window.location.replace("<?php echo $this->url('sonuser-admin/default');?>");
   }
   event.preventDefault();
 });

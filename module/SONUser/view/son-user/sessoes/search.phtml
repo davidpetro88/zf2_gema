@@ -51,6 +51,8 @@ $( "#target" ).submit(function( event ) {
   if (search != "") {
 	var keySearch = '\\'+search;
 	window.location.replace(urlSearch.concat(keySearch));
+  }else {
+  	window.location.replace("<?php echo $this->url('sonuser-sessao/default');?>");
   }
   event.preventDefault();
 });

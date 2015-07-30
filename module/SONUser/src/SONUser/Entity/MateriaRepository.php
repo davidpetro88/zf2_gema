@@ -62,7 +62,7 @@ class MateriaRepository extends EntityRepository
           return $array;
       }
 
-      public function findByTitulo( $titulo )
+      public function findByName( $titulo )
       {
           $array = array();
           $query = $this->getEntityManager()->createQueryBuilder();
@@ -75,8 +75,19 @@ class MateriaRepository extends EntityRepository
           return $array;
       }
 
-
-
+      public function findMateriaByFilters ($titulo, $filtroData, $filtroStatus ) {
+          $array = array();
+          $titulo = $titulo === '0' ? "" : $titulo;
+          $filtroStatus = $filtroStatus === '0' ? "" : " AND r.status = ".$filtroStatus."";
+          $query = $this->getEntityManager()->createQueryBuilder();
+          $query->select(array('r'))
+                ->from('SONUser\Entity\Materia', 'r')
+                ->where("r.titulo like '%".$titulo."%' $filtroStatus ")
+                ->getQuery();
+          $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+          if ($result != null) return $result;
+          return $array;
+      }
 
       public function findByUrl( $urlMateria )
       {
@@ -102,5 +113,19 @@ class MateriaRepository extends EntityRepository
           $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
           if ($result != null) return $result[0]['id']+1;
           return null;
+      }
+
+
+      public function  findByIdSessao( $idSessao )
+      {
+          $array = array();
+          $query = $this->getEntityManager()->createQueryBuilder();
+          $query->select(array('r'))
+                ->from('SONUser\Entity\Materia', 'r')
+                ->where("r.sessao = '".$idSessao."'")
+                ->getQuery();
+          $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+          if ($result != null) return $result;
+          return $array;
       }
 }

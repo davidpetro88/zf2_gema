@@ -36,6 +36,8 @@ class PrivilegesController extends CrudController
         return new ViewModel(array('form'=>$form));
     }
 
+
+
     public function editAction()
     {
         $form = $this->getServiceLocator()->get('SONAcl\Form\Privilege');

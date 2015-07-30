@@ -35,6 +35,20 @@ abstract class CrudController extends AbstractActionController
 
     }
 
+    public function searchAction() {
+
+        $list = $this->getEm()
+                     ->getRepository($this->entity)
+                     ->findByName( $this->params()->fromRoute('id',0) );
+        $page = $this->params()->fromRoute('page');
+
+        $paginator = new Paginator(new ArrayAdapter($list));
+        $paginator->setCurrentPageNumber($page)
+                  ->setDefaultItemCountPerPage(10);
+
+        return new ViewModel(array('data'=>$paginator,'page'=>$page));
+    }
+
     public function newAction()
     {
         $form = new $this->form();

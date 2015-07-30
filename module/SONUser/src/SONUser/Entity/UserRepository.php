@@ -3,6 +3,7 @@
 namespace SONUser\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 class UserRepository extends EntityRepository
 {
@@ -14,6 +15,19 @@ class UserRepository extends EntityRepository
         {
             $array[$entity->getId()] = $entity->getNome();
         }
+        return $array;
+    }
+
+    public function findByName( $name )
+    {
+        $array = array();
+        $query = $this->getEntityManager()->createQueryBuilder();
+        $query->select(array('r'))
+        ->from('SONUser\Entity\User', 'r')
+        ->where("r.nome like '%".$name."%'")
+        ->getQuery();
+        $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+        if ($result != null) return $result;
         return $array;
     }
 

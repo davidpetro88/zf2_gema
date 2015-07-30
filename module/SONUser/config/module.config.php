@@ -76,6 +76,21 @@ return array(
                             )
                         )
                     ),
+                    'search' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONUser\Controller',
+                                'controller' => 'users'
+                            )
+                        )
+                    ),
                     'pagination' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -114,6 +129,21 @@ return array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '\d+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONUser\Controller',
+                                'controller' => 'sessoes'
+                            )
+                        )
+                    ),
+                    'search' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
@@ -169,6 +199,23 @@ return array(
                     'search' => array(
                         'type' => 'Segment',
                         'options' => array(
+                            'route' => '[/:controller[/:action[/:id[/:data[/:status]]]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z0-9_-]*',
+                                'data' => '[0-9]+',
+                                'status' => '[0-9]+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONUser\Controller',
+                                'controller' => 'materias'
+                            )
+                        )
+                    ),
+                    'categoria' => array(
+                        'type' => 'Segment',
+                        'options' => array(
                             'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -177,7 +224,7 @@ return array(
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',
-                                'controller' => 'noticias'
+                                'controller' => 'materias'
                             )
                         )
                     ),
@@ -212,6 +259,21 @@ return array(
                 'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONUser\Controller',
+                                'controller' => 'noticias'
+                            )
+                        )
+                    ),
+                    'search' => array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => '[/:controller[/:action[/:id]]]',
@@ -271,6 +333,21 @@ return array(
                             )
                         )
                     ),
+                    'search' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONUser\Controller',
+                                'controller' => 'status'
+                            )
+                        )
+                    ),
                     'pagination' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -309,6 +386,21 @@ return array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '\d+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONUser\Controller',
+                                'controller' => 'capa'
+                            )
+                        )
+                    ),
+                    'search' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'SONUser\Controller',

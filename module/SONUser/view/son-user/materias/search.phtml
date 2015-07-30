@@ -3,13 +3,48 @@
 <br />
 <form id="target" class="navbar-form navbar-left">
     <div class="row">
-        <div class="span3">
+        <div class="span1">
                 <p>
                   <a href="<?php echo $this->url('sonuser-materia/default',array('action'=>'new')); ?>">Novo</a>
                 </p>
         </div>
-        <div class="span8">
+        <div class="span4">
+                <p>
+                    Filtro Por Data:
+                    <select name="filtroData" id="filtroData" class="form-control">
+                        <option value="0"></option>
+                            <?php foreach($this->listData as $key =>  $dataFilter) :?>
+                                <?php if ($this->dataSelected == $key):?>
+                                    <option value="<?php echo $key;?>" selected> <?php echo $dataFilter; ?></option>
+                                <?php endif;?>
+                            <option value="<?php echo $key;?>"> <?php echo $dataFilter; ?></option>
+                            <?php endforeach; ?>
+                    </select>
+                </p>
+        </div>
+        <div class="span7">
+            <p>
+             Buscar por nome:
             <input type="text" class="form-control" id="search-view" name="search-view" placeholder="Search"/>
+            </p>
+        </div>
+        <div class="span1"></div>
+        <div class="span8">
+                <p>
+                Filtro Por Status:
+                    <select name="filtroStatus" id="filtroStatus" class="form-control">
+                            <option value="0"></option>
+                            <?php foreach($this->listStatus as $key =>  $status) :?>
+                                <?php if ($this->filtroStatusSelected == $key):?>
+                                    <option value="<?php echo $key;?>" selected> <?php echo $status; ?></option>
+                                <?php endif;?>
+                                <option value="<?php echo $key;?>"> <?php echo $status; ?></option>
+                            <?php endforeach; ?>
+                    </select>
+                </p>
+        </div>
+        <div class="span2">
+            <input type="button" id="button-search" name="button-search" class="btn btn-large btn-success" style="height: 50px;" value="Buscar">
         </div>
     </div>
 </form>
@@ -49,13 +84,26 @@
 <?php echo $this->paginationControl($this->data,'Sliding','partials/paginator'); ?>
 
 <script type="text/javascript">
-$( "#target" ).submit(function( event ) {
-  var urlSearch = "<?php echo $this->url('sonuser-materia/default', array('controller'=>'materias','action'=>'search')); ?>";
-  var search = $( "#search-view" ).val();
-  if (search != "") {
-	var keySearch = '\\'+search;
-	window.location.replace(urlSearch.concat(keySearch));
-  }
-  event.preventDefault();
+
+
+$( "#button-search" ).click(function() {
+	var urlSearch = "<?php echo $this->url('sonuser-materia/default', array('controller'=>'materias','action'=>'search')); ?>";
+	var search = $( "#search-view" ).val();
+	var hasFiltro = false;
+	if ($( "#filtroData" ).val() != 0 || $( "#filtroStatus" ).val() != 0) {
+		hasFiltro = true;
+	}
+	if (hasFiltro) {
+		if (search == "") search =0;
+		var keySearch = '\\'+search+'\\'+$( "#filtroData" ).val() +'\\'+ $( "#filtroStatus" ).val();
+		window.location.replace(urlSearch.concat(keySearch));
+	} else {
+		if (search != "") {
+			var keySearch = '\\'+search;
+			window.location.replace(urlSearch.concat(keySearch));
+		}else {
+		  	window.location.replace("<?php echo $this->url('sonuser-materia/default');?>");
+		}
+	}
 });
 </script>

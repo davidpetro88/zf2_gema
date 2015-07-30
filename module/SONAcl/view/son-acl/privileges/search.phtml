@@ -1,11 +1,11 @@
-<h3>Resources</h3>
+<h3>Privileges</h3>
 <br />
 
 <form id="target" class="navbar-form navbar-left">
     <div class="row">
         <div class="span3">
                 <p>
-                  <a href="<?php echo $this->url('sonacl-admin/default',array('controller'=>'resources','action'=>'new')); ?>">Novo</a>
+                  <a href="<?php echo $this->url('sonacl-admin/default',array('controller'=>'privileges','action'=>'new')); ?>">Novo</a>
                 </p>
         </div>
         <div class="span8">
@@ -17,19 +17,26 @@
 <table class="table">
     <tr>
         <th>ID</th>
+
+        <th>Role</th>
         <th>Nome</th>
+        <th>Resource</th>
         <th>Ação</th>
     </tr>
 
     <?php foreach($this->data as $entity): ?>
     <tr>
         <td><?php echo $entity->getId(); ?></td>
+
+        <td><?php echo $entity->getRole()->getNome(); ?></td>
         <td><?php echo $entity->getNome(); ?></td>
+        <td><?php echo $entity->getResource()->getNome(); ?></td>
+
         <td>
             <a href="<?php echo $this->url('sonacl-admin/default',
-                    array('controller'=>'resources','action'=>'edit','id'=>$entity->getId())); ?>">Editar</a>
+                    array('controller'=>'privileges','action'=>'edit','id'=>$entity->getId())); ?>">Editar</a>
             <a href="<?php echo $this->url('sonacl-admin/default',
-                    array('controller'=>'resources','action'=>'delete','id'=>$entity->getId())); ?>">Deletar</a>
+                    array('controller'=>'privileges','action'=>'delete','id'=>$entity->getId())); ?>">Deletar</a>
         </td>
     </tr>
     <?php endforeach; ?>
@@ -39,13 +46,16 @@
 
 <?php echo $this->paginationControl($this->data,'Sliding','partials/paginator'); ?>
 
+
 <script type="text/javascript">
 $( "#target" ).submit(function( event ) {
-  var urlSearch = "<?php echo $this->url('sonacl-admin/default', array('controller'=>'resources','action'=>'search')); ?>";
+  var urlSearch = "<?php echo $this->url('sonacl-admin/default', array('controller'=>'privileges','action'=>'search')); ?>";
   var search = $( "#search-view" ).val();
   if (search != "") {
 	var keySearch = '\\'+search;
 	window.location.replace(urlSearch.concat(keySearch));
+  }else {
+  	window.location.replace("<?php echo $this->url('sonacl-admin-privilege/default');?>");
   }
   event.preventDefault();
 });

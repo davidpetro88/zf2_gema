@@ -17,6 +17,19 @@ class StatusRepository extends EntityRepository
         return $array;
     }
 
+    public function findByName( $nome )
+    {
+        $array = array();
+        $query = $this->getEntityManager()->createQueryBuilder();
+        $query->select(array('r'))
+        ->from('SONUser\Entity\Status', 'r')
+        ->where("r.nome like '%".$nome."%'")
+        ->getQuery();
+        $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+        if ($result != null) return $result;
+        return $array;
+    }
+
     public function findStatusByNameFormInsert( $name )
     {
         $array = array();

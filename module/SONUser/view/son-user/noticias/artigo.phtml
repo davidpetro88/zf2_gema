@@ -15,7 +15,12 @@
                  </em>
 			</span>
 			<span>
-			     <em>In <a href="#"><?php echo $entity->getSessao()->getNome(); ?></a></em>
+			     <em>In <a href="<?php echo $this->url('sonuser-public-list-materia/default',
+			                                  array('controller'=>'noticias',
+			                                        'action'=>'categoria',
+			                                        'id' => $entity->getSessao()->getNome()
+			         )); ?>"><?php echo $entity->getSessao()->getNome(); ?></a>
+			     </em>
 			</span>
 		</div>
 

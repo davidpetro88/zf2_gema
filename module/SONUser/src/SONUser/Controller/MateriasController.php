@@ -73,19 +73,50 @@ class MateriasController extends CrudController
     }
 
     public function searchAction() {
+        $tituloSearch = $this->params()->fromRoute('id',0);
+        $filtroData = $this->params()->fromRoute('data',0);
+        $filtroStatus = $this->params()->fromRoute('status',0);
 
-        $list = $this->getEm()
-                ->getRepository($this->entity)
-                ->findByTitulo( $this->params()->fromRoute('id',0) );
+        $list = $this->getEm()->getRepository($this->entity)
+                              ->findMateriaByFilters( $tituloSearch , $filtroData, $filtroStatus );
         $page = $this->params()->fromRoute('page');
 
         $paginator = new Paginator(new ArrayAdapter($list));
-        $paginator->setCurrentPageNumber($page)
-                ->setDefaultItemCountPerPage(10);
+        $paginator->setCurrentPageNumber($page)->setDefaultItemCountPerPage(10);
 
-        return new ViewModel(array('data'=>$paginator,'page'=>$page));
+        $listStatus = $this->getEm()->getRepository('SONUser\Entity\Status')->fetchPairs();
+
+        return new ViewModel(array('data'=>$paginator,
+                                   'page'=>$page,
+                                   'listStatus' => $listStatus,
+                                   'filtroStatusSelected' => $filtroStatus,
+                                   'listData'=> array (1 => "CRESCENTE", 2 => "DECRESCEMTE"),
+                                   'dataSelected' => $filtroData
+                             ));
+    }
+
+    public function indexAction() {
+        $list = $this->getEm()->getRepository($this->entity)->findAll();
+        $page = $this->params()->fromRoute('page');
+
+        $paginator = new Paginator(new ArrayAdapter($list));
+        $paginator->setCurrentPageNumber($page)->setDefaultItemCountPerPage(10);
+        $listStatus = $this->getEm()->getRepository('SONUser\Entity\Status')->fetchPairs();
+
+        return new ViewModel(array('data'=>$paginator,
+                                   'page'=>$page,
+                                   'listStatus' => $listStatus,
+                                   'filtroStatusSelected' => 0,
+                                   'listData'=> array (1 => "CRESCENTE", 2 => "DECRESCEMTE"),
+                                   'dataSelected' => 0
+                              ));
 
     }
+
+
+
+
+
     private function getUserIdentity () {
         $auth = new AuthenticationService;
         $auth->setStorage(new SessionStorage());
