@@ -7,8 +7,14 @@ use Zend\Form\Form;
 class User  extends Form
 {
 
-    public function __construct($name = null, $options = array()) {
-        parent::__construct('user', $options);
+    public function __construct($name = null, array  $options = null, array $roles = null, $roleSelected = null) {
+        parent::__construct('user');
+//         if ($options == null){
+
+//             parent::__construct($name);
+//         } else {
+//             parent::__construct('user', $options);
+//         }
 
         $this->setInputFilter(new UserFilter());
         $this->setAttribute('method', 'post');
@@ -63,30 +69,70 @@ class User  extends Form
         ));
 
         $this->add(array(
-            'name' => 'password',
-            'options' => array(
-                'type' => 'Zend\Form\Element\Text',
-                'label' => 'Password:'
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'role',
+            'attributes' =>  array(
+                'id' => 'role',
+                'class' => 'form-control',
+                'value' => $roleSelected
             ),
-            'attributes' => array(
-                'id' => 'nome',
-                'class' => 'form-control input-lg',
-                'placeholder' => 'Entre com a senha'
-            )
+            'options' => array(
+                'label' => 'Role:',
+                'options' => $roles,
+            ),
         ));
 
-        $this->add(array(
-            'name' => 'confirmation',
-            'options' => array(
-                'type' => 'Zend\Form\Element\Text',
-                'label' => 'Redigite:'
-            ),
+        $this->add(array('name' => 'password',
             'attributes' => array(
-                'id' => 'confirmation',
+                'type'  => 'password',
+                'id' => 'password',
+                'autocomplete' => 'off',
                 'class' => 'form-control input-lg',
-                'placeholder' => 'Redigite a senha'
-            )
+                'placeholder' => 'Entre com a senha',
+            ),
+            'options' => array(
+                'label' => 'Senha:',
+            ),
         ));
+
+        $this->add(array('name' => 'confirmation',
+            'attributes' => array(
+                'type'  => 'password',
+                'id' => 'confirmation',
+                'autocomplete' => 'off',
+                'class' => 'form-control input-lg',
+                'placeholder' => 'Redigite a senha',
+            ),
+            'options' => array(
+                'label' => 'Redigite:',
+            ),
+        ));
+
+//         $this->add(array(
+//             'name' => 'password',
+//             'options' => array(
+//                 'type'  => 'password',
+//                 'label' => 'Password:'
+//             ),
+//             'attributes' => array(
+//                 'id' => 'nome',
+//                 'class' => 'form-control input-lg',
+//                 'placeholder' => 'Entre com a senha'
+//             )
+//         ));
+
+//         $this->add(array(
+//             'name' => 'confirmation',
+//             'options' => array(
+//                 'type'  => 'password',
+//                 'label' => 'Redigite:'
+//             ),
+//             'attributes' => array(
+//                 'id' => 'confirmation',
+//                 'class' => 'form-control input-lg',
+//                 'placeholder' => 'Redigite a senha'
+//             )
+//         ));
 
         $this->add(array(
             'name' => 'submit',

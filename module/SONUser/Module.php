@@ -101,6 +101,18 @@ class Module
                   }
                 return new Form\Status("Status",$status, $nextStatus,$backStatus );
               },
+              'SONUser\Form\User' => function($sm)
+              {
+                  $em = $sm->get('Doctrine\ORM\EntityManager');
+                  $repoRole = $em->getRepository('SONAcl\Entity\Role');
+                  $roleSelected = null;
+                  if ($id = $this->getParamEdit($sm)) {
+                      $roleSelected = $repoRole->findByIdForm( $id );
+                  }
+                  $role = $repoRole->fetchParent();
+                  return new Form\User("user",null, $role,$roleSelected);
+
+              },
               'SONUser\Service\Materia' => function($sm){
                 return new Service\Materia($sm->get('Doctrine\ORM\Entitymanager'));
               },

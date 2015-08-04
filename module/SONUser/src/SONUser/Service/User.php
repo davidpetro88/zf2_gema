@@ -24,14 +24,17 @@ class User extends AbstractService
     }
 
     public function insert(array $data) {
-        $entity = parent::insert($data);
-
+        //$entity = parent::insert($data);
+        $entity = new $this->entity($data);
+        $entity->setRole($this->em->getReference('SONAcl\Entity\Role',$data["role"]));
+        $this->em->persist($entity);
+        $this->em->flush();
 
         $dataEmail = array('nome'=>$data['nome'],'activationKey'=>$entity->getActivationKey());
 
-
         if($entity)
         {
+
 
             $mail = new Mail($this->transport, $this->view, 'add-user');
             $mail->setSubject('Confirmação de cadastro')
@@ -52,10 +55,8 @@ class User extends AbstractService
         if($user && !$user->getActive())
         {
             $user->setActive(true);
-
             $this->em->persist($user);
             $this->em->flush();
-
             return $user;
         }
     }
@@ -63,12 +64,11 @@ class User extends AbstractService
     public function update(array $data)
     {
         $entity = $this->em->getReference($this->entity, $data['id']);
-
         if(empty($data['password']))
             unset($data['password']);
 
         (new Hydrator\ClassMethods())->hydrate($data, $entity);
-
+        $entity->setRole($this->em->getReference('SONAcl\Entity\Role',$data["role"]));
         $this->em->persist($entity);
         $this->em->flush();
         return $entity;

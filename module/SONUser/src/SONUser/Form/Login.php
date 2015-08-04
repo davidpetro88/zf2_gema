@@ -12,32 +12,30 @@ class Login  extends Form
 
         $this->setAttribute('method', 'post');
 
-$this->add(array(
-            'name' => 'email',
-            'options' => array(
-                'type' => 'Zend\Form\Element\Text',
-                'label' => 'E-mail:'
-            ),
-            'attributes' => array(
-                'id' => 'email',
-                'class' => 'form-control input-lg',
-                'placeholder' => 'Entre com o E-mail'
-            )
+        $this->add(array('name' => 'email',
+                         'options' => array(
+                            'type' => 'Zend\Form\Element\Text',
+                            'label' => 'E-mail:'
+                         ),
+                         'attributes' => array(
+                            'id' => 'email',
+                            'class' => 'form-control input-lg',
+                            'placeholder' => 'Entre com o E-mail'
+                         )
         ));
 
-           $this->add(array(
-            'name' => 'password',
-            'attributes' => array(
-                    'type'  => 'password',
-                    'id' => 'password',
-                    'autocomplete' => 'off',
-                    'class' => 'form-control input-lg',
-                    'placeholder' => 'Entre com a senha',
-            ),
-            'options' => array(
-                    'label' => 'Senha:',
-            ),
-    ));
+        $this->add(array('name' => 'password',
+                            'attributes' => array(
+                                    'type'  => 'password',
+                                    'id' => 'password',
+                                    'autocomplete' => 'off',
+                                    'class' => 'form-control input-lg',
+                                    'placeholder' => 'Entre com a senha',
+                            ),
+                            'options' => array(
+                                    'label' => 'Senha:',
+                            ),
+        ));
 
 //         $this->add(array(
 //             'name' => 'password',

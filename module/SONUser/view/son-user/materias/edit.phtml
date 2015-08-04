@@ -1,6 +1,5 @@
 <h3>Editando Materias</h3>
 <br />
-
 <style>
 .timeline {
   list-style: none;
@@ -134,25 +133,6 @@
 $usuario = $this->user;
 $comentariosMaterias = $this->comentarios;
 $statusMateria = $this->status;
-?>
-
-
-<div class="row">
-  <div class="span8">
-    <div class="dropdown">
-    <button class="btn btn-large btn-primary dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Ações Matéria
-    <span class="caret"></span></button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Revisar Matéria</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Verificar Comentários</a></li>
-          <li role="presentation" class="divider"></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
-        </ul>
-    </div>
-  </div>
-</div>
-
-<?php
 $form = $this->form;
 $form->setAttribute('action',$this->url('sonuser-materia/default',array('controller'=>'materias','action'=>'edit')));
 $form->prepare();
@@ -161,16 +141,16 @@ echo $this->formCollection($form);
 ?>
 
 <?php print_R($usuario); ?>
-<?php if($usuario['role_id'] ==  4 && $statusMateria == 1 ) : ?>
+<?php if(($usuario['role_id'] ==  4 && $statusMateria == 1) || ($usuario['role_id'] ==  3 && $statusMateria == 1)) : ?>
 <input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
-<?php elseif($usuario['role_id'] ==  4 && $statusMateria == 2): ?>
+<?php elseif(($usuario['role_id'] ==  4 && $statusMateria == 2) || ($usuario['role_id'] ==  2 && $statusMateria == 2)): ?>
 <input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
 <?php elseif($usuario['role_id'] ==  4 && $statusMateria == 3): ?>
 <input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
-<?php else: ?>
-
-<?php endif; ?>
+<?php elseif($usuario['role_id'] ==  4 && $statusMateria == 5): ?>
 <input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
+<?php endif; ?>
+
 
 <div class="container">
     <div class="page-header">
@@ -178,11 +158,9 @@ echo $this->formCollection($form);
         <input type="hidden" id="codigoAutorComentario" name="codigoAutorComentario" value="<?php echo $usuario['id']; ?>"/>
         <input type="hidden" id="nomeComerciante" name="nomeComerciante" value="<?php echo $usuario['nome'] ; ?>"/>
     </div>
-
     <ul class="timeline">
         <?php foreach($comentariosMaterias as $key => $comentario){ echo $comentario['comentario']; }?>
     </ul>
-
     <div class="row">
         <div class="page-header"><h1 id="timeline">Adicionar comentários referente a matéria.</h1></div>
         <div class="col-sm-12" id="messageComentario">
@@ -198,42 +176,18 @@ echo $this->formCollection($form);
     </div>
 </div>
 <?php echo $this->form()->closeTag();?>
-
 <!-- Large modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
-
 <div class="modal fade bs-example-modal-lg" id="modal-comentario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="gridSystemModalLabel">Comentários</h4>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-4">.col-md-4</div>
-            <div class="col-md-4 col-md-offset-4">.col-md-4 .col-md-offset-4</div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-md-offset-3">.col-md-3 .col-md-offset-3</div>
-            <div class="col-md-2 col-md-offset-4">.col-md-2 .col-md-offset-4</div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3">.col-md-6 .col-md-offset-3</div>
-          </div>
-          <div class="row">
-            <div class="col-sm-9">
-              Level 1: .col-sm-9
-              <div class="row">
-                <div class="col-xs-8 col-sm-6">
-                  Level 2: .col-xs-8 .col-sm-6
-                </div>
-                <div class="col-xs-4 col-sm-6">
-                  Level 2: .col-xs-4 .col-sm-6
-                </div>
-              </div>
-            </div>
+            <div class="col-md-4 col-md-offset-4" id="comentario-message">.col-md-4 .col-md-offset-4</div>
           </div>
         </div>
       </div>
@@ -271,12 +225,11 @@ echo $this->formCollection($form);
           var codigoAutorComentario = $("input[name=codigoAutorComentario]").val();
           var nomeComerciante = $("input[name=nomeComerciante]").val();
 
-          alert(codigoAutorComentario);
             if (validateIsEmpty (idMateria) == true &&
              	validateIsEmpty (comentario) == true ) {
             	insertComentario(idMateria, comentario, codigoAutorComentario, nomeComerciante);
             } else {
-            	alert("Preencha todo os dados.");
+            	$('.row #comentario-message').html('Erro: Digite o comentário.')
                 $('#modal-comentario').modal('show');
             }
     	});
@@ -286,37 +239,20 @@ echo $this->formCollection($form);
 			return true;
     	}
 
-
     	function insertComentario(idMateria, comentario, codigoCliente, nomeCliente){
     	    $.ajax({
     	        type: "POST",
-    	        data: { idMateria:idMateria,
-        	        	comentario:comentario,
-       	        	 	codigoCliente:codigoCliente,
-       	        	 	nomeCliente:nomeCliente
-        	        	 },
-    	        url: "http://localhost:8000/api/comentario",
+    	        data: { idMateria:idMateria, comentario:comentario, codigoCliente:codigoCliente, nomeCliente:nomeCliente },
+    	        url: "<?php echo $this->url('sonuser-comentario-rest'); ?>",
     	        dataType: "html",
     	        success: function(result){
-    	        	console.log('aa');
-        	        console.log(result);
-//     	            $("#bla").html('');
-//     	            $("#bla").append(result);
+    	        	window.location.reload();
     	        },
-    	        beforeSend: function(){
-    	            //$('#loading').css({display:"block"});
-    	        	//console.log(result);
-    	        },
-    	        complete: function(msg){
-    	            //$('#loading').css({display:"none"});
-    	        	console.log('bb');
-    	        	console.log(msg);
-    	        }
+    	        error: function(){
+                	$('.row #comentario-message').html('Erro: Falha ao adicionar o comentário.')
+                    $('#modal-comentario').modal('show');
+    	          }
     	    });
     	}
-
-
     });
-
-
  </script>

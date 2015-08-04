@@ -25,12 +25,12 @@ class Module
         $moduleRouteListener->attach($eventManager);
 //         $this->bootstrapSession($e);
 
-//         $exemplo = new Listener();
-//         $exemplo->getEventManager()->attach('validateAuth', function($e){
-//             echo $e->getName();
-//             die("DAVID");
-//         });
-//          $exemplo->validateAuth($e);
+        $exemplo = new Listener();
+        $exemplo->getEventManager()->attach('validateAuth', function($e){
+            echo $e->getName();
+            die("DAVID");
+        });
+         $exemplo->validateAuth($e);
     }
 
 

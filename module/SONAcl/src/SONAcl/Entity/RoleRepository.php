@@ -33,6 +33,33 @@ class RoleRepository extends EntityRepository {
         return $array;
     }
 
+    public function findById( $id )
+    {
+        $array = array();
+        $query = $this->getEntityManager()->createQueryBuilder();
+        $query->select(array('r'))
+        ->from('SONAcl\Entity\Role', 'r')
+        ->where("r.id = ".$id."")
+        ->getQuery();
+        $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+        if ($result != null)  return $result[0];
+        return $array;
+    }
+
+    public function findByIdForm( $id )
+    {
+        $array = array();
+        $query = $this->getEntityManager()->createQueryBuilder();
+        $query->select(array('r'))
+        ->from('SONAcl\Entity\Role', 'r')
+        ->where("r.id = '".$id."'")
+        ->getQuery();
+        $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+        if ($result != null) $array[$result[0]->getId()] = $result[0]->getNome();
+        return $array;
+    }
+
+
     public function findRole($id)
     {
         $entities = $this->find($id);

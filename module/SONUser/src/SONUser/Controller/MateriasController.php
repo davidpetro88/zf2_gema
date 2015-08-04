@@ -44,6 +44,7 @@ class MateriasController extends CrudController
 
     public function editAction()
     {
+
         $form = $this->getServiceLocator()->get('SONUser\Form\Materia');
         $request = $this->getRequest();
 
@@ -64,7 +65,6 @@ class MateriasController extends CrudController
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $repo = $em->getRepository('SONUser\Entity\Comentario');
         $comentarios = $repo->getListComentarioFromMateria ($this->params()->fromRoute('id',0));
-
         $entityArray = $entity->toArray();
         return new ViewModel(array( 'form'=> $form,
                                     'status' => $entityArray['status']->getId(),
@@ -83,9 +83,7 @@ class MateriasController extends CrudController
 
         $paginator = new Paginator(new ArrayAdapter($list));
         $paginator->setCurrentPageNumber($page)->setDefaultItemCountPerPage(10);
-
         $listStatus = $this->getEm()->getRepository('SONUser\Entity\Status')->fetchPairs();
-
         return new ViewModel(array('data'=>$paginator,
                                    'page'=>$page,
                                    'listStatus' => $listStatus,
