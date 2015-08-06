@@ -26,4 +26,8 @@ class UserIdentity extends AbstractHelper {
             return false;
     }
 
+    public function getMenuNavigator ($roleId) {
+        $form = $this->getServiceLocator()->get('SONUser\Form\Capa');
+    }
+
 }

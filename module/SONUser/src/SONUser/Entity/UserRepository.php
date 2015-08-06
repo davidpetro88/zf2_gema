@@ -46,6 +46,7 @@ class UserRepository extends EntityRepository
 
         if($user)
         {
+            $user->setRole($this->findRoleById($user->getRole()->getId()));
             $hashSenha = $user->encryptPassword($password);
             if($hashSenha == $user->getPassword())
                 return $user;
@@ -70,4 +71,9 @@ class UserRepository extends EntityRepository
         return $a;
     }
 
+    private function findRoleById($id)
+    {
+        $role = $this->_em->getRepository('SONAcl\Entity\Role')->findById($id);
+        return $role[0];
+    }
 }

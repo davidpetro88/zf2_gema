@@ -42,9 +42,40 @@ class RoleRepository extends EntityRepository {
         ->where("r.id = ".$id."")
         ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
-        if ($result != null)  return $result[0];
+        if ($result == null)  return $array;
+        foreach($result as $key => $entity)
+        {
+            $array[$key] = $entity;
+            $array[$key]->setNavigator($this->findNavigators($array[$key]->getId()));
+        }
+
         return $array;
     }
+
+    public function findRoleByIdAuth ( $id )
+    {
+        $array = array();
+        $query = $this->getEntityManager()->createQueryBuilder();
+        $query->select(array('r'))
+        ->from('SONAcl\Entity\Role', 'r')
+        ->where("r.id = ".$id."")
+        ->getQuery();
+        $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+        if ($result == null)  return $array;
+        foreach($result as $key => $entity)
+        {
+            $array[$key] = $entity;
+            $array[$key]->setNavigator($this->findNavigators($array[$key]->getId()));
+        }
+
+        return $array;
+    }
+
+
+
+
+
+
 
     public function findByIdForm( $id )
     {
@@ -60,10 +91,9 @@ class RoleRepository extends EntityRepository {
     }
 
 
-    public function findRole($id)
+    private function findNavigators($id)
     {
-        $entities = $this->find($id);
-        return $entities;
+        return $this->_em->getRepository('SONAcl\Entity\Navigator')->getNavigatorByRoleId ($id);
     }
 
 }

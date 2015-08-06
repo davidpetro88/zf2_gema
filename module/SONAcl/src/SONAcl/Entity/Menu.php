@@ -8,12 +8,12 @@ use Zend\Stdlib\Hydrator;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="sonacl_resources")
- * @ORM\Entity(repositoryClass="SONAcl\Entity\ResourceRepository")
+ * @ORM\Table(name="sonacl_menu")
+ * @ORM\Entity(repositoryClass="SONAcl\Entity\MenuRepository")
  */
-class Resource
-{
 
+class Menu
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -22,10 +22,16 @@ class Resource
     protected $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="nome", type="string", length=255, nullable=false)
      * @var string
      */
     protected $nome;
+
+    /**
+     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     * @var string
+     */
+    protected $url;
 
     /**
      * @ORM\Column(type="datetime", name="created_at")
@@ -43,36 +49,62 @@ class Resource
         (new Hydrator\ClassMethods)->hydrate($options, $this);
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
+
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getNome() {
+    public function getNome()
+    {
         return $this->nome;
     }
 
-    public function setNome($nome) {
-        $this->nome = $nome;
-        return $this;
+    public function getUrl()
+    {
+        return $this->url;
     }
 
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
-    public function setCreatedAt() {
-        $this->createdAt = new \Datetime("now");
-        return $this;
+ /**
+     * @param field_type $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
-    public function getUpdatedAt() {
+ /**
+     * @param string $nome
+     */
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+    }
+
+ /**
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+ /**
+     * @param Ambigous <\DateTime, \Datetime> $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+ public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
@@ -88,5 +120,4 @@ class Resource
     {
         return (new Hydrator\ClassMethods)->extract($this);
     }
-
 }

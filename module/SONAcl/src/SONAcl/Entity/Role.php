@@ -41,6 +41,16 @@ class Role
     protected $isAdmin;
 
     /**
+	 * @ORM\OneToMany(targetEntity="SONAcl\Entity\Navigator", mappedBy="role")
+	 */
+    protected $navigator;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SONUser\Entity\User", mappedBy="role")
+     */
+    protected $users;
+
+    /**
      * @ORM\Column(type="datetime", name="created_at")
      */
     protected $createdAt;
@@ -115,23 +125,45 @@ class Role
         return $this;
     }
 
-    public function __toString() {
+
+    /**
+     * @return the $navigator
+     */
+    public function getNavigator()
+    {
+        return $this->navigator;
+    }
+
+ /**
+     * @param field_type $navigator
+     */
+    public function setNavigator($navigator)
+    {
+        $this->navigator = $navigator;
+    }
+
+ public function __toString() {
         return $this->nome;
     }
 
     public function toArray()
     {
-        if(isset($this->parent))
-            $parent = $this->parent->getId();
-        else
-            $parent = false;
-
-        return array(
-          'id' => $this->id,
-          'nome' => $this->nome,
-            'isAdmin' => $this->isAdmin,
-            'parent' => $parent
-        );
+        return (new Hydrator\ClassMethods())->extract($this);
     }
+
+//     public function toArray()
+//     {
+//         if(isset($this->parent))
+//             $parent = $this->parent->getId();
+//         else
+//             $parent = false;
+
+//         return array(
+//           'id' => $this->id,
+//           'nome' => $this->nome,
+//             'isAdmin' => $this->isAdmin,
+//             'parent' => $parent
+//         );
+//     }
 
 }

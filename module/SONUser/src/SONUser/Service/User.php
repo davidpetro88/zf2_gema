@@ -10,7 +10,6 @@ use SONBase\Mail\Mail;
 
 class User extends AbstractService
 {
-
     protected $transport;
     protected $view;
 

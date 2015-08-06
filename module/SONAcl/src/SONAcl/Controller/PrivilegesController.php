@@ -9,9 +9,9 @@ class PrivilegesController extends CrudController
 {
 
     public function __construct() {
-        $this->entity = "SONAcl\Entity\Privilege";
-        $this->service = "SONAcl\Service\Privilege";
-        $this->form = "SONAcl\Form\Privilege";
+        $this->entity = 'SONAcl\Entity\Privilege';
+        $this->service = 'SONAcl\Service\Privilege';
+        $this->form = 'SONAcl\Form\Privilege';
         $this->controller = "privileges";
         $this->route = "sonacl-admin/default";
     }

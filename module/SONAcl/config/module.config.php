@@ -185,6 +185,252 @@ return array(
                     )
                 )
             ),
+
+            'sonacl-admin-dropdown' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/admin/dropdown',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SONAcl\Controller',
+                        'controller' => 'Dropdown',
+                        'action' => 'index'
+                    )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '\d+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'dropdown'
+                            )
+                        )
+                    ),
+                    'search' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'dropdown'
+                            )
+                        )
+                    ),
+                    'pagination' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => '[/:controller]/page[/:page]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
+                            ),
+                            'defaults'    => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'dropdown',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    )
+                )
+            ),
+
+            'sonacl-admin-dropdownmenu' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/admin/dropdownmenu',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SONAcl\Controller',
+                        'controller' => 'dropdownmenu',
+                        'action' => 'index'
+                    )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '\d+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'dropdownmenu'
+                            )
+                        )
+                    ),
+                    'search' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'dropdownmenu'
+                            )
+                        )
+                    ),
+                    'pagination' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => '[/:controller]/page[/:page]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
+                            ),
+                            'defaults'    => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'dropdownmenu',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    )
+                )
+            ),
+
+            'sonacl-admin-menu' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/admin/menu',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SONAcl\Controller',
+                        'controller' => 'Menu',
+                        'action' => 'index'
+                    )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '\d+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'menu'
+                            )
+                        )
+                    ),
+                    'search' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'menu'
+                            )
+                        )
+                    ),
+                    'pagination' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => '[/:controller]/page[/:page]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
+                            ),
+                            'defaults'    => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'menu',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    )
+                )
+            ),
+
+
+
+            'sonacl-admin-navigator' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/admin/navigator',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SONAcl\Controller',
+                        'controller' => 'navigators',
+                        'action' => 'index'
+                    )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '\d+'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'navigators'
+                            )
+                        )
+                    ),
+                    'search' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:action[/:id]]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[a-zA-Z][a-zA-Z0-9_-]*'
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'navigators'
+                            )
+                        )
+                    ),
+                    'pagination' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => '[/:controller]/page[/:page]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
+                            ),
+                            'defaults'    => array(
+                                '__NAMESPACE__' => 'SONAcl\Controller',
+                                'controller' => 'navigators',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    )
+                )
+            )
         )
     ),
     'controllers' => array(
@@ -192,6 +438,10 @@ return array(
             'SONAcl\Controller\Roles' => 'SONAcl\Controller\RolesController',
             'SONAcl\Controller\Resources' => 'SONAcl\Controller\ResourcesController',
             'SONAcl\Controller\Privileges' => 'SONAcl\Controller\PrivilegesController',
+            'SONAcl\Controller\Navigators' => 'SONAcl\Controller\NavigatorsController',
+            'SONAcl\Controller\Dropdown' => 'SONAcl\Controller\DropdownController',
+            'SONAcl\Controller\Menu' => 'SONAcl\Controller\MenuController',
+            'SONAcl\Controller\Dropdownmenu' => 'SONAcl\Controller\DropdownmenuController',
         )
     ),
     'view_manager' => array(

@@ -1,0 +1,54 @@
+<h3>Resources</h3>
+<br />
+
+<form id="target" class="navbar-form navbar-left">
+    <div class="row">
+        <div class="span3">
+                <p>
+                  <a href="<?php echo $this->url('sonacl-admin/default',array('controller'=>'menu','action'=>'new')); ?>">Novo</a>
+                </p>
+        </div>
+        <div class="span8">
+            <input type="text" class="form-control" id="search-view" name="search-view" placeholder="Search"/>
+        </div>
+    </div>
+</form>
+<br /> <br />
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ação</th>
+    </tr>
+
+    <?php foreach($this->data as $entity): ?>
+    <tr>
+        <td><?php echo $entity->getId(); ?></td>
+        <td><?php echo $entity->getNome(); ?></td>
+        <td>
+            <a href="<?php echo $this->url('sonacl-admin/default',
+                    array('controller'=>'menu','action'=>'edit','id'=>$entity->getId())); ?>">Editar</a>
+            <a href="<?php echo $this->url('sonacl-admin/default',
+                    array('controller'=>'menu','action'=>'delete','id'=>$entity->getId())); ?>">Deletar</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+
+</table>
+<br />
+
+<?php echo $this->paginationControl($this->data,'Sliding','partials/paginator'); ?>
+
+<script type="text/javascript">
+$( "#target" ).submit(function( event ) {
+  var urlSearch = "<?php echo $this->url('sonacl-admin/default', array('controller'=>'menu','action'=>'search')); ?>";
+  var search = $( "#search-view" ).val();
+  if (search != "") {
+	var keySearch = '\\'+search;
+	window.location.replace(urlSearch.concat(keySearch));
+  } else {
+  	window.location.replace("<?php echo $this->url('sonacl-admin-resource/default');?>");
+  }
+  event.preventDefault();
+});
+</script>

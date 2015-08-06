@@ -24,7 +24,6 @@ abstract class CrudController extends AbstractActionController
         $list = $this->getEm()
                 ->getRepository($this->entity)
                 ->findAll();
-
         $page = $this->params()->fromRoute('page');
 
         $paginator = new Paginator(new ArrayAdapter($list));

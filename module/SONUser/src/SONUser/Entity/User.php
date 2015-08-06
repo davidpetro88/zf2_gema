@@ -70,7 +70,7 @@ class User
     private $activationKey;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SONAcl\Entity\Role",inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="SONAcl\Entity\Role",inversedBy="users")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $role;
@@ -154,15 +154,6 @@ class User
     public function encryptPassword($password)
     {
 
-
-        var_dump( $this->salt );
-//         die('dvd');
-//         if (empty($this->salt)) $this->setSalt(base64_encode(Rand::getBytes(8, true)));
-
-//         var_dump( $this->salt );
-        var_dump($password);
-        var_dump(base64_encode(Pbkdf2::calc('sha256', $password, $this->salt, 10000, strlen($password*2))));
-        //die();
         return base64_encode(Pbkdf2::calc('sha256', $password, $this->salt, 10000, strlen($password*2)));
     }
 
