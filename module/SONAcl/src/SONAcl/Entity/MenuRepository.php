@@ -34,4 +34,17 @@ class MenuRepository extends EntityRepository {
     }
 
 
+    public function loadAuthMenuById( $id )
+    {
+        $query = $this->getEntityManager()->createQueryBuilder();
+        $query->select(array('r'))
+        ->from('SONAcl\Entity\Menu', 'r')
+        ->where("r.id = $id")
+        ->getQuery();
+        $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+        if ($result != null) return $result[0];
+        return null;
+    }
+
+
 }

@@ -38,9 +38,6 @@ class Adapter implements AdapterInterface
     {
         $repository = $this->em->getRepository('SONUser\Entity\User');
         $user = $repository->findByEmailAndPassword($this->getUsername(),$this->getPassword());
-
-        var_dump($user);
-die();
         if($user)
             return new Result(Result::SUCCESS, array('user'=>$user),array('OK'));
         else

@@ -42,6 +42,7 @@ class UserRepository extends EntityRepository
 
     public function findByEmailAndPassword($email, $password)
     {
+
         $user = $this->findOneByEmail($email);
 
         if($user)
@@ -71,9 +72,16 @@ class UserRepository extends EntityRepository
         return $a;
     }
 
+    public function getRoleIdUser( $id )
+    {
+        $user = $this->find($id);
+        if(!empty($user)) return $user->getRole()->getId();
+        return null;
+    }
+
     private function findRoleById($id)
     {
-        $role = $this->_em->getRepository('SONAcl\Entity\Role')->findById($id);
+        $role= $this->_em->getRepository('SONAcl\Entity\Role')->findById($id);
         return $role[0];
     }
 }

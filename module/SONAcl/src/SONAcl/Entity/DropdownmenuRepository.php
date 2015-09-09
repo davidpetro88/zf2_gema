@@ -33,15 +33,32 @@ class DropdownmenuRepository extends EntityRepository
         return $array;
     }
 
-    public function findDropDownMenuAuth ($id) {
+    public function loadAuthDropDownMenuById ($id) {
+
+        $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('u'))
               ->from('SONAcl\Entity\Dropdownmenu', 'u')
               ->where("u.dropdown = $id")
               ->getQuery();
-        $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
-        if ($result != null) return $result;
-        return null;
+        $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
+
+        if ($result == null)  return $array;
+        foreach($result as $key => $entity)
+        {
+            $array[$key] = $entity;
+         //   $array[$key]->setDropdown($this->loadAuthDropDownById($array[$key]->getDropdown()->getId()));
+           // $array[$key]->setMenu($this->loadAuthMenuById($array[$key]->getMenu()->getId()));
         }
 
+        return $array;
+     }
+
+     public function loadAuthDropDownById($id) {
+         return $this->_em->getRepository('SONAcl\Entity\Dropdown')->loadAuthDropDownById ($id);
+     }
+
+     public function loadAuthMenuById($id) {
+         return $this->_em->getRepository('SONAcl\Entity\Menu')->loadAuthMenuById($id);
+     }
 }

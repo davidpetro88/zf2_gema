@@ -70,7 +70,7 @@ class User
     private $activationKey;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SONAcl\Entity\Role",inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="SONAcl\Entity\Role", inversedBy="users")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $role;

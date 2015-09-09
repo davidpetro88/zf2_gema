@@ -30,16 +30,9 @@ class NavigatorRepository extends EntityRepository {
         foreach($result as $key => $entity)
         {
             $array[$key] = $entity;
-            $array[$key]->setDropdown($this->findDropDownMenu($array[$key]->getDropdown()->getId()));
+            $array[$key]->setDropdown($this->loadAuthAllDropDownById($array[$key]->getDropdown()->getId()));
         }
         return $array;
-    }
-
-
-    private function findDropDownMenu($id)
-    {
-
-        return $this->_em->getRepository('SONAcl\Entity\Dropdownmenu')->findDropDownMenuAuth ($id);
     }
 
     public function findByRole ($roleId) {
@@ -51,6 +44,11 @@ class NavigatorRepository extends EntityRepository {
         $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
         if ($result != null) return $result;
         return null;
+    }
+
+    private function loadAuthAllDropDownById($id)
+    {
+        return $this->_em->getRepository('SONAcl\Entity\Dropdown')->loadAuthAllDropDownById ($id);
     }
 
 }

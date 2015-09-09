@@ -54,6 +54,7 @@ class RoleRepository extends EntityRepository {
 
     public function findRoleByIdAuth ( $id )
     {
+
         $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('r'))
@@ -65,10 +66,10 @@ class RoleRepository extends EntityRepository {
         foreach($result as $key => $entity)
         {
             $array[$key] = $entity;
-            $array[$key]->setNavigator($this->findNavigators($array[$key]->getId()));
+//             $array[$key]->setNavigator($this->findNavigators($array[$key]->getId()));
         }
 
-        return $array;
+        return $result;
     }
 
 

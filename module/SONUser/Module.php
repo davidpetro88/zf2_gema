@@ -202,7 +202,7 @@ class Module
     {
         return array(
             'invokables' => array(
-             'UserIdentity' => new View\Helper\UserIdentity(),
+            'UserIdentity' => new View\Helper\UserIdentity(),
             'formLabel' => 'SONUser\Form\View\Helper\FormLabel',
             'fieldCollection' => 'SONUser\Form\View\Helper\FieldCollection',
             'fieldRow' => 'SONUser\Form\View\Helper\FieldRow',

@@ -22,7 +22,6 @@
         <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
                                       ->prependFile($this->basePath() . '/js/bootstrap.min.js')
                                       ->prependFile($this->basePath() . '/js/summernote/summernote.js')
-                                      ->prependFile($this->basePath() . '/js/summernote/summernote-ext-video.js')
                                       ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
 
 
@@ -40,55 +39,26 @@
                     <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo 'Skeleton Application' ?></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                        <li class="menu-item dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admininistração<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="menu-item dropdown dropdown-submenu">
 
-                                <li class="dropdown-toggle"><a href="<?php echo $this->url('sonacl-admin-menu') ?>"><?php echo 'Menu' ?></a></li>
-                                <li class="dropdown-toggle"><a href="<?php echo $this->url('sonacl-admin-navigator') ?>"><?php echo 'Navigator' ?></a></li>
-                                <li class="dropdown-toggle"><a href="<?php echo $this->url('sonacl-admin-dropdown') ?>"><?php echo 'Dropdown' ?></a></li>
-                                <li class="dropdown-toggle"><a href="<?php echo $this->url('sonacl-admin-dropdownmenu') ?>"><?php echo 'Dropdown Menu' ?></a></li>
-
-
-
-                                <li class="dropdown-toggle"><a href="<?php echo $this->url('sonacl-admin') ?>"><?php echo 'Roles' ?></a></li>
-                                <li class="dropdown-toggle"><a href="<?php echo $this->url('sonacl-admin-privilege') ?>"><?php echo 'Privileges' ?></a></li>
-                                <li class="dropdown-toggle"><a href="<?php echo $this->url('sonacl-admin-resource') ?>"><?php echo 'Resources' ?></a></li>
-                                </li>
-                            </ul>
-                        </li>
-
-
-                            <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo 'Home' ?></a></li>
-                            <li class="active"><a href="<?php echo $this->url('sonuser-public-list-materia') ?>"><?php echo 'Noticias' ?></a></li>
-                            <?php if($user = $this->identity()): ?>
-
-                            <ul class="dropdown-menu">
-                            <li class="menu-item dropdown dropdown-submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Level 1</a>
-                                <li class="active"><a href="<?php echo $this->url('sonacl-admin-navigator') ?>"><?php echo 'Navigator' ?></a></li>
-                                <li class="active"><a href="<?php echo $this->url('sonacl-admin') ?>"><?php echo 'Roles' ?></a></li>
-                                <li class="active"><a href="<?php echo $this->url('sonacl-admin-privilege') ?>"><?php echo 'Privileges' ?></a></li>
-                                <li class="active"><a href="<?php echo $this->url('sonacl-admin-resource') ?>"><?php echo 'Resources' ?></a></li>
-                               </li>
-                            </ul>
-
-
-
-                            <li class="active"><a href="<?php echo $this->url('sonuser-admin') ?>"><?php echo 'Usuarios' ?></a></li>
-
-                            <li class="active"><a href="<?php echo $this->url('sonuser-sessao') ?>"><?php echo 'Sessões' ?></a></li>
-                            <li class="active"><a href="<?php echo $this->url('sonuser-status-materia') ?>"><?php echo 'Status Materia' ?></a></li>
-                            <li class="active"><a href="<?php echo $this->url('sonuser-materia') ?>"><?php echo 'Materia' ?></a></li>
-
-                            <li class="active"><a href="<?php echo $this->url('sonuser-capa-materia') ?>"><?php echo 'Capa' ?></a></li>
+                    <?php if($user = $this->identity()): ?>
+                            <?php foreach ($this->navigator as $navigator){ ?>
+                                <li class="menu-item dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $navigator->getDropdown()->getNome(); ?><b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li class="menu-item dropdown dropdown-submenu">
+                                        <?php foreach ($navigator->getDropdown()->getDropdownmenu() as $dropDownMenu){ ?>
+                                            <li class="dropdown-toggle"><a href="<?php echo $this->url($dropDownMenu->getMenu()->getUrl()) ?>"><?php echo $dropDownMenu->getMenu()->getNome() ?></a></li>
+                                        <?php } ?>
+                                     </ul>
+                                 </li>
+                            <?php } ?>
 
                             <li class="active"><a href="<?php echo $this->url('sonuser-logout') ?>"><?php echo 'Logout' ?></a></li>
-                            <?php else: ?>
+                         </ul>
+                    <?php else: ?>
                             <li class="active"><a href="<?php echo $this->url('sonuser-register') ?>"><?php echo 'Registrar' ?></a></li>
                             <li class="active"><a href="<?php echo $this->url('sonuser-logout') ?>"><?php echo 'Login' ?></a></li>
-                            <?php endif; ?>
+                    <?php endif; ?>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>

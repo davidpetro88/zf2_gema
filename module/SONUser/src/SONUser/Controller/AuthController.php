@@ -43,10 +43,12 @@ class AuthController extends AbstractActionController
 
                     $user = $auth->getIdentity();
                     $user = $user['user'];
+
                     $sessionStorage->write($user,null);
+//                     $sessionStorage->write($role,null);
 
                     #$sessionStorage->write($auth->getIdentity()['user'],null);
-                    return $this->redirect()->toRoute('sonuser-admin/default',array('controller'=>'users'));
+                   return $this->redirect()->toRoute('sonuser-admin/default',array('controller'=>'users'));
                 }
                 else
                     $error = true;

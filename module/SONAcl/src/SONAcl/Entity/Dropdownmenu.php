@@ -2,6 +2,8 @@
 namespace SONAcl\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection,
+Doctrine\Common\Collections\ArrayCollection;
 use Zend\Stdlib\Hydrator;
 
 /**
@@ -21,14 +23,14 @@ class Dropdownmenu
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SONAcl\Entity\Dropdown", inversedBy="navigator")
-     * @ORM\JoinColumn(name="dropdown_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="SONAcl\Entity\Dropdown", inversedBy="dropdownmenu")
+     * @ORM\JoinColumn(name="dropdown_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $dropdown;
 
     /**
      * @ORM\ManyToOne(targetEntity="SONAcl\Entity\Menu", inversedBy="navigator")
-     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id" )
      */
     protected $menu;
 

@@ -3,6 +3,8 @@
 namespace SONAcl\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection,
+Doctrine\Common\Collections\ArrayCollection;
 use Zend\Stdlib\Hydrator;
 
 /**
@@ -29,7 +31,7 @@ class Dropdown
 
 
     /**
-	 * @ORM\OneToMany(targetEntity="SONAcl\Entity\Dropdownmenu", mappedBy="role")
+	 * @ORM\OneToMany(targetEntity="SONAcl\Entity\Dropdownmenu", mappedBy="dropdown")
 	 */
     protected $dropdownmenu;
 

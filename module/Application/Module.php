@@ -14,6 +14,10 @@ use Zend\Mvc\MvcEvent;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
 use Application\Listener\Listener;
+use Zend\Authentication\AuthenticationService,
+Zend\Authentication\Storage\Session as SessionStorage;
+use DoctrineModule\Authentication\Storage\ObjectRepository;
+use Doctrine\ORM\EntityManager;
 
 class Module
 {
@@ -23,7 +27,15 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'), 100);
+
+
+
+
 //         $this->bootstrapSession($e);
+
 
 //         $exemplo = new Listener();
 //         $exemplo->getEventManager()->attach('validateAuth', function($e){
@@ -31,6 +43,27 @@ class Module
 //             die("DAVID");
 //         });
 //          $exemplo->validateAuth($e);
+    }
+
+    public function onDispatch(MvcEvent $e)
+    {
+        $vm = $e->getViewModel();
+        $e->getApplication()->getServiceManager()->get('translator');
+        $eventManager        = $e->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');
+        if ($roleId = $this->getUserIdentityRole($eventManager)) {
+         $navigator = $eventManager->getRepository('SONAcl\Entity\Navigator')->getNavigatorByRoleId($roleId);
+        }
+
+        $vm->setVariable("navigator",$navigator);
+    }
+
+
+    private function getUserIdentityRole (EntityManager $eventManager) {
+        $auth = new AuthenticationService;
+        $auth->setStorage(new SessionStorage());
+
+        if(is_null($auth->getIdentity())) return null;
+        return $eventManager->getRepository('SONUser\Entity\User')->getRoleIdUser($auth->getIdentity()->getId());
     }
 
 
