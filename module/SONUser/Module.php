@@ -130,7 +130,7 @@ class Module
                   $users = $repoUser->findByIdFormInsert($this->getUserIdentity());
 
                   $repoMateria = $em->getRepository('SONUser\Entity\Materia');
-                  $materia = $repoMateria->fetchPairs();
+                  $materia = $repoMateria->getMateriasToCapa();
 
                   return new Form\Capa("Capa",$users, $materia);
               },

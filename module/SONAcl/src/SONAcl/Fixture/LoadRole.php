@@ -13,31 +13,34 @@ class LoadRole extends AbstractFixture implements OrderedFixtureInterface {
 
         $role = new Role;
         $role->setNome("Visitante")
-                ->setIsAdmin(false);
+             ->setIsAdmin(false);
         $manager->persist($role);
 
 
         $visitante = $manager->getReference('SONAcl\Entity\Role',1);
-
         $role = new Role;
-        $role->setNome("Registrado")
+        $role->setNome("Redator")
                 ->setParent($visitante)
                 ->setIsAdmin(false);
         $manager->persist($role);
 
         $registrado = $manager->getReference('SONAcl\Entity\Role',2);
-
         $role = new Role;
-        $role->setNome("Redator")
+        $role->setNome("Jornalista")
                 ->setParent($registrado)
                 ->setIsAdmin(false);
         $manager->persist($role);
 
-
         $role = new Role;
         $role->setNome("Admin")
              ->setIsAdmin(true);
+        $manager->persist($role);
 
+        $jornalista = $manager->getReference('SONAcl\Entity\Role',3);
+        $role = new Role;
+        $role->setNome("Gerente")
+             ->setParent($jornalista)
+             ->setIsAdmin(false);
         $manager->persist($role);
 
 

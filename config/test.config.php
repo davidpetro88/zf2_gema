@@ -27,7 +27,8 @@ return array(
                     'port' => '3306',
                     'user' => 'root',
                     'password' => '123456',
-                    'dbname' => 'zf2_intermediario',
+//                     'dbname' => 'teste',
+                    'dbname'   => 'zf2_intermediario',
 
                 )
             )

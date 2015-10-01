@@ -104,7 +104,7 @@ class Menu
         $this->createdAt = $createdAt;
     }
 
- public function getUpdatedAt() {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 

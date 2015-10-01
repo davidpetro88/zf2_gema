@@ -14,8 +14,33 @@ class MateriaRepository extends EntityRepository
         {
             $array[$entity->getId()] = $entity->getTitulo();
         }
+
+        //var_dump($array);
+        //die();
+
+
+
         return $array;
     }
+
+
+    public function getMateriasToCapa()
+    {
+        //select * from materias where status_id = 4 and id not in (select materia_id from capa);
+        $array = array();
+        $em = $this->getEntityManager();
+        $getMaterias = $em->createQuery('SELECT r FROM SONUser\Entity\Materia r
+                                         WHERE r.status = 4
+                                        AND r.id NOT IN (SELECT IDENTITY(c.materia) FROM SONUser\Entity\Capa c)');
+        $result = $getMaterias->getResult(Query::HYDRATE_OBJECT);
+        if ($result == null) return $array;
+        foreach($result as $entity)
+        {
+            $array[$entity->getId()] = $entity->getTitulo();
+        }
+        return $array;
+    }
+
 
     public function findArray()
     {

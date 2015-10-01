@@ -21,7 +21,7 @@ class LoadResource extends AbstractFixture implements OrderedFixtureInterface {
         $manager->persist($resource);
 
         $resource = new Resource;
-        $resource->setNome("Novo / Editar");
+        $resource->setNome('Novo / Editar');
         $manager->persist($resource);
 
         $resource = new Resource;
@@ -29,35 +29,64 @@ class LoadResource extends AbstractFixture implements OrderedFixtureInterface {
         $manager->persist($resource);
 
         $resource = new Resource;
-        $resource->setNome("Application\\Controller\\Index\\index");
+        $resource->setNome('Application\Controller\Index\index');
         $manager->persist($resource);
 
         $resource = new Resource;
-        $resource->setNome("Auth\\logout");
+        $resource->setNome('Auth\logout');
         $manager->persist($resource);
 
         $resource = new Resource;
-        $resource->setNome("Auth\\index");
+        $resource->setNome('Auth\index');
         $manager->persist($resource);
 
         $resource = new Resource;
-        $resource->setNome("Roles\index");
+        $resource->setNome('Roles\index');
         $manager->persist($resource);
 
         $resource = new Resource;
-        $resource->setNome("roles\edit");
+        $resource->setNome('roles\edit');
         $manager->persist($resource);
 
         $resource = new Resource;
-        $resource->setNome("roles\\new");
+        $resource->setNome('roles\new');
         $manager->persist($resource);
-
 
         $resource = new Resource;
-        $resource->setNome("users\\index");
+        $resource->setNome('users\index');
         $manager->persist($resource);
 
+        $resource = new Resource;
+        $resource->setNome('materias\index');
+        $manager->persist($resource);
 
+        $resource = new Resource;
+        $resource->setNome('materias\edit');
+        $manager->persist($resource);
+
+        $resource = new Resource;
+        $resource->setNome('noticias\index');
+        $manager->persist($resource);
+
+        $resource = new Resource;
+        $resource->setNome('Index\register');
+        $manager->persist($resource);
+
+        $resource = new Resource;
+        $resource->setNome('SONUser\Controller\Index\activate');
+        $manager->persist($resource);
+
+        $resource = new Resource;
+        $resource->setNome('capa\index');
+        $manager->persist($resource);
+
+        $resource = new Resource;
+        $resource->setNome('capa\edit');
+        $manager->persist($resource);
+
+        $resource = new Resource;
+        $resource->setNome('Users\new');
+        $manager->persist($resource);
 
         $manager->flush();
 
