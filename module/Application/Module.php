@@ -13,64 +13,47 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
-use Application\Listener\Listener;
 use Zend\Authentication\AuthenticationService,
 Zend\Authentication\Storage\Session as SessionStorage;
-use DoctrineModule\Authentication\Storage\ObjectRepository;
-use Doctrine\ORM\EntityManager;
 
 class Module
 {
-    public function onBootstrap(MvcEvent $e)
+    public function onBootstrap(MvcEvent $mvcEvent)
     {
-        $e->getApplication()->getServiceManager()->get('translator');
-        $eventManager        = $e->getApplication()->getEventManager();
+        $mvcEvent->getApplication()->getServiceManager()->get('translator');
+        $eventManager        = $mvcEvent->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-
-
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'), 100);
 
-
-
-
-//         $this->bootstrapSession($e);
-
-
-//         $exemplo = new Listener();
-//         $exemplo->getEventManager()->attach('validateAuth', function($e){
-//             echo $e->getName();
-//             die("DAVID");
-//         });
-//          $exemplo->validateAuth($e);
+        $serviceManager = $mvcEvent->getApplication()->getServiceManager();
+        $listernerFactory = $serviceManager->get("listener-factory");
+        $listernerFactory->getEventManager()->attach('validateAuth',function($mvcEvent){ echo $mvcEvent->getName(); die("DAVID"); });
+        $listernerFactory->validateAuth($mvcEvent);
     }
 
-    public function onDispatch(MvcEvent $e)
+    public function onDispatch(MvcEvent $mvcEvent)
     {
-        $vm = $e->getViewModel();
-        $e->getApplication()->getServiceManager()->get('translator');
-        $eventManager        = $e->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');
-        if ($roleId = $this->getUserIdentityRole($eventManager)) {
-         $navigator = $eventManager->getRepository('SONAcl\Entity\Navigator')->getNavigatorByRoleId($roleId);
-        }
-
-        $vm->setVariable("navigator",$navigator);
+        $serviceManager = $mvcEvent->getApplication()->getServiceManager();
+        $viewModel = $mvcEvent->getViewModel();
+        $roleId = $this->getUserIdentityRole($mvcEvent);
+        if ($roleId) $navigator = $serviceManager->get('navigator-factory')->getNavigatorByRoleId($roleId);
+        $viewModel->setVariable("navigator",$navigator);
     }
 
-
-    private function getUserIdentityRole (EntityManager $eventManager) {
+    private function getUserIdentityRole (MvcEvent $mvcEvent) {
         $auth = new AuthenticationService;
         $auth->setStorage(new SessionStorage());
-
+        $serviceManager = $mvcEvent->getApplication()->getServiceManager();
         if(is_null($auth->getIdentity())) return null;
-        return $eventManager->getRepository('SONUser\Entity\User')->getRoleIdUser($auth->getIdentity()->getId());
+        /* @var $role \SONUser\Entity\UserRepository  */
+        $role = $serviceManager->get('user-factory');
+        return $role->getRoleIdUser($auth->getIdentity()->getId());
     }
-
 
     public function bootstrapSession($e)
     {
-        $session = $e->getApplication()->getServiceManager()
-                                       ->get('Zend\Session\SessionManager');
+        $session = $e->getApplication()->getServiceManager()->get('Zend\Session\SessionManager');
         $session->start();
 
         $container = new Container('initialized');
@@ -103,7 +86,6 @@ class Module
                         default:
                             $validator = new $validator();
                     }
-
                     $chain->attach('session.validate', array($validator, 'isValid'));
                 }
             }
@@ -118,7 +100,6 @@ class Module
                     $config = $sm->get('config');
                     if (isset($config['session'])) {
                         $session = $config['session'];
-
                         $sessionConfig = null;
                         if (isset($session['config'])) {
                             $class = isset($session['config']['class'])  ? $session['config']['class'] : 'Zend\Session\Config\SessionConfig';
@@ -126,19 +107,16 @@ class Module
                             $sessionConfig = new $class();
                             $sessionConfig->setOptions($options);
                         }
-
                         $sessionStorage = null;
                         if (isset($session['storage'])) {
                             $class = $session['storage'];
                             $sessionStorage = new $class();
                         }
-
                         $sessionSaveHandler = null;
                         if (isset($session['save_handler'])) {
                             // class should be fetched from service manager since it will require constructor arguments
                             $sessionSaveHandler = $sm->get($session['save_handler']);
                         }
-
                         $sessionManager = new SessionManager($sessionConfig, $sessionStorage, $sessionSaveHandler);
                     } else {
                         $sessionManager = new SessionManager();

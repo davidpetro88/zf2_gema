@@ -1,16 +1,15 @@
 <?php
 namespace SONUser\Form;
 
-use Zend\Form\Form,
-Zend\Form\Element\Select;
+use Zend\Form\Form;
 
 class Capa extends Form
 {
     protected $users;
 
-    public function __construct($name = null, array $users = null , array $materia = null) {
+    public function __construct($name = null, array $users = null , array $materia = null)
+    {
         parent::__construct($name);
-
         $this->users = $users;
         $this->setAttribute('method', 'post');
         $id = new \Zend\Form\Element\Hidden('id');
@@ -58,8 +57,6 @@ class Capa extends Form
                                    ),
             ),
         ));
-
-
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',

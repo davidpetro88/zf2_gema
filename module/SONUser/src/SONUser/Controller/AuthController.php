@@ -11,7 +11,6 @@ use SONUser\Form\Login as LoginForm;
 
 class AuthController extends AbstractActionController
 {
-
     public function indexAction()
     {
         $form = new LoginForm;
@@ -25,7 +24,6 @@ class AuthController extends AbstractActionController
             if($form->isValid())
             {
                 $data = $request->getPost()->toArray();
-
                 // Criando Storage para gravar sessão da authtenticação
                 $sessionStorage = new SessionStorage();
 
@@ -40,19 +38,14 @@ class AuthController extends AbstractActionController
 
                 if($result->isValid())
                 {
-
                     $user = $auth->getIdentity();
                     $user = $user['user'];
-
                     $sessionStorage->write($user,null);
-//                     $sessionStorage->write($role,null);
 
-                    #$sessionStorage->write($auth->getIdentity()['user'],null);
                    return $this->redirect()->toRoute('sonuser-admin/default',array('controller'=>'users'));
                 }
                 else
                     $error = true;
-
             }
         }
 
@@ -62,9 +55,7 @@ class AuthController extends AbstractActionController
     public function logoutAction()
     {
         $auth = new AuthenticationService;
-        //$auth->setStorage(new SessionStorage("SONUser"));
         $auth->clearIdentity();
-
         return $this->redirect()->toRoute('sonuser-auth');
     }
 }

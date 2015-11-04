@@ -32,10 +32,8 @@ class NoticiasController extends CrudController
         return new ViewModel(array('data'=>$entity));
     }
 
-
-    public function categoriaAction () {
-
-
+    public function categoriaAction ()
+    {
         $getIdSessao = $this->getEm()
                             ->getRepository('SONUser\Entity\Sessao')
                             ->findSessaoByName( $this->params()->fromRoute('id',0) );
@@ -47,13 +45,10 @@ class NoticiasController extends CrudController
                      ->findByIdSessao($getIdSessao->getId() );
         $page = $this->params()->fromRoute('page');
 
-
-
         $paginator = new Paginator(new ArrayAdapter($list));
         $paginator->setCurrentPageNumber($page)
-        ->setDefaultItemCountPerPage(10);
+                  ->setDefaultItemCountPerPage(10);
 
         return new ViewModel(array('data'=>$paginator,'page'=>$page));
-
     }
 }

@@ -7,7 +7,6 @@ use Zend\View\Model\ViewModel;
 
 class ResourcesController extends CrudController
 {
-
     public function __construct() {
         $this->entity = "SONAcl\\Entity\\Resource";
         $this->service = "SONAcl\\Service\\Resource";
@@ -15,5 +14,4 @@ class ResourcesController extends CrudController
         $this->controller = "resources";
         $this->route = "sonacl-admin/default";
     }
-
 }

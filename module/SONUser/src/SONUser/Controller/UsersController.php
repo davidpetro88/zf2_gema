@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 
 class UsersController extends CrudController
 {
-
     public function __construct()
     {
         $this->entity = 'SONUser\Entity\User';
@@ -36,9 +35,8 @@ class UsersController extends CrudController
         return new ViewModel(array('form'=>$form));
     }
 
-     public function editAction()
+    public function editAction()
     {
-        //$form = new $this->form();
         $form = $this->getServiceLocator()->get('SONUser\Form\User');
         $request = $this->getRequest();
 
@@ -51,7 +49,6 @@ class UsersController extends CrudController
             unset($array['password']);
             $form->setData($array);
         }
-
 
         if($request->isPost())
         {

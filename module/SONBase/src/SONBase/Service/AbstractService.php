@@ -7,7 +7,6 @@ use Zend\Stdlib\Hydrator;
 
 abstract class AbstractService
 {
-
     /**
      *
      * @var EntityManager
@@ -50,5 +49,4 @@ abstract class AbstractService
             return $id;
         }
     }
-
 }

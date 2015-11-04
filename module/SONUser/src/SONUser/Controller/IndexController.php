@@ -19,22 +19,16 @@ class IndexController extends AbstractActionController
             $form->setData($request->getPost());
             if($form->isValid())
             {
-                $service = $this->getServiceLocator()->get("SONUser\Service\User");
+                $service = $this->getServiceLocator()->get('SONUser\Service\User');
                 if($service->insert($request->getPost()->toArray()))
                 {
-                    $fm = $this->flashMessenger()
-                            ->setNamespace('SONUser')
-                            ->addMessage("Usuário cadastrado com sucesso");
+                    $fm = $this->flashMessenger()->setNamespace('SONUser')->addMessage("Usuário cadastrado com sucesso");
                 }
 
                 return $this->redirect()->toRoute('sonuser-register');
             }
         }
-
-        $messages = $this->flashMessenger()
-                ->setNamespace('SONUser')
-                ->getMessages();
-
+        $messages = $this->flashMessenger()->setNamespace('SONUser')->getMessages();
         return new ViewModel(array('form'=>$form,'messages'=>$messages));
     }
 

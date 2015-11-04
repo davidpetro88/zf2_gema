@@ -105,7 +105,7 @@ class Materia
         return $this->id;
     }
 
- /**
+    /**
      * @return the $titulo
      */
     public function getTitulo()
@@ -121,7 +121,7 @@ class Materia
         return $this->urlMateria;
     }
 
- /**
+    /**
      * @return the $conteudo
      */
     public function getConteudo()
@@ -129,7 +129,7 @@ class Materia
         return $this->conteudo;
     }
 
- /**
+    /**
      * @return the $status
      */
     public function getStatus()
@@ -137,7 +137,7 @@ class Materia
         return $this->status;
     }
 
- /**
+    /**
      * @return the $autor
      */
     public function getAutor()
@@ -145,7 +145,7 @@ class Materia
         return $this->autor;
     }
 
- /**
+    /**
      * @return the $revisor
      */
     public function getRevisor()
@@ -153,7 +153,7 @@ class Materia
         return $this->revisor;
     }
 
- /**
+    /**
      * @return the $publicador
      */
     public function getPublicador()
@@ -161,7 +161,7 @@ class Materia
         return $this->publicador;
     }
 
- /**
+    /**
      * @return the $sessao
      */
     public function getSessao()
@@ -169,7 +169,7 @@ class Materia
         return $this->sessao;
     }
 
- /**
+    /**
      * @param integer $id
      */
     public function setId($id)
@@ -177,7 +177,7 @@ class Materia
         $this->id = $id;
     }
 
- /**
+    /**
      * @param string $titulo
      */
     public function setTitulo($titulo)
@@ -185,7 +185,7 @@ class Materia
         $this->titulo = $titulo;
     }
 
- /**
+    /**
      * @param string $urlMateria
      */
     public function setUrlMateria($urlMateria)
@@ -193,7 +193,7 @@ class Materia
         $this->urlMateria = $urlMateria;
     }
 
- /**
+    /**
      * @param string $conteudo
      */
     public function setConteudo($conteudo)
@@ -201,7 +201,7 @@ class Materia
         $this->conteudo = $conteudo;
     }
 
- /**
+    /**
      * @param field_type $status
      */
     public function setStatus($status)
@@ -209,7 +209,7 @@ class Materia
         $this->status = $status;
     }
 
- /**
+    /**
      * @param field_type $autor
      */
     public function setAutor($autor)
@@ -217,7 +217,7 @@ class Materia
         $this->autor = $autor;
     }
 
- /**
+    /**
      * @param field_type $revisor
      */
     public function setRevisor($revisor)
@@ -225,7 +225,7 @@ class Materia
         $this->revisor = $revisor;
     }
 
- /**
+    /**
      * @param field_type $publicador
      */
     public function setPublicador($publicador)
@@ -233,7 +233,7 @@ class Materia
         $this->publicador = $publicador;
     }
 
- /**
+    /**
      * @param field_type $sessao
      */
     public function setSessao($sessao)
@@ -241,7 +241,7 @@ class Materia
         $this->sessao = $sessao;
     }
 
- public function getUpdatedAt()
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -271,6 +271,4 @@ class Materia
     {
         return (new Hydrator\ClassMethods())->extract($this);
     }
-
-
 }

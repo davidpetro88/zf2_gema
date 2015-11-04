@@ -7,7 +7,6 @@ use Zend\View\Model\ViewModel;
 
 class RolesController extends CrudController
 {
-
     public function __construct() {
         $this->entity = "SONAcl\\Entity\\Role";
         $this->service = "SONAcl\\Service\\Role";

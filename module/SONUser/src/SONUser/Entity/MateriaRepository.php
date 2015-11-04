@@ -14,19 +14,11 @@ class MateriaRepository extends EntityRepository
         {
             $array[$entity->getId()] = $entity->getTitulo();
         }
-
-        //var_dump($array);
-        //die();
-
-
-
         return $array;
     }
 
-
     public function getMateriasToCapa()
     {
-        //select * from materias where status_id = 4 and id not in (select materia_id from capa);
         $array = array();
         $em = $this->getEntityManager();
         $getMaterias = $em->createQuery('SELECT r FROM SONUser\Entity\Materia r
@@ -63,16 +55,15 @@ class MateriaRepository extends EntityRepository
 
     public function validateIsRegistered ($urlMateria) {
         $resultQuery = $this->createQueryBuilder('q')
-                         ->select(array('q.id'))
-                         ->where("q.urlMateria = '".$urlMateria."'")
-                         ->getQuery()
-                         ->getResult();
+                            ->select(array('q.id'))
+                            ->where("q.urlMateria = '".$urlMateria."'")
+                            ->getQuery()
+                            ->getResult();
         if (empty($resultQuery)) {
             return null;
         }
         return $this->findById($resultQuery[0]['id'] );
       }
-
 
       public function findById( $id )
       {
@@ -92,9 +83,9 @@ class MateriaRepository extends EntityRepository
           $array = array();
           $query = $this->getEntityManager()->createQueryBuilder();
           $query->select(array('r'))
-          ->from('SONUser\Entity\Materia', 'r')
-          ->where("r.titulo like '%".$titulo."%'")
-          ->getQuery();
+                ->from('SONUser\Entity\Materia', 'r')
+                ->where("r.titulo like '%".$titulo."%'")
+                ->getQuery();
           $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
           if ($result != null) return $result;
           return $array;
@@ -127,10 +118,8 @@ class MateriaRepository extends EntityRepository
           return $array;
       }
 
-
       public function getNextId ()
       {
-          $array = array();
           $query = $this->getEntityManager()->createQueryBuilder();
           $query->select(array('max(r.id) AS id'))
                 ->from('SONUser\Entity\Materia', 'r')
@@ -139,7 +128,6 @@ class MateriaRepository extends EntityRepository
           if ($result != null) return $result[0]['id']+1;
           return null;
       }
-
 
       public function  findByIdSessao( $idSessao )
       {

@@ -7,7 +7,6 @@ use Zend\View\Model\ViewModel;
 
 class DropdownController extends CrudController
 {
-
     public function __construct() {
         $this->entity = 'SONAcl\Entity\Dropdown';
         $this->service = 'SONAcl\Service\Dropdown';
@@ -15,5 +14,4 @@ class DropdownController extends CrudController
         $this->controller = "dropdown";
         $this->route = "sonacl-admin/default";
     }
-
 }

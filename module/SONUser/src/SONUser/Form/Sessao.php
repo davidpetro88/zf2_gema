@@ -6,9 +6,7 @@ use Zend\Form\Form,
 
 class Sessao extends Form
 {
-
     protected $users;
-
 
     public function __construct($name = null, array $users = null) {
         parent::__construct($name);
@@ -27,7 +25,7 @@ class Sessao extends Form
             'attributes' => array(
                 'id' => 'confirmation',
                 'class' => 'form-control input-lg',
-                'placeholder' => 'Redigite a senha'
+                'placeholder' => 'Digite o nome da matéria'
             )
         ));
 

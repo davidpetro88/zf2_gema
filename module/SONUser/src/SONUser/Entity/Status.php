@@ -106,28 +106,27 @@ class Status
         $this->createdAt = new \DateTime("now");
     }
 
-
     public function getNextStatus()
     {
         return $this->nextStatus;
     }
 
-     public function getBackStatus()
+    public function getBackStatus()
     {
         return $this->backStatus;
     }
 
- public function setNextStatus($nextStatus)
+    public function setNextStatus($nextStatus)
     {
         $this->nextStatus = $nextStatus;
     }
 
- public function setBackStatus($backStatus)
+    public function setBackStatus($backStatus)
     {
         $this->backStatus = $backStatus;
     }
 
- public function __toString() {
+    public function __toString() {
         return $this->nome;
     }
 

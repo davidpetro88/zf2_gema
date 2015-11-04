@@ -10,7 +10,6 @@ use Zend\Paginator\Paginator,
 
 abstract class CrudController extends AbstractActionController
 {
-
     protected $em;
     protected $service;
     protected $entity;
@@ -18,34 +17,23 @@ abstract class CrudController extends AbstractActionController
     protected $route;
     protected $controller;
 
-
-    public function indexAction() {
-
-        $list = $this->getEm()
-                ->getRepository($this->entity)
-                ->findAll();
-
+    public function indexAction()
+    {
+        $list = $this->getEm()->getRepository($this->entity)->findAll();
         $page = $this->params()->fromRoute('page');
-
-        $paginator = new Paginator(new ArrayAdapter($list));
-        $paginator->setCurrentPageNumber($page)
-                ->setDefaultItemCountPerPage(10);
-
-        return new ViewModel(array('data'=>$paginator,'page'=>$page));
-
-    }
-
-    public function searchAction() {
-
-        $list = $this->getEm()
-                     ->getRepository($this->entity)
-                     ->findByName( $this->params()->fromRoute('id',0) );
-        $page = $this->params()->fromRoute('page');
-
         $paginator = new Paginator(new ArrayAdapter($list));
         $paginator->setCurrentPageNumber($page)
                   ->setDefaultItemCountPerPage(10);
+        return new ViewModel(array('data'=>$paginator,'page'=>$page));
+    }
 
+    public function searchAction()
+    {
+        $list = $this->getEm()->getRepository($this->entity)->findByName( $this->params()->fromRoute('id',0) );
+        $page = $this->params()->fromRoute('page');
+        $paginator = new Paginator(new ArrayAdapter($list));
+        $paginator->setCurrentPageNumber($page)
+                  ->setDefaultItemCountPerPage(10);
         return new ViewModel(array('data'=>$paginator,'page'=>$page));
     }
 
@@ -56,13 +44,11 @@ abstract class CrudController extends AbstractActionController
 
         if($request->isPost())
         {
-
             $form->setData($request->getPost());
             if($form->isValid())
             {
                 $service = $this->getServiceLocator()->get($this->service);
                 $service->insert($request->getPost()->toArray());
-
                 return $this->redirect()->toRoute($this->route,array('controller'=>$this->controller));
             }
         }

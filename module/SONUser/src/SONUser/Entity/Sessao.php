@@ -51,7 +51,6 @@ class Sessao
      */
     private $createdAt;
 
-
     public function __construct(array $options = array())
     {
         (new Hydrator\ClassMethods)->hydrate($options,$this);

@@ -3,7 +3,6 @@
 namespace SONAcl\Service;
 
 use SONBase\Service\AbstractService;
-use Doctrine\ORM\EntityManager;
 
 class Dropdownmenu extends AbstractService
 {

@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 
 class NavigatorsController extends CrudController
 {
-
     public function __construct() {
         $this->entity = 'SONAcl\Entity\Navigator';
         $this->service = 'SONAcl\Service\Navigators';
@@ -14,7 +13,6 @@ class NavigatorsController extends CrudController
         $this->controller = 'navigators';
         $this->route = "sonacl-admin/default";
     }
-
 
     public function newAction()
     {
@@ -35,6 +33,4 @@ class NavigatorsController extends CrudController
 
         return new ViewModel(array('form'=>$form));
     }
-
-
 }

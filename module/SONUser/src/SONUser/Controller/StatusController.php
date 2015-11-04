@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 
 class StatusController extends CrudController
 {
-
     public function __construct() {
         $this->entity = "SONUser\\Entity\\Status";
         $this->service = "SONUser\\Service\\Status";
@@ -60,6 +59,4 @@ class StatusController extends CrudController
 
         return new ViewModel(array('form'=>$form));
     }
-
-
 }

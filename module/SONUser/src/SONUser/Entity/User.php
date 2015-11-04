@@ -92,12 +92,6 @@ class User
 
     public function __construct(array $options = array())
     {
-        /*
-        $hydrator = new Hydrator\ClassMethods;
-        $hydrator->hydrate($options, $this);
-        */
-
-
         $this->createdAt = new \DateTime("now");
         $this->updatedAt = new \DateTime("now");
 
@@ -105,8 +99,6 @@ class User
         $this->activationKey = md5($this->email.$this->salt);
 
         (new Hydrator\ClassMethods)->hydrate($options,$this);
-
-
     }
 
     public function getId() {
@@ -150,10 +142,8 @@ class User
         return $this;
     }
 
-
     public function encryptPassword($password)
     {
-
         return base64_encode(Pbkdf2::calc('sha256', $password, $this->salt, 10000, strlen($password*2)));
     }
 

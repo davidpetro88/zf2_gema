@@ -2,12 +2,10 @@
 
 namespace SONAcl;
 
-use Zend\Mvc\MvcEvent;
-use Zend\ModuleManager\ModuleManager;
+use Zend\ServiceManager\ServiceManager;
 
 class Module
 {
-
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
@@ -26,84 +24,59 @@ class Module
 
     public function getServiceConfig()
     {
-
         return array(
           'factories' => array(
-              'SONAcl\Form\Role' => function($sm)
+              'SONAcl\Form\Role' => function(ServiceManager $sm)
               {
-                $em = $sm->get('Doctrine\ORM\EntityManager');
-                $repo = $em->getRepository('SONAcl\Entity\Role');
-                $parent = $repo->fetchParent();
-
-                return new Form\Role('role',$parent);
+                return new Form\Role('role', $sm->get('role-factory')->fetchParent());
               },
-              'SONAcl\Form\Privilege' => function($sm)
+              'SONAcl\Form\Privilege' => function(ServiceManager $sm)
               {
-                $em = $sm->get('Doctrine\ORM\EntityManager');
-                $repoRoles = $em->getRepository('SONAcl\Entity\Role');
-                $roles = $repoRoles->fetchParent();
-
-                $repoResources = $em->getRepository('SONAcl\Entity\Resource');
-                $resources = $repoResources->fetchPairs();
-
+                $roles = $sm->get('role-factory')->fetchParent();
+                $resources = $sm->get('resource-factory')->fetchPairs();
                 return new Form\Privilege("privilege", $roles, $resources);
               },
-              'SONAcl\Form\Navigators' => function($sm)
+              'SONAcl\Form\Navigators' => function(ServiceManager $sm)
               {
-                  $em = $sm->get('Doctrine\ORM\EntityManager');
-                  $roles = $em->getRepository('SONAcl\Entity\Role')->fetchParent();
-                  $dropdown = $em->getRepository('SONAcl\Entity\Dropdown')->fetchParent();
-
+                  $roles = $sm->get('role-factory')->fetchParent();
+                  $dropdown = $sm->get('dropdown-factory')->fetchParent();
                   return new Form\Navigators("navigators", $roles, $dropdown);
               },
-              'SONAcl\Form\Dropdownmenu' => function($sm)
+              'SONAcl\Form\Dropdownmenu' => function(ServiceManager $sm)
               {
-                  $em = $sm->get('Doctrine\ORM\EntityManager');
-                  $dropdown = $em->getRepository('SONAcl\Entity\Dropdown')->fetchParent();
-                  $menu = $em->getRepository('SONAcl\Entity\Menu')->fetchParent();
-
+                  $dropdown = $sm->get('dropdown-factory')->fetchParent();
+                  $menu = $sm->get('menu-factory')->fetchParent();
                   return new Form\Dropdownmenu("dropdownmenu", $dropdown, $menu);
               },
-
-              'SONAcl\Service\Role' => function($sm){
-                return new Service\Role($sm->get('Doctrine\ORM\Entitymanager'));
+              'SONAcl\Service\Role' => function(ServiceManager $sm){
+                  return new Service\Role($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONAcl\Service\Resource' => function($sm){
-                return new Service\Resource($sm->get('Doctrine\ORM\Entitymanager'));
+              'SONAcl\Service\Resource' => function(ServiceManager $sm){
+                  return new Service\Resource($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONAcl\Service\Privilege' => function($sm){
-                return new Service\Privilege($sm->get('Doctrine\ORM\Entitymanager'));
+              'SONAcl\Service\Privilege' => function(ServiceManager $sm){
+                  return new Service\Privilege($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONAcl\Service\Menu' => function($sm){
-                return new Service\Menu($sm->get('Doctrine\ORM\Entitymanager'));
+              'SONAcl\Service\Menu' => function(ServiceManager $sm){
+                  return new Service\Menu($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONAcl\Service\Dropdown' => function($sm){
-                return new Service\Dropdown($sm->get('Doctrine\ORM\Entitymanager'));
+              'SONAcl\Service\Dropdown' => function(ServiceManager $sm){
+                  return new Service\Dropdown($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONAcl\Service\Dropdownmenu' => function($sm){
-              return new Service\Dropdownmenu($sm->get('Doctrine\ORM\Entitymanager'));
+              'SONAcl\Service\Dropdownmenu' => function(ServiceManager $sm){
+                  return new Service\Dropdownmenu($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONAcl\Service\Navigators' => function($sm){
-              return new Service\Navigators($sm->get('Doctrine\ORM\Entitymanager'));
+              'SONAcl\Service\Navigators' => function(ServiceManager $sm){
+                  return new Service\Navigators($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONAcl\Permissions\Acl' => function($sm)
+              'SONAcl\Permissions\Acl' => function(ServiceManager $sm)
               {
-                  $em = $sm->get('Doctrine\ORM\EntityManager');
-
-                  $repoRole = $em->getRepository('SONAcl\Entity\Role');
-                  $roles = $repoRole->findAll();
-
-                  $repoResource = $em->getRepository('SONAcl\Entity\Resource');
-                  $resources = $repoResource->findAll();
-
-                  $repoPrivilege = $em->getRepository('SONAcl\Entity\Privilege');
-                  $privileges = $repoPrivilege->findAll();
-
+                  $roles = $sm->get('role-factory')->findAll();
+                  $resources = $sm->get('resource-factory')->findAll();
+                  $privileges = $sm->get('privilege-factory')->findAll();
                   return new Permissions\Acl($roles,$resources,$privileges);
               }
           )
         );
-
     }
-
 }

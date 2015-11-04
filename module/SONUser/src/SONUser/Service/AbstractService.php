@@ -7,7 +7,6 @@ use Zend\Stdlib\Hydrator;
 
 abstract class AbstractService
 {
-
     /**
      *
      * @var EntityManager
@@ -33,7 +32,6 @@ abstract class AbstractService
     {
         $entity = $this->em->getReference($this->entity, $data['id']);
         (new Hydrator\ClassMethods())->hydrate($data, $entity);
-
         $this->em->persist($entity);
         $this->em->flush();
         return $entity;
@@ -49,5 +47,4 @@ abstract class AbstractService
             return $id;
         }
     }
-
 }

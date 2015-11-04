@@ -18,14 +18,28 @@ class UserRepository extends EntityRepository
         return $array;
     }
 
+    public function getListGerente()
+    {
+        $array = array();
+        $em = $this->getEntityManager();
+        $getMaterias = $em->createQuery('SELECT r FROM SONUser\Entity\User r  where r.role = 5');
+        $result = $getMaterias->getResult(Query::HYDRATE_OBJECT);
+        if ($result == null) return $array;
+        foreach($result as $entity)
+        {
+            $array[$entity->getId()] = $entity->getNome();
+        }
+        return $array;
+    }
+
     public function findByName( $name )
     {
         $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('r'))
-        ->from('SONUser\Entity\User', 'r')
-        ->where("r.nome like '%".$name."%'")
-        ->getQuery();
+              ->from('SONUser\Entity\User', 'r')
+              ->where("r.nome like '%".$name."%'")
+              ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
         if ($result != null) return $result;
         return $array;
@@ -42,9 +56,7 @@ class UserRepository extends EntityRepository
 
     public function findByEmailAndPassword($email, $password)
     {
-
         $user = $this->findOneByEmail($email);
-
         if($user)
         {
             $user->setRole($this->findRoleById($user->getRole()->getId()));
@@ -68,7 +80,6 @@ class UserRepository extends EntityRepository
             $a[$user->getId()]['nome'] = $user->getNome();
             $a[$user->getId()]['email'] = $user->getEmail();
         }
-
         return $a;
     }
 

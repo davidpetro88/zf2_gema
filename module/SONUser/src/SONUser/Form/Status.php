@@ -6,12 +6,10 @@ use Zend\Form\Form;
 
 class Status extends Form
 {
-
-    public function  __construct($name = null,array $status = null, $nexSatus = null, $backSatus = null) {
+    public function  __construct($name = null,array $status = null, $nexSatus = null, $backSatus = null)
+    {
         parent::__construct($name);
-
         $this->setAttribute('method', 'post');
-
         $id = new \Zend\Form\Element\Hidden('id');
         $this->add($id);
 

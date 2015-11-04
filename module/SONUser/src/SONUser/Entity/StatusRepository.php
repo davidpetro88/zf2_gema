@@ -22,9 +22,9 @@ class StatusRepository extends EntityRepository
         $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('r'))
-        ->from('SONUser\Entity\Status', 'r')
-        ->where("r.nome like '%".$nome."%'")
-        ->getQuery();
+              ->from('SONUser\Entity\Status', 'r')
+              ->where("r.nome like '%".$nome."%'")
+              ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
         if ($result != null) return $result;
         return $array;

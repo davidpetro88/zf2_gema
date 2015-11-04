@@ -432,10 +432,15 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+            'user-factory' => 'SONUser\Factory\UserFactory',
+            'sessao-factory' => 'SONUser\Factory\SessaoFactory',
+            'status-factory' => 'SONUser\Factory\StatusFactory',
+            'materia-factory' => 'SONUser\Factory\MateriaFactory',
         ),
     ),
     'controllers' => array(
         'invokables' => array(
+            'SONUser\Entity\UserEntity' => 'SONUser\Entity\User',
             'SONUser\Controller\Index' => 'SONUser\Controller\IndexController',
             'SONUser\Controller\Users' => 'SONUser\Controller\UsersController',
             'SONUser\Controller\Sessoes' => 'SONUser\Controller\SessoesController',

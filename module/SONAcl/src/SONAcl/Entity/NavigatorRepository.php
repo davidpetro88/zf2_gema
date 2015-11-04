@@ -5,8 +5,8 @@ namespace SONAcl\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 
-class NavigatorRepository extends EntityRepository {
-
+class NavigatorRepository extends EntityRepository
+{
     public function fetchPairs()
     {
         $entities = $this->findAll();
@@ -22,9 +22,9 @@ class NavigatorRepository extends EntityRepository {
         $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('u'))
-        ->from('SONAcl\Entity\Navigator', 'u')
-        ->where("u.role = $roleId")
-        ->getQuery();
+              ->from('SONAcl\Entity\Navigator', 'u')
+              ->where("u.role = $roleId")
+              ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
         if ($result == null)  return $array;
         foreach($result as $key => $entity)
@@ -38,9 +38,9 @@ class NavigatorRepository extends EntityRepository {
     public function findByRole ($roleId) {
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('u'))
-        ->from('SONAcl\Entity\Navigator', 'u')
-        ->where("r.role = $roleId")
-        ->getQuery();
+              ->from('SONAcl\Entity\Navigator', 'u')
+              ->where("r.role = $roleId")
+              ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
         if ($result != null) return $result;
         return null;
@@ -50,5 +50,4 @@ class NavigatorRepository extends EntityRepository {
     {
         return $this->_em->getRepository('SONAcl\Entity\Dropdown')->loadAuthAllDropDownById ($id);
     }
-
 }

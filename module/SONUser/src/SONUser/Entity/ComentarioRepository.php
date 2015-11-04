@@ -17,7 +17,6 @@ class ComentarioRepository extends EntityRepository
         return $array;
     }
 
-
     public function findArray()
     {
         $comentarios = $this->findAll();

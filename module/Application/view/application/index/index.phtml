@@ -22,8 +22,8 @@
 <?php if ($this->subCapa != null) :?>
     <?php foreach($this->subCapa as $subCapa): ?>
         <div class="span4">
-            <h2><?php echo substr(strip_tags($subCapa->getMateria()->getTitulo()), 0, 60) ?>..</h2>
-            <p><?php echo substr(strip_tags($subCapa->getMateria()->getConteudo()), 0, 300); ?></p>
+            <h2><?php echo substr(strip_tags($subCapa->getMateria()->getTitulo()), 0, 35) ?>..</h2>
+            <p><?php echo substr(strip_tags($subCapa->getMateria()->getConteudo()), 0, 200); ?></p>
             <p><a class="btn btn-success" href="<?php echo $this->url('sonuser-public-list-materia/default',
                                                         array('controller'=>'noticias',
                                                               'action'=>'artigo',

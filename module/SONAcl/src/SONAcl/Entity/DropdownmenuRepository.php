@@ -19,22 +19,21 @@ class DropdownmenuRepository extends EntityRepository
         return $array;
     }
 
-
     public function findByName( $name )
     {
         $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('r'))
-        ->from('SONAcl\Entity\Dropdownmenu', 'r')
-        ->where("r.nome like '%".$name."%'")
-        ->getQuery();
+              ->from('SONAcl\Entity\Dropdownmenu', 'r')
+              ->where("r.nome like '%".$name."%'")
+              ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
         if ($result != null) return $result;
         return $array;
     }
 
-    public function loadAuthDropDownMenuById ($id) {
-
+    public function loadAuthDropDownMenuById ($id)
+    {
         $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('u'))
@@ -47,8 +46,6 @@ class DropdownmenuRepository extends EntityRepository
         foreach($result as $key => $entity)
         {
             $array[$key] = $entity;
-         //   $array[$key]->setDropdown($this->loadAuthDropDownById($array[$key]->getDropdown()->getId()));
-           // $array[$key]->setMenu($this->loadAuthMenuById($array[$key]->getMenu()->getId()));
         }
 
         return $array;

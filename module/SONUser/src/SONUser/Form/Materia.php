@@ -1,10 +1,7 @@
 <?php
 namespace SONUser\Form;
 
-use Zend\Form\Form,
-    Zend\Form\Element\Select,
-    Zend\Form\Element;
-
+use Zend\Form\Form;
 
 class Materia extends Form
 {
@@ -12,13 +9,12 @@ class Materia extends Form
     protected $sessao;
     protected $statusMateria;
 
-    public function __construct($name = null, array $users = null,  array $sessoes = null, array $status = null) {
+    public function __construct($name = null, array $users = null,  array $sessoes = null, array $status = null)
+    {
         parent::__construct($name);
-
         $this->users = $users;
         $this->sessao = $sessoes;
         $this->statusMateria = $status;
-
         $this->setAttribute('method', 'post');
 
         $id = new \Zend\Form\Element\Hidden('id');
@@ -49,7 +45,6 @@ class Materia extends Form
                 'placeholder' => 'Entre com a url'
             )
         ));
-
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
@@ -101,16 +96,5 @@ class Materia extends Form
                 'label' => 'Conteúdo',
             )
         ));
-
-//         $this->add(array(
-//             'name' => 'submit',
-//             'type' => 'Zend\Form\Element\Submit',
-//             'attributes' => array(
-//                 'value' => 'Salvar',
-//                  'id' => "id-button-form",
-//                 'class' => 'btn btn-large btn-success'
-//             )
-//         ));
     }
 }
-

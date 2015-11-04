@@ -6,41 +6,15 @@ use Zend\Form\Form;
 
 class User  extends Form
 {
-
-    public function __construct($name = null, array  $options = null, array $roles = null, $roleSelected = null) {
+    public function __construct($name = null, array  $options = null, array $roles = null, $roleSelected = null)
+    {
         parent::__construct('user');
-//         if ($options == null){
-
-//             parent::__construct($name);
-//         } else {
-//             parent::__construct('user', $options);
-//         }
 
         $this->setInputFilter(new UserFilter());
         $this->setAttribute('method', 'post');
 
         $id = new \Zend\Form\Element\Hidden('id');
         $this->add($id);
-
-//         $nome = new \Zend\Form\Element\Text("nome");
-//         $nome->setLabel("Nome: ")
-//                 ->setAttribute('placeholder','Entre com o nome');
-//         $this->add($nome);
-
-//         $email = new \Zend\Form\Element\Text("email");
-//         $email->setLabel("Email: ")
-//         ->setAttribute('placeholder','Entre com o Email');
-//         $this->add($email);
-
-//         $password = new \Zend\Form\Element\Password("password");
-//         $password->setLabel("Password: ")
-//         ->setAttribute('placeholder','Entre com a senha');
-//         $this->add($password);
-
-//         $confirmation = new \Zend\Form\Element\Password("confirmation");
-//         $confirmation->setLabel("Redigite: ")
-//         ->setAttribute('placeholder','Redigite a senha');
-//         $this->add($confirmation);
 
         $this->add(array(
             'name' => 'nome',
@@ -108,32 +82,6 @@ class User  extends Form
             ),
         ));
 
-//         $this->add(array(
-//             'name' => 'password',
-//             'options' => array(
-//                 'type'  => 'password',
-//                 'label' => 'Password:'
-//             ),
-//             'attributes' => array(
-//                 'id' => 'nome',
-//                 'class' => 'form-control input-lg',
-//                 'placeholder' => 'Entre com a senha'
-//             )
-//         ));
-
-//         $this->add(array(
-//             'name' => 'confirmation',
-//             'options' => array(
-//                 'type'  => 'password',
-//                 'label' => 'Redigite:'
-//             ),
-//             'attributes' => array(
-//                 'id' => 'confirmation',
-//                 'class' => 'form-control input-lg',
-//                 'placeholder' => 'Redigite a senha'
-//             )
-//         ));
-
         $this->add(array(
             'name' => 'submit',
             'type' => 'Zend\Form\Element\Submit',
@@ -145,5 +93,4 @@ class User  extends Form
         ));
 
     }
-
 }

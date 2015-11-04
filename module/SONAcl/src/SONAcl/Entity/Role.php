@@ -3,8 +3,6 @@
 namespace SONAcl\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection,
-Doctrine\Common\Collections\ArrayCollection;
 use Zend\Stdlib\Hydrator;
 
 /**
@@ -16,7 +14,6 @@ use Zend\Stdlib\Hydrator;
 
 class Role
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -127,7 +124,6 @@ class Role
         return $this;
     }
 
-
     /**
      * @return the $navigator
      */
@@ -136,7 +132,7 @@ class Role
         return $this->navigator;
     }
 
- /**
+    /**
      * @param field_type $navigator
      */
     public function setNavigator($navigator)
@@ -144,7 +140,7 @@ class Role
         $this->navigator = $navigator;
     }
 
- public function __toString() {
+    public function __toString() {
         return $this->nome;
     }
 
@@ -152,20 +148,4 @@ class Role
     {
         return (new Hydrator\ClassMethods())->extract($this);
     }
-
-//     public function toArray()
-//     {
-//         if(isset($this->parent))
-//             $parent = $this->parent->getId();
-//         else
-//             $parent = false;
-
-//         return array(
-//           'id' => $this->id,
-//           'nome' => $this->nome,
-//             'isAdmin' => $this->isAdmin,
-//             'parent' => $parent
-//         );
-//     }
-
 }

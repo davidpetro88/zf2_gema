@@ -3,8 +3,6 @@
 namespace SONAcl\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection,
-Doctrine\Common\Collections\ArrayCollection;
 use Zend\Stdlib\Hydrator;
 
 /**
@@ -15,7 +13,6 @@ use Zend\Stdlib\Hydrator;
  */
 class Dropdown
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -117,14 +114,13 @@ class Dropdown
         return $this->navigator;
     }
 
- public function setNavigator($navigator)
+   public function setNavigator($navigator)
     {
         $this->navigator = $navigator;
     }
 
- public function toArray()
+    public function toArray()
     {
         return (new Hydrator\ClassMethods)->extract($this);
     }
-
 }

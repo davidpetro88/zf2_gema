@@ -10,14 +10,12 @@ use Zend\Paginator\Paginator,
 
 abstract class CrudController extends AbstractActionController
 {
-
     protected $em;
     protected $service;
     protected $entity;
     protected $form;
     protected $route;
     protected $controller;
-
 
     public function indexAction() {
 
@@ -31,7 +29,6 @@ abstract class CrudController extends AbstractActionController
                 ->setDefaultItemCountPerPage(10);
 
         return new ViewModel(array('data'=>$paginator,'page'=>$page));
-
     }
 
     public function newAction()
@@ -54,17 +51,15 @@ abstract class CrudController extends AbstractActionController
         return new ViewModel(array('form'=>$form));
     }
 
-    public function searchAction() {
-
+    public function searchAction()
+    {
         $list = $this->getEm()
-        ->getRepository($this->entity)
-        ->findByName( $this->params()->fromRoute('id',0) );
+                     ->getRepository($this->entity)
+                     ->findByName( $this->params()->fromRoute('id',0) );
         $page = $this->params()->fromRoute('page');
-
         $paginator = new Paginator(new ArrayAdapter($list));
         $paginator->setCurrentPageNumber($page)
-        ->setDefaultItemCountPerPage(10);
-
+                  ->setDefaultItemCountPerPage(10);
         return new ViewModel(array('data'=>$paginator,'page'=>$page));
     }
 

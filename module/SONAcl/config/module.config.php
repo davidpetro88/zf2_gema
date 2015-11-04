@@ -185,7 +185,6 @@ return array(
                     )
                 )
             ),
-
             'sonacl-admin-dropdown' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -246,7 +245,6 @@ return array(
                     )
                 )
             ),
-
             'sonacl-admin-dropdownmenu' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -307,7 +305,6 @@ return array(
                     )
                 )
             ),
-
             'sonacl-admin-menu' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -368,9 +365,6 @@ return array(
                     )
                 )
             ),
-
-
-
             'sonacl-admin-navigator' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -432,6 +426,17 @@ return array(
                 )
             )
         )
+    ),
+    'service_manager' => array(
+        'factories' => array(
+            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+            'navigator-factory' => 'SONAcl\Factory\NavigatorFactory',
+            'role-factory' => 'SONAcl\Factory\RoleFactory',
+            'resource-factory' => 'SONAcl\Factory\ResourceFactory',
+            'dropdown-factory' => 'SONAcl\Factory\DropdownFactory',
+            'menu-factory' => 'SONAcl\Factory\MenuFactory',
+            'privilege-factory' => 'SONAcl\Factory\PrivilegeFactory',
+        ),
     ),
     'controllers' => array(
         'invokables' => array(

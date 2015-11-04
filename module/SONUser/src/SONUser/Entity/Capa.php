@@ -15,7 +15,6 @@ use Zend\Stdlib\Hydrator;
  */
 class Capa
 {
-
     /**
      *
      * @var integer
@@ -89,7 +88,7 @@ class Capa
         return $this->materia;
     }
 
- /**
+    /**
      * @return the $capaPrincipal
      */
     public function getCapaPrincipal()
@@ -97,7 +96,7 @@ class Capa
         return $this->capaPrincipal;
     }
 
- /**
+    /**
      * @return the $usuario
      */
     public function getUsuario()
@@ -105,7 +104,7 @@ class Capa
         return $this->usuario;
     }
 
- /**
+    /**
      * @return the $updatedAt
      */
     public function getUpdatedAt()
@@ -113,7 +112,7 @@ class Capa
         return $this->updatedAt;
     }
 
- /**
+    /**
      * @return the $createdAt
      */
     public function getCreatedAt()
@@ -121,7 +120,7 @@ class Capa
         return $this->createdAt;
     }
 
- /**
+    /**
      * @param integer $id
      */
     public function setId($id)
@@ -129,7 +128,7 @@ class Capa
         $this->id = $id;
     }
 
- /**
+    /**
      * @param field_type $materia
      */
     public function setMateria($materia)
@@ -137,7 +136,7 @@ class Capa
         $this->materia = $materia;
     }
 
- /**
+    /**
      * @param string $capaPrincipal
      */
     public function setCapaPrincipal($capaPrincipal)
@@ -145,7 +144,7 @@ class Capa
         $this->capaPrincipal = $capaPrincipal;
     }
 
- /**
+    /**
      * @param field_type $usuario
      */
     public function setUsuario($usuario)
@@ -153,7 +152,7 @@ class Capa
         $this->usuario = $usuario;
     }
 
- /**
+    /**
      * @param DateTime $updatedAt
      */
     public function setUpdatedAt($updatedAt)
@@ -161,14 +160,14 @@ class Capa
         $this->updatedAt = $updatedAt;
     }
 
- /**
+    /**
      * @param DateTime $createdAt
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
- /**
+    /**
      * @return the $ativo
      */
     public function getAtivo()
@@ -176,14 +175,13 @@ class Capa
         return $this->ativo;
     }
 
- /**
+    /**
      * @param string $ativo
      */
     public function setAtivo($ativo)
     {
         $this->ativo = $ativo;
     }
-
 
     public function toArray()
     {

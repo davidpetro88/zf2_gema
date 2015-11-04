@@ -9,8 +9,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Authentication\AuthenticationService,
 Zend\Authentication\Storage\Session as SessionStorage;
 
-use SONUser\Auth\Adapter as AuthAdapter;
-
 class Listener implements EventManagerAwareInterface
 {
     protected $events;
@@ -40,14 +38,13 @@ class Listener implements EventManagerAwareInterface
 
      private function getPrivilegeName (Event $event, $roleId, $resourceId) {
          $em = $event->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');
-         return $em->getRepository("SONAcl\\Entity\\Privilege")->findPrivilege($roleId, $resourceId);
+         return $em->getRepository('SONAcl\Entity\Privilege')->findPrivilege($roleId, $resourceId);
      }
 
      private function getResourceRepository (Event $event, $resource) {
          $sql = $event->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');//
-         return $sql->getRepository("SONAcl\\Entity\\Resource")->findResourceByName($resource);
+         return $sql->getRepository('SONAcl\Entity\Resource')->findResourceByName($resource);
      }
-
 
      private function getMatchedRoute(Event $event) {
          $sm = $event->getApplication()->getServiceManager();
@@ -68,6 +65,7 @@ class Listener implements EventManagerAwareInterface
          $controller = isset($params['controller'])  ? $params['controller'] : null;
          $action =  isset($params['action'])  ? $params['action'] : null;
          $resource = $controller.'\\'.$action;
+         //var dump
          var_dump($resource);
          return $resource;
      }
@@ -78,10 +76,9 @@ class Listener implements EventManagerAwareInterface
          return is_null($auth->getIdentity()) ? null : $auth->getIdentity();
      }
 
-
-     public function validateAuth(Event $event){
-
-         $aclPermission = $event->getApplication()->getServiceManager()->get("SONAcl\\Permissions\\Acl");
+     public function validateAuth(Event $event)
+     {
+         $aclPermission = $event->getApplication()->getServiceManager()->get('SONAcl\Permissions\Acl');
          $roleAuth =  $this->getUserIdentity() !=null ? $this->getUserIdentity()->getRole()->getId() : self::ROLE_VISITANTE;
 
          $nameResource = $this->getNameResource ($event);
@@ -91,19 +88,10 @@ class Listener implements EventManagerAwareInterface
          $privilegeName = isset( $resourceRepository) ? $this->getPrivilegeName ($event, $roleAuth, $resourceRepository->getId()) : null;
          $resourceRepository = isset($resourceRepository) ? $resourceRepository->getNome() : null;
 
-         var_dump($perfil);
-         var_dump($privilegeName);
-         var_dump($resourceRepository);
-
-
-        if ($perfil == "Admin"){
-            echo $aclPermission->isAllowed($perfil)? "Permitido" : "Negado";
-        } else {
-           $pm = $aclPermission->isAllowed($perfil,$resourceRepository, $privilegeName)? "Permitido" : "Negado";
-           if ($pm == "Negado") {
-                die("sem permissão");
-           }
-
+         if ($perfil != "Admin")
+         {
+           $permissaoIsAllowed = $aclPermission->isAllowed($perfil,$resourceRepository, $privilegeName)? "Permitido" : "Negado";
+           if ($permissaoIsAllowed == "Negado") die("sem permissão");
         }
      }
 }

@@ -44,7 +44,6 @@ class MateriasController extends CrudController
 
     public function editAction()
     {
-
         $form = $this->getServiceLocator()->get('SONUser\Form\Materia');
         $request = $this->getRequest();
 
@@ -72,7 +71,8 @@ class MateriasController extends CrudController
                                     'comentarios' => $comentarios));
     }
 
-    public function searchAction() {
+    public function searchAction()
+    {
         $tituloSearch = $this->params()->fromRoute('id',0);
         $filtroData = $this->params()->fromRoute('data',0);
         $filtroStatus = $this->params()->fromRoute('status',0);
@@ -93,7 +93,8 @@ class MateriasController extends CrudController
                              ));
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $list = $this->getEm()->getRepository($this->entity)->findAll();
         $page = $this->params()->fromRoute('page');
 
@@ -108,14 +109,10 @@ class MateriasController extends CrudController
                                    'listData'=> array (1 => "CRESCENTE", 2 => "DECRESCEMTE"),
                                    'dataSelected' => 0
                               ));
-
     }
 
-
-
-
-
-    private function getUserIdentity () {
+    private function getUserIdentity ()
+    {
         $auth = new AuthenticationService;
         $auth->setStorage(new SessionStorage());
         if(is_null($auth->getIdentity())) return null;

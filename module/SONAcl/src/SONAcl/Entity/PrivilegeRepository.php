@@ -6,8 +6,8 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 
 
-class PrivilegeRepository extends EntityRepository {
-
+class PrivilegeRepository extends EntityRepository
+{
     public function fetchPairs()
     {
         $entities = $this->findAll();
@@ -24,9 +24,9 @@ class PrivilegeRepository extends EntityRepository {
         $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('r'))
-        ->from('SONAcl\Entity\Privilege', 'r')
-        ->where("r.nome like '%".$name."%'")
-        ->getQuery();
+              ->from('SONAcl\Entity\Privilege', 'r')
+             ->where("r.nome like '%".$name."%'")
+             ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
         if ($result != null) return $result;
         return $array;
@@ -45,6 +45,5 @@ class PrivilegeRepository extends EntityRepository {
         $result = $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
         if ($result != null) return $result[0]['nome'];
         return null;
-
     }
 }

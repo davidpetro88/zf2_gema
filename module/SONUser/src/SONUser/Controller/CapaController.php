@@ -39,7 +39,6 @@ class CapaController extends CrudController
     {
         $form = $this->getServiceLocator()->get('SONUser\Form\Capa');
         $request = $this->getRequest();
-
         $repository = $this->getEm()->getRepository($this->entity);
         $entity = $repository->find($this->params()->fromRoute('id',0));
 

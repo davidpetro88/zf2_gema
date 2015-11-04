@@ -13,7 +13,6 @@ use Zend\Mime\Part as MimePart;
 
 class Mail
 {
-
     protected $transport;
     protected $view;
     protected $body;
@@ -50,7 +49,6 @@ class Mail
 
     public function renderView($page, array $data)
     {
-
         $model = new ViewModel;
         $model->setTemplate("mailer/{$page}.phtml");
         $model->setOption('has_parent',true);
@@ -61,8 +59,6 @@ class Mail
 
     public function prepare()
     {
-
-
         $html = new MimePart($this->renderView($this->page, $this->data));
         $html->type = "text/html";
 
@@ -74,9 +70,9 @@ class Mail
 
         $this->message = new Message;
         $this->message->addFrom($config['connection_config']['username'])
-                ->addTo($this->to)
-                ->setSubject($this->subject)
-                ->setBody($this->body);
+                      ->addTo($this->to)
+                      ->setSubject($this->subject)
+                      ->setBody($this->body);
 
         return $this;
     }
@@ -85,5 +81,4 @@ class Mail
     {
         $this->transport->send($this->message);
     }
-
 }

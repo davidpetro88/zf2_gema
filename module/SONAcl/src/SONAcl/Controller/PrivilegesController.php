@@ -7,7 +7,6 @@ use Zend\View\Model\ViewModel;
 
 class PrivilegesController extends CrudController
 {
-
     public function __construct() {
         $this->entity = 'SONAcl\Entity\Privilege';
         $this->service = 'SONAcl\Service\Privilege';
@@ -35,8 +34,6 @@ class PrivilegesController extends CrudController
 
         return new ViewModel(array('form'=>$form));
     }
-
-
 
     public function editAction()
     {

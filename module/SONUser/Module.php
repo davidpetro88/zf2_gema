@@ -16,13 +16,10 @@ use Zend\Authentication\AuthenticationService,
     Zend\Authentication\Storage\Session as SessionStorage;
 use SONUser\Auth\Adapter as AuthAdapter;
 use Zend\ModuleManager\ModuleManager;
-use Zend\Stdlib\Hydrator\Filter\OptionalParametersFilter;
-
-
+use Zend\ServiceManager\ServiceManager;
 
 class Module
 {
-
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
@@ -39,16 +36,16 @@ class Module
         );
     }
 
-  public function init(ModuleManager $moduleManager) {
+    public function init(ModuleManager $moduleManager) {
         #buscando os eventos compartilhados
         $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
         #associando um evento (validaAuth) ao dispath
         $sharedEvents->attach(
-                "Zend\Mvc\Controller\AbstractActionController",
+                'Zend\Mvc\Controller\AbstractActionController',
                 MvcEvent::EVENT_DISPATCH,
                 array($this, 'validaAuth'),
                 100); #100 é a prioridade
-  }
+    }
 
     public function validaAuth($e)
     {
@@ -63,130 +60,111 @@ class Module
     {
         return array(
           'factories' => array(
-              'SONUser\Mail\Transport' => function($sm) {
+              'SONUser\Mail\Transport' => function(ServiceManager $sm) {
                 $config = $sm->get('Config');
                 $transport = new SmtpTransport();
                 $transport->setOptions(new SmtpOptions($config['mail']['transport']['options']));
                 return $transport;
               },
-              'SONUser\Form\Materia' => function($sm)
+              'SONUser\Form\Materia' => function(ServiceManager $sm)
               {
-                  $em = $sm->get('Doctrine\ORM\EntityManager');
-                  $repoUser = $em->getRepository('SONUser\Entity\User');
-                  $users = $repoUser->findByIdFormInsert($this->getUserIdentity());
-
-                  $repoSessao = $em->getRepository('SONUser\Entity\Sessao');
-                  $sessao = $repoSessao->fetchPairs();
-
-                  $repoStatus = $em->getRepository('SONUser\Entity\Status');
-                  if ($id = $this->getParamEdit($sm)) {
-                      $statusCanBeEdit = $this->getStatusEditFromMateria($em, $id);
+                  $users = $sm->get('user-factory')->findByIdFormInsert($this->getUserIdentity());
+                  $sessao =  $sm->get('sessao-factory')->fetchPairs();
+                  $repoStatus = $sm->get('status-factory');
+                  $id = $this->getParamEdit($sm);
+                  if ($id) {
+                      $statusCanBeEdit = $this->getStatusEditFromMateria($sm,$id);
                       $status = $statusCanBeEdit['status'];
                   }else {
                       $status = $repoStatus->findStatusByNameFormInsert("PROPOSTA");
                   }
-
                   return new Form\Materia("Materia",$users, $sessao, $status);
               },
-              'SONUser\Form\Status' => function($sm)
+              'SONUser\Form\Status' => function(ServiceManager $sm)
               {
-                  $em = $sm->get('Doctrine\ORM\EntityManager');
                   $nextStatus = null; $backStatus = null;
-                  $repoStatus = $em->getRepository('SONUser\Entity\Status');
-                  $status = $repoStatus->fetchPairs();
-                  if ($id = $this->getParamEdit($sm)) {
-                      $arrayEntityStatus = $this->getStatusEdit($em, $id);
+                  $status = $sm->get('status-factory')->fetchPairs();
+                  $id = $this->getParamEdit($sm);
+                  if ($id) {
+                      $arrayEntityStatus = $this->getStatusEdit($sm, $id);
                       $nextStatus = $arrayEntityStatus['nextStatus'];
                       $backStatus = $arrayEntityStatus['backStatus'];
                   }
                 return new Form\Status("Status",$status, $nextStatus,$backStatus );
               },
-              'SONUser\Form\User' => function($sm)
+              'SONUser\Form\User' => function(ServiceManager $sm)
               {
-                  $em = $sm->get('Doctrine\ORM\EntityManager');
-                  $repoRole = $em->getRepository('SONAcl\Entity\Role');
+                  $repoRole = $sm->get('role-factory');
                   $roleSelected = null;
-                  if ($id = $this->getParamEdit($sm)) {
-                      $roleSelected = $repoRole->findByIdForm( $id );
-                  }
+                  $id = $this->getParamEdit($sm);
+                  if ($id) $roleSelected = $repoRole->findByIdForm( $id );
                   $role = $repoRole->fetchParent();
                   return new Form\User("user",null, $role,$roleSelected);
 
               },
-              'SONUser\Service\Materia' => function($sm){
+              'SONUser\Service\Materia' => function(ServiceManager $sm){
                 return new Service\Materia($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONUser\Form\Sessao' => function($sm)
+              'SONUser\Form\Sessao' => function(ServiceManager $sm)
               {
-                 $em = $sm->get('Doctrine\ORM\EntityManager');
-                 $repoUser = $em->getRepository('SONUser\Entity\User');
-                 $users = $repoUser->fetchPairs();
-                return new Form\Sessao("sessao",$users);
+                return new Form\Sessao("sessao",$sm->get('user-factory')->getListGerente());
               },
-              'SONUser\Form\Capa' => function($sm)
+              'SONUser\Form\Capa' => function(ServiceManager $sm)
               {
-                  $em = $sm->get('Doctrine\ORM\EntityManager');
-                  $repoUser = $em->getRepository('SONUser\Entity\User');
-                  $users = $repoUser->findByIdFormInsert($this->getUserIdentity());
-
-                  $repoMateria = $em->getRepository('SONUser\Entity\Materia');
-                  $materia = $repoMateria->getMateriasToCapa();
-
+                  $users = $sm->get('user-factory')->findByIdFormInsert($this->getUserIdentity());;
+                  $materia = $sm->get('materia-factory')->getMateriasToCapa();
                   return new Form\Capa("Capa",$users, $materia);
               },
-              'SONUser\Service\Sessao' => function($sm){
+              'SONUser\Service\Sessao' => function(ServiceManager $sm){
                 return new Service\Sessao($sm->get('Doctrine\ORM\Entitymanager'));
               },
-
-              'SONUser\Service\Capa' => function($sm){
+              'SONUser\Service\Capa' => function(ServiceManager $sm){
                 return new Service\Capa($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONUser\Service\Status' => function($sm){
+              'SONUser\Service\Status' => function(ServiceManager $sm){
                 return new Service\Status($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONUser\Service\Comentario' => function($sm){
+              'SONUser\Service\Comentario' => function(ServiceManager $sm){
               return new Service\Comentario($sm->get('Doctrine\ORM\Entitymanager'));
               },
-              'SONUser\Service\User' => function($sm) {
+              'SONUser\Service\User' => function(ServiceManager $sm) {
                   $sm->get('SONUser\Mail\Transport');
                   return new Service\User($sm->get('Doctrine\ORM\EntityManager'),
                                           $sm->get('SONUser\Mail\Transport'),
                                           $sm->get('View'));
               },
-              'SONUser\Auth\Adapter' => function($sm)
+              'SONUser\Auth\Adapter' => function(ServiceManager $sm)
               {
                   return new AuthAdapter($sm->get('Doctrine\ORM\EntityManager'));
               }
           )
         );
-
     }
 
-    private function getStatusEditFromMateria ($em, $id) {
-       $getMateria = $em->getRepository("SONUser\\Entity\\Materia");
-       $arrayMateria = $getMateria->find($id)->toArray();
-       return array( "status" => ($arrayMateria["status"] !=null) ? $this->getStatusEditToEditMateria($em,$arrayMateria["status"]->getId()): null);
+    private function getStatusEditFromMateria (ServiceManager $sm, $id) {
+       $arrayMateria = $sm->get('materia-factory')->find($id)->toArray();
+       return array( "status" => ($arrayMateria["status"] !=null) ? $this->getStatusEditToEditMateria($sm,$arrayMateria["status"]->getId()): null);
     }
 
-    private function getStatusEditToEditMateria($em, $id){
-        return $em->getRepository('SONUser\Entity\Status')->findStatusToeditMateria( $id );
+    private function getStatusEditToEditMateria(ServiceManager $sm, $id){
+        return $sm->get('status-factory')->findStatusToeditMateria( $id );
     }
 
-    private function getStatusEdit($em, $id)
+    private function getStatusEdit(ServiceManager $sm, $id)
     {
-       $arrayStatus = $em->getRepository('SONUser\Entity\Status')->find($id)->toArray();
+       $arrayStatus = $sm->get('status-factory')->find($id)->toArray();
        return array("nextStatus" => ($arrayStatus["next_status"] !=null) ? $arrayStatus["next_status"]->getId(): null,
                     "backStatus" => ($arrayStatus["back_status"] !=null) ? $arrayStatus["back_status"]->getId(): null);
     }
 
-    private function getMatchedRoute($sm) {
+    private function getMatchedRoute(ServiceManager $sm) {
         $router = $sm->get('router');
         $request = $sm->get('request');
         $matchedRoute = $router->match($request);
         return is_null($matchedRoute) ? null :$matchedRoute;
     }
 
-    private function getParamEdit($sm) {
+    private function getParamEdit(ServiceManager $sm) {
         $matchedRoute = $this->getMatchedRoute($sm);
         $params = $matchedRoute->getParams();
         return isset($params['id']) ? $params['id'] : null;

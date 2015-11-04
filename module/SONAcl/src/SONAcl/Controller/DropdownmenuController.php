@@ -7,7 +7,6 @@ use Zend\View\Model\ViewModel;
 
 class DropdownmenuController extends CrudController
 {
-
     public function __construct() {
         $this->entity = 'SONAcl\Entity\Dropdownmenu';
         $this->service = 'SONAcl\Service\Dropdownmenu';
@@ -15,6 +14,7 @@ class DropdownmenuController extends CrudController
         $this->controller = "dropdownmenu";
         $this->route = "sonacl-admin/default";
     }
+
     public function newAction()
     {
         $form = $this->getServiceLocator()->get('SONAcl\Form\Dropdownmenu');
@@ -31,7 +31,6 @@ class DropdownmenuController extends CrudController
                 return $this->redirect()->toRoute($this->route,array('controller'=>$this->controller));
             }
         }
-
         return new ViewModel(array('form'=>$form));
     }
 }

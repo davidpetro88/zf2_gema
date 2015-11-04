@@ -13,7 +13,6 @@ use Zend\Stdlib\Hydrator;
  */
 class Resource
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -88,5 +87,4 @@ class Resource
     {
         return (new Hydrator\ClassMethods)->extract($this);
     }
-
 }

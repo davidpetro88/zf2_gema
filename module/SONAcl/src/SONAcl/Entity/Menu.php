@@ -72,7 +72,7 @@ class Menu
         return $this->createdAt;
     }
 
- /**
+    /**
      * @param field_type $id
      */
     public function setId($id)
@@ -80,7 +80,7 @@ class Menu
         $this->id = $id;
     }
 
- /**
+    /**
      * @param string $nome
      */
     public function setNome($nome)
@@ -88,7 +88,7 @@ class Menu
         $this->nome = $nome;
     }
 
- /**
+    /**
      * @param string $url
      */
     public function setUrl($url)
@@ -96,7 +96,7 @@ class Menu
         $this->url = $url;
     }
 
- /**
+    /**
      * @param Ambigous <\DateTime, \Datetime> $createdAt
      */
     public function setCreatedAt($createdAt)

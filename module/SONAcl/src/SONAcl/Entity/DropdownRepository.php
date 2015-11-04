@@ -24,9 +24,9 @@ class DropdownRepository extends EntityRepository
         $array = array();
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('r'))
-        ->from('SONAcl\Entity\Dropdown', 'r')
-        ->where("r.nome like '%".$name."%'")
-        ->getQuery();
+              ->from('SONAcl\Entity\Dropdown', 'r')
+              ->where("r.nome like '%".$name."%'")
+              ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
         if ($result != null) return $result;
         return $array;
@@ -36,9 +36,9 @@ class DropdownRepository extends EntityRepository
     {
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('r'))
-        ->from('SONAcl\Entity\Dropdown', 'r')
-        ->where("r.id = $id")
-        ->getQuery();
+              ->from('SONAcl\Entity\Dropdown', 'r')
+               ->where("r.id = $id")
+              ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
         if ($result == null) return null;
         $result[0]->setDropdownmenu($this->loadAuthDropDownMenuById($result[0]->getId()));
@@ -49,14 +49,13 @@ class DropdownRepository extends EntityRepository
     {
         $query = $this->getEntityManager()->createQueryBuilder();
         $query->select(array('r'))
-        ->from('SONAcl\Entity\Dropdown', 'r')
-        ->where("r.id = $id")
-        ->getQuery();
+              ->from('SONAcl\Entity\Dropdown', 'r')
+              ->where("r.id = $id")
+              ->getQuery();
         $result = $query->getQuery()->getResult(Query::HYDRATE_OBJECT);
         if ($result != null) return $result[0];
         return null;
     }
-
 
     private function loadAuthDropDownMenuById($id)
     {

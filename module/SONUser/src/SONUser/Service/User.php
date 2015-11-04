@@ -7,7 +7,6 @@ use Zend\Stdlib\Hydrator;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use SONBase\Mail\Mail;
 
-
 class User extends AbstractService
 {
     protected $transport;
@@ -17,13 +16,14 @@ class User extends AbstractService
     {
         parent::__construct($em);
 
-        $this->entity = "SONUser\\Entity\\User";
+        $this->entity = 'SONUser\Entity\User';
         $this->transport = $transport;
         $this->view = $view;
     }
 
-    public function insert(array $data) {
-        //$entity = parent::insert($data);
+    /* @var $entity \SONUser\Entity\User */
+    public function insert(array $data)
+    {
         $entity = new $this->entity($data);
         $entity->setRole($this->em->getReference('SONAcl\Entity\Role',$data["role"]));
         $this->em->persist($entity);
@@ -33,22 +33,20 @@ class User extends AbstractService
 
         if($entity)
         {
-
-
             $mail = new Mail($this->transport, $this->view, 'add-user');
             $mail->setSubject('Confirmação de cadastro')
-                    ->setTo($data['email'])
-                    ->setData($dataEmail)
-                    ->prepare()
-                    ->send();
+                 ->setTo($data['email'])
+                 ->setData($dataEmail)
+                 ->prepare()
+                 ->send();
             return $entity;
         }
     }
 
+    /* @var $user \SONUser\Entity\User */
     public function activate($key)
     {
-        $repo = $this->em->getRepository("SONUser\\Entity\\User");
-
+        $repo = $this->em->getRepository('SONUser\Entity\User');
         $user = $repo->findOneByActivationKey($key);
 
         if($user && !$user->getActive())
@@ -60,6 +58,7 @@ class User extends AbstractService
         }
     }
 
+    /* @var $entity \SONUser\Entity\User */
     public function update(array $data)
     {
         $entity = $this->em->getReference($this->entity, $data['id']);
@@ -72,5 +71,4 @@ class User extends AbstractService
         $this->em->flush();
         return $entity;
     }
-
 }

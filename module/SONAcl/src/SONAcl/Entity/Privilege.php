@@ -13,7 +13,6 @@ use Zend\Stdlib\Hydrator;
  */
 class Privilege
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -49,7 +48,6 @@ class Privilege
      */
     protected $updatedAt;
 
-
     public function __construct($options = array())
     {
         (new Hydrator\ClassMethods)->hydrate($options, $this);
@@ -65,7 +63,6 @@ class Privilege
         $this->id = $id;
         return $this;
     }
-
 
     public function getNome() {
         return $this->nome;
@@ -94,7 +91,6 @@ class Privilege
         return $this;
     }
 
-
     public function getCreatedAt() {
         return $this->createdAt;
     }
@@ -120,6 +116,4 @@ class Privilege
     {
         return (new Hydrator\ClassMethods)->extract($this);
     }
-
-
 }
