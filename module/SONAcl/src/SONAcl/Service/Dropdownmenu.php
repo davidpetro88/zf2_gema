@@ -14,8 +14,8 @@ class Dropdownmenu extends AbstractService
     public function insert(array $data)
     {
         $entity = new $this->entity($data);
-        $entity->setDropdown($this->em->getReference('SONAcl\Entity\Dropdown',$data["dropdown"]));
-        $entity->setMenu($this->em->getReference('SONAcl\Entity\Menu',$data["menu"]));
+        $entity->setDropdown($this->em->getReference('SONAcl\Entity\Dropdown',$data["dropdowns"]));
+        $entity->setMenu($this->em->getReference('SONAcl\Entity\Menu',$data["menus"]));
         $this->em->persist($entity);
         $this->em->flush();
         return $entity;

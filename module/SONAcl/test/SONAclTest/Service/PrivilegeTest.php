@@ -9,14 +9,14 @@ class PrivilegeTest extends TestCase
 {
     public function testInsertPrivilegeSemRoleAndResource() {
         $class = new Privilege($this->getEmMock());
-        $data = array ('nome' => "MOCK Privilege", 'role' => null, 'resource' => null );
+        $data = array ('nome' => "MOCK Privilege", 'roles' => null, 'resources' => null );
         $result = $class->insert($data);
         $this->assertInstanceOf('SONAcl\Entity\Privilege', $result);
     }
 
     public function testInsertPrivilegeComRoleAndResource() {
         $class = new Privilege($this->getEmMock());
-        $data = array ('nome' => "MOCK Privilege", 'role' => 1, 'resource' => 1 );
+        $data = array ('nome' => "MOCK Privilege", 'roles' => 1, 'resources' => 1 );
         $result = $class->insert($data);
         $this->assertInstanceOf('SONAcl\Entity\Privilege', $result);
     }
@@ -24,7 +24,7 @@ class PrivilegeTest extends TestCase
     public function testUpdatePrivilege()
     {
         $class = new Privilege($this->getEmMock());
-        $data = array ('id' => 1, 'nome' => "MOCK Privilege", 'role' => null, 'resource' => null );
+        $data = array ('id' => 1, 'nome' => "MOCK Privilege", 'roles' => null, 'resources' => null );
         $result = $class->update($data);
         $this->assertEquals(1, $result->getId());
         $this->assertEquals('MOCK Privilege', $result->getNome());
@@ -55,10 +55,6 @@ class PrivilegeTest extends TestCase
     }
 
     private function getClassMethodsHydrate () {
-            return array( 'id' => $this->id,
-                          'nome' => $this->nome,
-                          'role' => $this->role->getId(),
-                          'resource'=>$this->resource->getId()
-                        );
+            return array( 'id' => $this->id, 'nome' => $this->nome, 'role' => $this->role->getId(), 'resource'=>$this->resource->getId());
     }
 }

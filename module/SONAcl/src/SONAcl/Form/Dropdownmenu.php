@@ -6,7 +6,7 @@ use Zend\Form\Form;
 
 class Dropdownmenu extends Form
 {
-    public function __construct($name = null, array $dropdown = null, array $menu = null)
+    public function __construct($name = null, array $dropdown = null, array $menu = null,$menuSelected = null,  $dropDownSelected = null)
     {
         parent::__construct('dropdownmenu');
 
@@ -17,31 +17,31 @@ class Dropdownmenu extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'dropdown',
-            'attributes' =>  array(
-                'id' => 'role',
-                'class' => 'form-control',
-            ),
+            'name' => 'dropdowns',
             'options' => array(
                 'label' => 'Dropdown:',
-                'options' => $dropdown,
+                'value_options' => $dropdown
             ),
+            'attributes' => array(
+                'id' => 'dropdown',
+                'class' => 'form-control',
+                'value' => $dropDownSelected
+            )
         ));
-
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'menu',
-            'attributes' =>  array(
-                'id' => 'menu',
-                'class' => 'form-control',
-            ),
+            'name' => 'menus',
             'options' => array(
                 'label' => 'Menu:',
-                'options' => $menu,
+                'value_options' => $menu
             ),
+            'attributes' => array(
+                'id' => 'menu',
+                'class' => 'form-control',
+                'value' => $menuSelected
+            )
         ));
-
 
         $this->add(array(
             'name' => 'submit',

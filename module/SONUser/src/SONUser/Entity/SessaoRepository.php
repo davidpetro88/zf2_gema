@@ -18,6 +18,22 @@ class SessaoRepository extends EntityRepository
         return $array;
     }
 
+    public function findArray()
+    {
+        $sessoes = $this->findAll();
+        $a = array();
+        foreach($sessoes as $sessao)
+        {
+            $a[$sessao->getId()]['id'] = $sessao->getId();
+            $a[$sessao->getId()]['nome'] = $sessao->getNome();
+            $a[$sessao->getId()]['gerente'] = $sessao->getGerente();
+            $a[$sessao->getId()]['updateAt'] = $sessao->getUpdatedAt();
+            $a[$sessao->getId()]['createAt'] = $sessao->getCreatedAt();
+        }
+        return $a;
+    }
+
+
     public function findByName( $nome )
     {
         $array = array();

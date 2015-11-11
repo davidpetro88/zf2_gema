@@ -1,13 +1,15 @@
 <?php
 return array(
     'modules' => array(
+        'Application',
         'DoctrineModule',
         'DoctrineORMModule',
         'DoctrineDataFixtureModule',
         'SONBase',
         'SONAcl',
+        'SONUser',
+        'SONUserRest',
     ),
-
     'module_listener_options' => array(
      'module_paths' => array(
             './module',
@@ -29,7 +31,6 @@ return array(
                     'password' => '123456',
 //                     'dbname' => 'teste',
                     'dbname'   => 'zf2_intermediario',
-
                 )
             )
         )

@@ -53,6 +53,42 @@ class MateriaRepository extends EntityRepository
         return $a;
     }
 
+    public function findArrayRest()
+    {
+        $materias = $this->findAll();
+        $a = array();
+        foreach($materias as $materia)
+        {
+            $a[$materia->getId()]['id'] = $materia->getId();
+            $a[$materia->getId()]['titulo'] = $materia->getTitulo();
+            $a[$materia->getId()]['url_materia'] = $materia->getUrlMateria();
+            $a[$materia->getId()]['conteudo'] = $materia->getConteudo();
+            $a[$materia->getId()]['status'] = $materia->getStatus()->getId();
+            $a[$materia->getId()]['autor'] = $materia->getAutor()->getId();
+            $a[$materia->getId()]['sessao'] = $materia->getSessao()->getId();
+            $a[$materia->getId()]['updatedAt'] = $materia->getUpdatedAt();
+            $a[$materia->getId()]['createdAt'] = $materia->getCreatedAt();
+        }
+        return $a;
+    }
+
+    public function findByIdArray($id)
+    {
+        $materia = $this->find($id);
+        if (empty($materia)) return null;
+            $a = array();
+            $a[$materia->getId()]['id'] = $materia->getId();
+            $a[$materia->getId()]['titulo'] = $materia->getTitulo();
+            $a[$materia->getId()]['url_materia'] = $materia->getUrlMateria();
+            $a[$materia->getId()]['conteudo'] = $materia->getConteudo();
+            $a[$materia->getId()]['status'] = $materia->getStatus()->getId();
+            $a[$materia->getId()]['autor'] = $materia->getAutor()->getId();
+            $a[$materia->getId()]['sessao'] = $materia->getSessao()->getId();
+            $a[$materia->getId()]['updatedAt'] = $materia->getUpdatedAt();
+            $a[$materia->getId()]['createdAt'] = $materia->getCreatedAt();
+        return $a;
+    }
+
     public function validateIsRegistered ($urlMateria) {
         $resultQuery = $this->createQueryBuilder('q')
                             ->select(array('q.id'))

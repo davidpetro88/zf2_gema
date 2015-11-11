@@ -1,8 +1,7 @@
 <?php
 namespace SONUser\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController,
-Zend\View\Model\ViewModel;
+use Zend\View\Model\ViewModel;
 
 use Zend\Paginator\Paginator,
 Zend\Paginator\Adapter\ArrayAdapter;

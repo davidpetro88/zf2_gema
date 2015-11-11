@@ -22,15 +22,11 @@ class AlbumControllerTest extends TestCase
     }
 
     private function getEmMock() {
-
         $emMock = $this->getMock('\Doctrine\ORM\EntityManager',
                                  array('persist','flush'),array(),'', false);
-        $emMock->expects($this->any())
-               ->method('persist')
-               ->will($this->returnValue(null));
-        $emMock->expects($this->any())
-                ->method('flush')
-                ->will($this->returnValue(null));
+
+        $emMock->expects($this->any())->method('persist')->will($this->returnValue(null));
+        $emMock->expects($this->any())->method('flush')->will($this->returnValue(null));
         return $emMock;
     }
 }

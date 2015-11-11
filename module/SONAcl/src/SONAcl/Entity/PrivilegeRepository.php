@@ -46,4 +46,11 @@ class PrivilegeRepository extends EntityRepository
         if ($result != null) return $result[0]['nome'];
         return null;
     }
+
+    /* @var $privilege \SONAcl\Entity\Privilege */
+    public function gePrivilegesKeysById($id){
+        $privilege = $this->find($id);
+        if(!empty($privilege)) return array ( 'role' => $privilege->getRole()->getId(), 'resource' => $privilege->getResource()->getId() );
+        return null;
+    }
 }

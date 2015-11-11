@@ -11,32 +11,21 @@ class UserRestController extends AbstractRestfulController
     // Listar - GET
     public function getList()
     {
-
-        $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
-        $repo = $em->getRepository("SONUser\Entity\User");
-
-        $data = $repo->findArray();
-
+        $data = $this->getServiceLocator()->get('user-factory')->findArray();
         return new JsonModel(array('data'=>$data));
-
     }
 
     // Retornar o registro especifico - GET
     public function get($id)
     {
-        $em = $this->getServiceLocator()->get("Doctrine\ORM\EntityManager");
-        $repo = $em->getRepository("SONUser\Entity\User");
-
-        $data = $repo->find($id)->toArray();
-
+        $data = $this->getServiceLocator()->get('user-factory')->find($id)->toArray();
         return new JsonModel(array('data'=>$data));
-
     }
 
     // Insere registro - POST
     public function create($data)
     {
-        $userService = $this->getServiceLocator()->get("SONUser\Service\User");
+        $userService = $this->getServiceLocator()->get('SONUser\Service\User');
 
         if($data)
         {
@@ -58,7 +47,7 @@ class UserRestController extends AbstractRestfulController
     public function update($id, $data)
     {
         $data['id'] = $id;
-        $userService = $this->getServiceLocator()->get("SONUser\Service\User");
+        $userService = $this->getServiceLocator()->get('SONUser\Service\User');
 
         if($data)
         {
@@ -79,7 +68,7 @@ class UserRestController extends AbstractRestfulController
     // delete - DELETE
     public function delete($id)
     {
-        $userService = $this->getServiceLocator()->get("SONUser\Service\User");
+        $userService = $this->getServiceLocator()->get('SONUser\Service\User');
         $res = $userService->delete($id);
 
         if($res)
@@ -89,5 +78,4 @@ class UserRestController extends AbstractRestfulController
         else
             return new JsonModel(array('data'=>array('success'=>false)));
     }
-
 }

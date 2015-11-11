@@ -3,9 +3,9 @@
 <br />
 
 <?php
-$form = $this->form; 
+$form = $this->form;
 
-$form->setAttribute('action', $this->url('sonacl-admin/default',array('controller'=>'roles','action'=>'edit')));
+$form->setAttribute('action', $this->url('sonacl-admin/default',array('controller'=>'navigators','action'=>'edit')));
 
 $form->prepare();
 echo $this->form()->openTag($form);

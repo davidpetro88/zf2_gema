@@ -35,7 +35,7 @@ class Materia extends AbstractService
         (new Hydrator\ClassMethods())->hydrate($data, $entity);
         if($data['status'] == 2) {
             $entity->setRevisor($this->em->getReference('SONUser\Entity\User',$this->getUserIdentity ()));
-        } else if ($data['status'] == 3) {
+        } else if ($data['status'] == 4) {
             $entity->setPublicador($this->em->getReference('SONUser\Entity\User',$this->getUserIdentity ()));
         }
         $entity->setAutor($this->em->getReference('SONUser\Entity\User',$data["autor"]));

@@ -46,6 +46,13 @@ class NavigatorRepository extends EntityRepository
         return null;
     }
 
+    /* @var $navigator \SONAcl\Entity\Navigator */
+    public function geNavigatorsKeysById($id) {
+        $navigator = $this->find($id);
+        if(!empty($navigator)) return array ( 'role' => $navigator->getRole()->getId(), 'dropdown' => $navigator->getDropdown()->getId() );
+        return null;
+    }
+
     private function loadAuthAllDropDownById($id)
     {
         return $this->_em->getRepository('SONAcl\Entity\Dropdown')->loadAuthAllDropDownById ($id);

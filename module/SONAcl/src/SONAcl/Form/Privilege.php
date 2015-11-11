@@ -2,15 +2,14 @@
 
 namespace SONAcl\Form;
 
-use Zend\Form\Form,
-    Zend\Form\Element\Select;
+use Zend\Form\Form;
 
 class Privilege extends Form {
 
     protected $roles;
     protected $resources;
 
-    public function __construct($name = null, array $roles = null, array $resources = null) {
+    public function __construct($name = null, array $roles = null, array $resources = null, $roleSelected = null, $resourceSelected = null) {
         parent::__construct($name);
         $this->roles = $roles;
         $this->resources = $resources;
@@ -34,29 +33,28 @@ class Privilege extends Form {
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'role',
-            'attributes' =>  array(
-                'id' => 'role',
-                'class' => 'form-control',
-            ),
+            'name' => 'roles',
             'options' => array(
                 'label' => 'Role:',
-                'options' => $roles,
+                'value_options' => $roles
             ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'value' => $roleSelected //set selected to '1'
+            )
         ));
-
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'resource',
-            'attributes' =>  array(
-                'id' => 'resource',
-                'class' => 'form-control',
-            ),
+            'name' => 'resources',
             'options' => array(
                 'label' => 'Resource:',
-                'options' => $resources,
+                'value_options' => $resources
             ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'value' => $resourceSelected //set selected to '1'
+            )
         ));
 
         $this->add(array(

@@ -94,10 +94,11 @@ class Module
               },
               'SONUser\Form\User' => function(ServiceManager $sm)
               {
-                  $repoRole = $sm->get('role-factory');
+                  $user = $sm->get('user-factory'); /* @var $user \SONUser\Entity\UserRepository  */
+                  $repoRole = $sm->get('role-factory'); /* @var $repoRole \SONAcl\Entity\RoleRepository  */
                   $roleSelected = null;
                   $id = $this->getParamEdit($sm);
-                  if ($id) $roleSelected = $repoRole->findByIdForm( $id );
+                  if ($id) $roleSelected = $user->getRoleIdUser($id);
                   $role = $repoRole->fetchParent();
                   return new Form\User("user",null, $role,$roleSelected);
 
@@ -111,8 +112,14 @@ class Module
               },
               'SONUser\Form\Capa' => function(ServiceManager $sm)
               {
+                  $capa = $sm->get('capa-factory');
                   $users = $sm->get('user-factory')->findByIdFormInsert($this->getUserIdentity());;
                   $materia = $sm->get('materia-factory')->getMateriasToCapa();
+                  $id = $this->getParamEdit($sm);
+                  if ($id) {
+                      $capaSelected = $capa->getCapaById($id);
+                      return new Form\Capa("Capa",$users, $materia, $capaSelected['capa_principal'], $capaSelected['ativo']);
+                  }
                   return new Form\Capa("Capa",$users, $materia);
               },
               'SONUser\Service\Sessao' => function(ServiceManager $sm){

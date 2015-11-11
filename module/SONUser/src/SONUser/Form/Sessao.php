@@ -1,8 +1,7 @@
 <?php
 namespace SONUser\Form;
 
-use Zend\Form\Form,
-    Zend\Form\Element\Select;
+use Zend\Form\Form;
 
 class Sessao extends Form
 {

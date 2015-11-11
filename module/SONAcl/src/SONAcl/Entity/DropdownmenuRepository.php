@@ -51,6 +51,14 @@ class DropdownmenuRepository extends EntityRepository
         return $array;
      }
 
+     public function getDropDownMenuKeysById( $id )
+     {
+         /* @var $dropDownMenu \SONAcl\Entity\Dropdownmenu */
+         $dropDownMenu = $this->find($id);
+         if(!empty($dropDownMenu)) return array ( 'menu' => $dropDownMenu->getMenu()->getId(), 'dropdown' => $dropDownMenu->getDropdown()->getId() );
+         return null;
+     }
+
      public function loadAuthDropDownById($id) {
          return $this->_em->getRepository('SONAcl\Entity\Dropdown')->loadAuthDropDownById ($id);
      }

@@ -3,7 +3,6 @@
 namespace SONAcl\Controller;
 
 use SONBase\Controller\CrudController;
-use Zend\View\Model\ViewModel;
 
 class MenuController extends CrudController
 {

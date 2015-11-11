@@ -2,8 +2,7 @@
 
 namespace SONUser\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController,
-    Zend\View\Model\ViewModel;
+use Zend\View\Model\ViewModel;
 
 use Zend\Authentication\AuthenticationService,
 Zend\Authentication\Storage\Session as SessionStorage;

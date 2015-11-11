@@ -16,18 +16,17 @@ class Privilege extends AbstractService
     public function insert(array $data)
     {
         $entity = new $this->entity($data);
-
-        if($data['role'])
+        if($data['roles'])
         {
-            $role = $this->em->getReference('SONAcl\Entity\Role',$data['role']);
+            $role = $this->em->getReference('SONAcl\Entity\Role',$data['roles']);
             $entity->setRole($role); // Injetando entidade carregada
         }
         else
             $entity->setRole(null);
 
-        if($data['resource'])
+        if($data['resources'])
         {
-            $resource = $this->em->getReference('SONAcl\Entity\Resource',$data['resource']);
+            $resource = $this->em->getReference('SONAcl\Entity\Resource',$data['resources']);
             $entity->setResource($resource); // Injetando entidade carregada
         }
         else
@@ -42,13 +41,10 @@ class Privilege extends AbstractService
     {
         $entity = $this->em->getReference($this->entity, $data['id']);
         (new Hydrator\ClassMethods())->hydrate($data, $entity);
-
-        $role = $this->em->getReference('SONAcl\Entity\Role',$data['role']);
+        $role = $this->em->getReference('SONAcl\Entity\Role',$data['roles']);
         $entity->setRole($role); // Injetando entidade carregada
-
-        $resource = $this->em->getReference('SONAcl\Entity\Resource',$data['resource']);
+        $resource = $this->em->getReference('SONAcl\Entity\Resource',$data['resources']);
         $entity->setResource($resource); // Injetando entidade carregada
-
         $this->em->persist($entity);
         $this->em->flush();
         return $entity;

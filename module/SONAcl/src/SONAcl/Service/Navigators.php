@@ -13,8 +13,8 @@ class Navigators extends AbstractService
     public function insert(array $data)
     {
         $entity = new $this->entity($data);
-        $entity->setDropdown($this->em->getReference('SONAcl\Entity\Dropdown',$data["dropdown"]));
-        $entity->setRole($this->em->getReference('SONAcl\Entity\Role',$data["role"]));
+        $entity->setDropdown($this->em->getReference('SONAcl\Entity\Dropdown',$data["dropdowns"]));
+        $entity->setRole($this->em->getReference('SONAcl\Entity\Role',$data["roles"]));
         $this->em->persist($entity);
         $this->em->flush();
         return $entity;

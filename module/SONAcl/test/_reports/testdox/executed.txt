@@ -2,6 +2,9 @@ SONAclTest\Controller\AlbumController
  [x] Add action can be accessed
  [x] Insert
 
+SONAclTest\Controller\IndexController
+ [x] Index action can be accessed
+
 SONAclTest\Controller\PrivilegesController
  [x] test erro404
 

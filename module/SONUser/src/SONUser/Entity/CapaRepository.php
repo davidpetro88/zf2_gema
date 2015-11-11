@@ -19,17 +19,55 @@ class CapaRepository extends EntityRepository
         return $array;
     }
 
+    public function getCapaById($id) {
+        $capa = $this->find($id);
+        if(!empty($capa)) return array ( 'capa_principal' => $capa->getCapaPrincipal(), 'ativo' => $capa->getAtivo());
+        return null;
+    }
+
+    public function findArray()
+    {
+        $capas = $this->findAll();
+        $a = array();
+        foreach($capas as $capa)
+        {
+            $a[$capa->getId()]['id'] = $capa->getId();
+            $a[$capa->getId()]['materia'] = $capa->getMateria()->getId();
+            $a[$capa->getId()]['capaPrincipal'] = $capa->getCapaPrincipal();
+            $a[$capa->getId()]['ativo'] = $capa->getAtivo();
+            $a[$capa->getId()]['usuario'] = $capa->getUsuario()->getId();
+            $a[$capa->getId()]['updateAt'] = $capa->getUpdatedAt();
+            $a[$capa->getId()]['createAt'] = $capa->getCreatedAt();
+        }
+        return $a;
+    }
+
+    public function findByIdArray($id){
+        $capa = $this->find($id);
+        if (empty($capa)) return null;
+            $a = array();
+            $a[$capa->getId()]['id'] = $capa->getId();
+            $a[$capa->getId()]['materia'] = $capa->getMateria()->getId();
+            $a[$capa->getId()]['capaPrincipal'] = $capa->getCapaPrincipal();
+            $a[$capa->getId()]['ativo'] = $capa->getAtivo();
+            $a[$capa->getId()]['usuario'] = $capa->getUsuario()->getId();
+            $a[$capa->getId()]['updateAt'] = $capa->getUpdatedAt();
+            $a[$capa->getId()]['createAt'] = $capa->getCreatedAt();
+        return $a;
+    }
+
     public function findOneRandom()
     {
-        $idMapper = $this->createQueryBuilder('q')
-                         ->select(array('q.id'))
-                         ->where('q.capaPrincipal = 1 AND q.ativo = 1')
-                         ->getQuery()
-                         ->getResult();
-        if (empty($idMapper)) {
+        $em = $this->getEntityManager();
+        $getCapa = $em->createQuery('SELECT c.id FROM SONUser\Entity\Capa c
+                                     WHERE c.capaPrincipal = 1
+                                     AND c.ativo = 1');
+        $result = $getCapa->getResult(Query::HYDRATE_OBJECT);
+        if (empty($result)) {
             return null;
         }
-      return $this->findById( $idMapper[array_rand($idMapper)]['id'] );
+
+      return $this->findById( $result[array_rand($result)]['id'] );
     }
 
     public function findListRandom()
@@ -75,9 +113,9 @@ class CapaRepository extends EntityRepository
         if ($arrayId == null) return null;
         $arrayMateria = array();
         foreach ($arrayId as $key => $randMateriaId){
-            if ($key <= 8) {
+           if ($key <= 40) {
                 $arrayMateria[$key] = $this->findById( $randMateriaId );
-            }
+           }
         }
         return $arrayMateria;
     }

@@ -426,7 +426,6 @@ return array(
                     )
                 )
             )
-
         )
     ),
     'service_manager' => array(
@@ -436,6 +435,8 @@ return array(
             'sessao-factory' => 'SONUser\Factory\SessaoFactory',
             'status-factory' => 'SONUser\Factory\StatusFactory',
             'materia-factory' => 'SONUser\Factory\MateriaFactory',
+            'comentario-factory' => 'SONUser\Factory\ComentarioFactory',
+            'capa-factory' => 'SONUser\Factory\CapaFactory',
         ),
     ),
     'controllers' => array(

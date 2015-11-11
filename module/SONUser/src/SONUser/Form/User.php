@@ -45,15 +45,15 @@ class User  extends Form
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'role',
-            'attributes' =>  array(
+            'options' => array(
+                'label' => 'Role:',
+                'value_options' => $roles
+            ),
+            'attributes' => array(
                 'id' => 'role',
                 'class' => 'form-control',
                 'value' => $roleSelected
-            ),
-            'options' => array(
-                'label' => 'Role:',
-                'options' => $roles,
-            ),
+            )
         ));
 
         $this->add(array('name' => 'password',

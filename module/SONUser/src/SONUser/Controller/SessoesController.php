@@ -2,8 +2,7 @@
 
 namespace SONUser\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController,
-    Zend\View\Model\ViewModel;
+use Zend\View\Model\ViewModel;
 
 class SessoesController extends CrudController
 {

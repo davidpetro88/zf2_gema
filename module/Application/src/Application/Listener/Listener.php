@@ -65,8 +65,7 @@ class Listener implements EventManagerAwareInterface
          $controller = isset($params['controller'])  ? $params['controller'] : null;
          $action =  isset($params['action'])  ? $params['action'] : null;
          $resource = $controller.'\\'.$action;
-         //var dump
-         var_dump($resource);
+//         var_dump($resource);
          return $resource;
      }
 

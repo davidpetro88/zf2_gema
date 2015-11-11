@@ -436,6 +436,7 @@ return array(
             'dropdown-factory' => 'SONAcl\Factory\DropdownFactory',
             'menu-factory' => 'SONAcl\Factory\MenuFactory',
             'privilege-factory' => 'SONAcl\Factory\PrivilegeFactory',
+            'dropdownmenu-factory'  => 'SONAcl\Factory\DropdownmenuFactory',
         ),
     ),
     'controllers' => array(

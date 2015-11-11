@@ -20,6 +20,35 @@ class RoleRepository extends EntityRepository {
         return $array;
     }
 
+    public function findArray()
+    {
+        $roles = $this->findAll();
+        $a = array();
+        foreach($roles as $role)
+        {
+            $a[$role->getId()]['id'] = $role->getId();
+            $a[$role->getId()]['parent'] = ($role->getParent() == null) ? null : $role->getParent()->getId();
+            $a[$role->getId()]['nome'] = $role->getNome();
+            $a[$role->getId()]['isAdmin'] = $role->getIsAdmin();
+            $a[$role->getId()]['updateAt'] = $role->getUpdatedAt();
+            $a[$role->getId()]['createAt'] = $role->getCreatedAt();
+        }
+        return $a;
+    }
+
+    public function findByIdArray($id){
+        $role = $this->find($id);
+        if (empty($role)) return null;
+            $a = array();
+            $a[$role->getId()]['id'] = $role->getId();
+            $a[$role->getId()]['parent'] = ($role->getParent() == null) ? null : $role->getParent()->getId();
+            $a[$role->getId()]['nome'] = $role->getNome();
+            $a[$role->getId()]['isAdmin'] = $role->getIsAdmin();
+            $a[$role->getId()]['updateAt'] = $role->getUpdatedAt();
+            $a[$role->getId()]['createAt'] = $role->getCreatedAt();
+        return $a;
+    }
+
     public function findByName( $name )
     {
         $array = array();

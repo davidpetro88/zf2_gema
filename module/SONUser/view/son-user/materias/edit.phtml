@@ -138,15 +138,14 @@ $form->setAttribute('action',$this->url('sonuser-materia/default',array('control
 $form->prepare();
 echo $this->form()->openTag($form);
 echo $this->formCollection($form);
+//echo $statusMateria;
 ?>
-
-<?php print_R($usuario); ?>
-<?php if(($usuario['role_id'] ==  4 && $statusMateria == 1) || ($usuario['role_id'] ==  3 && $statusMateria == 1)) : ?>
-<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
-<?php elseif(($usuario['role_id'] ==  4 && $statusMateria == 2) || ($usuario['role_id'] ==  2 && $statusMateria == 2)): ?>
-<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
-<?php elseif($usuario['role_id'] ==  4 && $statusMateria == 3): ?>
-<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
+<?php if(($usuario['role_id'] ==  4 && $statusMateria == 1) || ($usuario['role_id'] ==  2 && $statusMateria == 1)) : ?>
+<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Revisada">
+<?php elseif(($usuario['role_id'] ==  4 && $statusMateria == 2) || ($usuario['role_id'] ==  3 && $statusMateria == 2)): ?>
+<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Aprovar">
+<?php elseif(($usuario['role_id'] ==  4 && $statusMateria == 3) || ($usuario['role_id'] ==  6 && $statusMateria == 3)): ?>
+<input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Publicar">
 <?php elseif($usuario['role_id'] ==  4 && $statusMateria == 5): ?>
 <input type="submit" name="submit" id="id-button-form" class="btn btn-large btn-success" value="Salvar">
 <?php endif; ?>

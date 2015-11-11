@@ -18,6 +18,7 @@ class Capa extends AbstractService
     {
         $entity = new $this->entity($data);
         $entity->setCapaPrincipal($data['capa']);
+        $entity->setAtivo($data['active']);
         if($data['usuario'])
         {
             $user = $this->em->getReference('SONUser\Entity\User',$data['usuario']);
@@ -45,7 +46,7 @@ class Capa extends AbstractService
         $entity = $this->em->getReference($this->entity, $data['id']);
         (new Hydrator\ClassMethods())->hydrate($data, $entity);
         $entity->setCapaPrincipal($data['capa']);
-        $entity->setAtivo($data['ativo']);
+        $entity->setAtivo($data['active']);
         if($data['usuario'])
         {
             $user = $this->em->getReference('SONUser\Entity\User',$data['usuario']);

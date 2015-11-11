@@ -2,8 +2,7 @@
 
 namespace SONAcl\Form;
 
-use Zend\Form\Form,
-    Zend\Form\Element\Select;
+use Zend\Form\Form;
 
 class Role extends Form {
 
@@ -59,5 +58,4 @@ class Role extends Form {
             )
         ));
     }
-
 }

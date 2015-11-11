@@ -19,7 +19,10 @@ class Bootstrap
 
     public static function init()
     {
+        //require_once( '../../../init_autoloader.php' );
         // Load the user-defined test configuration file, if it exists; otherwise, load
+
+
         $root = __DIR__ . '/../../../';
         if (is_readable($root.'config/test.config.php')) {
             $testConfig = include $root.'config/test.config.php';
@@ -52,16 +55,27 @@ class Bootstrap
 
         $config = ArrayUtils::merge($baseConfig, $testConfig);
 
-        $serviceManager = new ServiceManager(new ServiceManagerConfig());
-        $serviceManager->setService('ApplicationConfig', $config);
-        $serviceManager->get('ModuleManager')->loadModules();
-        static::$serviceManager = $serviceManager;
-        static::$config = $config;
+        self::$config = $config;
+        self::$serviceManager = self::setServiceManager($config);
     }
 
-    public static function getServiceManager()
+
+    static public function setServiceManager($config)
     {
-        return static::$serviceManager;
+        $serviceManager = new ServiceManager(new ServiceManagerConfig);
+        $serviceManager->setService('ApplicationConfig', $config);
+        $serviceManager->get('ModuleManager')->loadModules();
+        return $serviceManager;
+    }
+
+    static public function getEntityManager($serviceManager)
+    {
+        return $serviceManager->get('doctrine.entitymanager.orm_default');
+    }
+
+    static public function getServiceManager()
+    {
+        return self::$serviceManager;
     }
 
     public static function getConfig()
@@ -85,8 +99,6 @@ class Bootstrap
             include $zf2Path . '/Zend/Loader/AutoloaderFactory.php';
 
         }
-
-      //  echo  __DIR__ . '/' . __NAMESPACE__; echo "                                     "; die('-');
 
         AutoloaderFactory::factory(array(
             'Zend\Loader\StandardAutoloader' => array(

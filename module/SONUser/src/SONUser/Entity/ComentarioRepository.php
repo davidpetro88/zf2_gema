@@ -24,8 +24,8 @@ class ComentarioRepository extends EntityRepository
         foreach($comentarios as $comentario)
         {
             $a[$comentario->getId()]['id'] = $comentario->getId();
-            $a[$comentario->getId()]['idMateria'] = $comentario->getTitulo();
-            $a[$comentario->getId()]['autor'] = $comentario->getAutor();
+            $a[$comentario->getId()]['idMateria'] = $comentario->getIdMateria()->getId();
+            $a[$comentario->getId()]['autor'] = $comentario->getAutor()->getId();
             $a[$comentario->getId()]['comentario'] = $comentario->getComentario();
             $a[$comentario->getId()]['updatedAt'] = $comentario->getUpdatedAt();
             $a[$comentario->getId()]['createdAt'] = $comentario->getCreatedAt();

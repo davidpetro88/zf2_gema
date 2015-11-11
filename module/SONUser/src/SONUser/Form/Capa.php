@@ -2,15 +2,16 @@
 namespace SONUser\Form;
 
 use Zend\Form\Form;
+use Zend\Form\Element;
 
 class Capa extends Form
 {
-    protected $users;
+    protected $capa;
 
-    public function __construct($name = null, array $users = null , array $materia = null)
+    public function __construct($name = null, array $capa = null , array $materia = null, $capaPrincipal = null, $ativoSelected = null)
     {
         parent::__construct($name);
-        $this->users = $users;
+        $this->capa = $capa;
         $this->setAttribute('method', 'post');
         $id = new \Zend\Form\Element\Hidden('id');
         $this->add($id);
@@ -31,32 +32,34 @@ class Capa extends Form
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'capa',
-            'attributes' =>  array(
-                'id' => 'capa',
-                'class' => 'form-control',
-            ),
             'options' => array(
                 'label' => 'Capa:',
-                'options' => array( '0' => 'N',
-                    '1' => 'S',
-                ),
+                'value_options' => array( 0 => 'N', 1 => 'S')
             ),
+            'attributes' => array(
+                'id' => 'capa',
+                'class' => 'form-control',
+                'value' => $capaPrincipal
+            )
         ));
 
-        $this->add(array(
+        $this->add([
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'ativo',
-            'attributes' =>  array(
-                'id' => 'ativo',
+            'name' => 'active',
+            'options' => [
+                'label' => 'Ativo',
+                'value_options' => [
+                    0 => 'N',
+                    1 => 'S',
+                ],
+            ],
+            'attributes' => [
                 'class' => 'form-control',
-            ),
-            'options' => array(
-                'label' => 'Ativo:',
-                'options' => array ( '1' => 'S',
-                                     '0' => 'N',
-                                   ),
-            ),
-        ));
+                'value' => $ativoSelected, //set selected to '1'
+            ],
+        ]);
+
+
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
@@ -67,7 +70,7 @@ class Capa extends Form
             ),
             'options' => array(
                 'label' => 'Usuário:',
-                'options' => $users,
+                'options' => $capa,
             ),
         ));
 
@@ -81,4 +84,13 @@ class Capa extends Form
             )
         ));
     }
+
+
+    public function capaPrincipal ($param) {
+        if ($param == 1) return array( '0' => 'N', '1' => 'S');
+        return array( '0' => 'N', '1' => 'S');
+    }
+
+
+
 }

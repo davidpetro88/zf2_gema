@@ -1,45 +1,43 @@
 <?php
 namespace SONAcl\Form;
 
-use Zend\Form\Form,
-Zend\Form\Element\Select;
+use Zend\Form\Form;
 
 class Navigators  extends Form
 {
-    public function __construct($name = null, array $roles = null, array $dropdown = null) {
+    public function __construct($name = null, array $rolesList = null, array $dropdownList = null, $roleSelected = null,  $dropDownSelected = null) {
         parent::__construct($name);
 
         $this->setAttribute('method', 'post');
         $id = new \Zend\Form\Element\Hidden('id');
         $this->add($id);
 
-
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'role',
-            'attributes' =>  array(
-                'id' => 'role',
-                'class' => 'form-control',
-            ),
+            'name' => 'roles',
             'options' => array(
                 'label' => 'Role:',
-                'options' => $roles,
+                'value_options' => $rolesList
             ),
+            'attributes' => array(
+                'id' => 'roles',
+                'class' => 'form-control',
+                'value' => $roleSelected
+            )
         ));
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'dropdown',
-            'attributes' =>  array(
-                'id' => 'dropdown',
-                'class' => 'form-control',
-            ),
+            'name' => 'dropdowns',
             'options' => array(
-                'label' => 'Dropdown:',
-                'options' => $dropdown,
+                'label' => 'DropDown:',
+                'value_options' => $dropdownList
             ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'value' => $dropDownSelected //set selected to '1'
+            )
         ));
-
 
         $this->add(array(
             'name' => 'submit',

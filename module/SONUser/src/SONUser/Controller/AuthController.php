@@ -30,7 +30,7 @@ class AuthController extends AbstractActionController
                 $auth = new AuthenticationService;
                 $auth->setStorage($sessionStorage); // Definindo o SessionStorage para a auth
 
-                $authAdapter = $this->getServiceLocator()->get("SONUser\Auth\Adapter");
+                $authAdapter = $this->getServiceLocator()->get('SONUser\Auth\Adapter');
                 $authAdapter->setUsername($data['email']);
                 $authAdapter->setPassword($data['password']);
 

@@ -17,6 +17,35 @@ class StatusRepository extends EntityRepository
         return $array;
     }
 
+    public function findArray()
+    {
+        $allStatus = $this->findAll();
+        $a = array();
+        foreach($allStatus as $status)
+        {
+            $a[$status->getId()]['id'] = $status->getId();
+            $a[$status->getId()]['nome'] = $status->getNome();
+            $a[$status->getId()]['nextStatus'] = $status->getNextStatus()->getId();
+            $a[$status->getId()]['backStatus'] = $status->getBackStatus()->getId();
+            $a[$status->getId()]['updateAt'] = $status->getUpdatedAt();
+            $a[$status->getId()]['createAt'] = $status->getCreatedAt();
+        }
+        return $a;
+    }
+
+    public function findByIdArray($id){
+        $status = $this->find($id);
+        if (empty($status)) return null;
+            $a = array();
+            $a[$status->getId()]['id'] = $status->getId();
+            $a[$status->getId()]['nome'] = $status->getNome();
+            $a[$status->getId()]['nextStatus'] = $status->getNextStatus()->getId();
+            $a[$status->getId()]['backStatus'] = $status->getBackStatus()->getId();
+            $a[$status->getId()]['updateAt'] = $status->getUpdatedAt();
+            $a[$status->getId()]['createAt'] = $status->getCreatedAt();
+        return $a;
+    }
+
     public function findByName( $nome )
     {
         $array = array();
